@@ -38,7 +38,7 @@ String generateOrderNo() {
   return "GRM-" + DateFormat('ddMMhhmmss').format(DateTime.now());
 }
 
-bool isCustomerExistsByPhone(String phoneNumber) {
+bool isCustomerExistsByPhone(String? phoneNumber) {
   // check if document in firebase where phone number exists
   bool exists = false;
   FirebaseFirestore.instance
@@ -51,7 +51,7 @@ bool isCustomerExistsByPhone(String phoneNumber) {
   return exists;
 }
 
-String generateWhatsAppUrl(String phone) {
-  phone = phone.replaceAll("+", "").trim();
+String generateWhatsAppUrl(String? phone) {
+  phone = phone!.replaceAll("+", "").trim();
   return "https://api.whatsapp.com/send?phone=$phone";
 }
