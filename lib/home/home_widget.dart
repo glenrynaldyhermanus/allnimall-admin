@@ -177,6 +177,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 );
                                               },
                                             );
+                                            setState(() =>
+                                                FFAppState().selectedDate =
+                                                    FFAppState().selectedDate);
                                           },
                                         ),
                                       ),
