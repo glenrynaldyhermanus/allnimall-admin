@@ -86,6 +86,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'home',
               requireAuth: true,
               builder: (context, params) => HomeWidget(),
+            ),
+            FFRoute(
+              name: 'Menu',
+              path: 'menu',
+              builder: (context, params) => MenuWidget(),
+            ),
+            FFRoute(
+              name: 'CreateOrder',
+              path: 'createOrder',
+              builder: (context, params) => CreateOrderWidget(),
+            ),
+            FFRoute(
+              name: 'CreateCustomer',
+              path: 'createCustomer',
+              builder: (context, params) => CreateCustomerWidget(),
+            ),
+            FFRoute(
+              name: 'CustomerList',
+              path: 'customerList',
+              builder: (context, params) => CustomerListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
+            ),
+            FFRoute(
+              name: 'RangerList',
+              path: 'rangerList',
+              builder: (context, params) => RangerListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
