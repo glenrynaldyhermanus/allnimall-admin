@@ -49,15 +49,15 @@ class _MenuWidgetState extends State<MenuWidget> {
               color: FlutterFlowTheme.of(context).primaryText,
               size: 24,
             ),
-            onPressed: () {
-              print('IconButton pressed ...');
+            onPressed: () async {
+              context.pop();
             },
           ),
         ],
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
