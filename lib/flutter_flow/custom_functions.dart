@@ -32,3 +32,26 @@ DateTime dateStart(DateTime? timestamp) {
 DateTime dateEnd(DateTime? timestamp) {
   return DateTime(timestamp!.year, timestamp!.month, timestamp.day, 23, 59, 59);
 }
+
+String generateOrderNo() {
+  // Add your function code here!
+  return "GRM-" + DateFormat('ddMMhhmmss').format(DateTime.now());
+}
+
+bool isCustomerExistsByPhone(String phoneNumber) {
+  // check if document in firebase where phone number exists
+  bool exists = false;
+  FirebaseFirestore.instance
+      .collection('customers')
+      .where('phoneNumber', isEqualTo: phoneNumber)
+      .get()
+      .then((QuerySnapshot snapshot) {
+    exists = snapshot.docs.isNotEmpty;
+  });
+  return exists;
+}
+
+String generateWhatsAppUrl(String phone) {
+  phone = phone.replaceAll("+", "").trim();
+  return "https://api.whatsapp.com/send?phone=$phone";
+}
