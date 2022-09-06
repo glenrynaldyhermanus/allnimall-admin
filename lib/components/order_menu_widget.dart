@@ -376,10 +376,12 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                             context.pushNamed(
                               'RangerList',
                               queryParams: {
-                                'issAsssignment':
-                                    serializeParam(true, ParamType.bool),
                                 'order': serializeParam(
                                     widget.order, ParamType.Document),
+                                'isAsssignment':
+                                    serializeParam(false, ParamType.bool),
+                                'isSelections':
+                                    serializeParam(false, ParamType.bool),
                               }.withoutNulls,
                               extra: <String, dynamic>{
                                 'order': widget.order,

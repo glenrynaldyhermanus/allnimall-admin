@@ -116,9 +116,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => RangerListWidget(
-                isSelection: params.getParam('isSelection', ParamType.bool),
-                issAsssignment:
-                    params.getParam('issAsssignment', ParamType.bool),
+                isSelections: params.getParam('isSelections', ParamType.bool),
+                isAsssignment: params.getParam('isAsssignment', ParamType.bool),
                 order: params.getParam('order', ParamType.Document),
               ),
             ),
