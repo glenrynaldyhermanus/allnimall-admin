@@ -34,13 +34,12 @@ class _RangerListWidgetState extends State<RangerListWidget> {
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text(
           'Ranger List',
-          style: FlutterFlowTheme.of(context).title2.override(
+          style: FlutterFlowTheme.of(context).title3.override(
                 fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22,
+                color: FlutterFlowTheme.of(context).tertiaryColor,
               ),
         ),
         actions: [],

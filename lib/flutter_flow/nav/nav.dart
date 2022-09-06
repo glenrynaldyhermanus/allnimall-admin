@@ -115,6 +115,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => RangerListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
               ),
+            ),
+            FFRoute(
+              name: 'RequestDetail',
+              path: 'requestDetail',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => RequestDetailWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
