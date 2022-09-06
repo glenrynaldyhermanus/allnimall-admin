@@ -143,7 +143,7 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                                 'order': serializeParam(
                                     widget.order, ParamType.Document),
                                 'isAsssignment':
-                                    serializeParam(false, ParamType.bool),
+                                    serializeParam(true, ParamType.bool),
                                 'isSelections':
                                     serializeParam(false, ParamType.bool),
                               }.withoutNulls,

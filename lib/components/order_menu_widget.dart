@@ -379,7 +379,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                                 'order': serializeParam(
                                     widget.order, ParamType.Document),
                                 'isAsssignment':
-                                    serializeParam(false, ParamType.bool),
+                                    serializeParam(true, ParamType.bool),
                                 'isSelections':
                                     serializeParam(false, ParamType.bool),
                               }.withoutNulls,
