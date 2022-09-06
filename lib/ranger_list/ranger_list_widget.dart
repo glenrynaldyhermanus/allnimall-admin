@@ -209,7 +209,7 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                         setState(() => FFAppState()
                                                 .selectedRangerPhone =
                                             columnRangersRecord.phoneNumber!);
-                                        setState(() =>
+                                        setState(() => 
                                             FFAppState().selectedRangerPicture =
                                                 columnRangersRecord.photoUrl!);
                                         context.pop();
