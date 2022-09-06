@@ -145,7 +145,12 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
                       child: FlutterFlowDropDown(
-                        options: ['Kucing'],
+                        options: [
+                          'Kucing',
+                          'Anjing Small',
+                          'Anjing Medium',
+                          'Anjing Large'
+                        ],
                         onChanged: (val) =>
                             setState(() => petCategoryListValue = val),
                         height: 50,
@@ -163,7 +168,15 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
                       child: FlutterFlowDropDown(
-                        options: ['Mandi Lengkap', 'Mandi Sehat', 'Shaving'],
+                        options: [
+                          'Mandi Lengkap',
+                          'Mandi Sehat',
+                          'Mandi Jamur',
+                          'Mandi Kutu',
+                          'Cukur Minor',
+                          'Cukur Major',
+                          'Cukur Style'
+                        ],
                         onChanged: (val) =>
                             setState(() => petServiceListValue = val),
                         height: 50,
@@ -293,7 +306,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                         await showDatePicker(
                                       context: context,
                                       initialDate: getCurrentTimestamp,
-                                      firstDate: getCurrentTimestamp,
+                                      firstDate: DateTime(1900),
                                       lastDate: DateTime(2050),
                                     );
 
@@ -314,7 +327,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                         setState(() => datePicked = date);
                                       },
                                       currentTime: getCurrentTimestamp,
-                                      minTime: getCurrentTimestamp,
+                                      minTime: DateTime(0, 0, 0),
                                     );
                                   }
                                 },
