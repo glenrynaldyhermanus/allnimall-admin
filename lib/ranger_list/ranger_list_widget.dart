@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,9 +10,13 @@ class RangerListWidget extends StatefulWidget {
   const RangerListWidget({
     Key? key,
     this.isSelection,
+    this.issAsssignment,
+    this.order,
   }) : super(key: key);
 
   final bool? isSelection;
+  final bool? issAsssignment;
+  final OrdersRecord? order;
 
   @override
   _RangerListWidgetState createState() => _RangerListWidgetState();
@@ -209,7 +214,37 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                                 columnRangersRecord.photoUrl!);
                                         context.pop();
                                       } else {
-                                        context.pushNamed('Home');
+                                        if (widget.issAsssignment!) {
+                                          setState(() => FFAppState()
+                                                  .selectedRanger =
+                                              columnRangersRecord.reference);
+                                          setState(() => FFAppState()
+                                                  .selectedRangerName =
+                                              columnRangersRecord.displayName!);
+                                          setState(() => FFAppState()
+                                                  .selectedRangerPhone =
+                                              columnRangersRecord.phoneNumber!);
+                                          setState(() => FFAppState()
+                                                  .selectedRangerPicture =
+                                              columnRangersRecord.photoUrl!);
+
+                                          final ordersUpdateData =
+                                              createOrdersRecordData(
+                                            rangerUid:
+                                                FFAppState().selectedRanger,
+                                            rangerName:
+                                                FFAppState().selectedRangerName,
+                                            rangerPhone: FFAppState()
+                                                .selectedRangerPhone,
+                                            rangerProfilePicture: FFAppState()
+                                                .selectedRangerPicture,
+                                          );
+                                          await widget.order!.reference
+                                              .update(ordersUpdateData);
+                                          context.pop();
+                                        } else {
+                                          context.pushNamed('Home');
+                                        }
                                       }
                                     },
                                     child: Container(

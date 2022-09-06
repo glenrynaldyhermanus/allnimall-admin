@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/cancelation_reasons_widget.dart';
 import '../components/delete_confirmation_widget.dart';
@@ -6,7 +5,6 @@ import '../components/payment_confirmation_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
@@ -378,21 +376,15 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                             context.pushNamed(
                               'RangerList',
                               queryParams: {
-                                'isSelection':
+                                'issAsssignment':
                                     serializeParam(true, ParamType.bool),
+                                'order': serializeParam(
+                                    widget.order, ParamType.Document),
                               }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'order': widget.order,
+                              },
                             );
-                            if (FFAppState().selectedRanger != null) {
-                              final ordersUpdateData = createOrdersRecordData(
-                                rangerUid: FFAppState().selectedRanger,
-                                rangerName: FFAppState().selectedRangerName,
-                                rangerPhone: FFAppState().selectedRangerPhone,
-                                rangerProfilePicture:
-                                    FFAppState().selectedRangerPicture,
-                              );
-                              await widget.order!.reference
-                                  .update(ordersUpdateData);
-                            }
                           },
                           child: Container(
                             width: double.infinity,

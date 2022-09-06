@@ -87,6 +87,9 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'RangerList': (data) async => RangerListWidget(
         isSelection: getParameter(data, 'isSelection'),
+        issAsssignment: getParameter(data, 'issAsssignment'),
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
   'RequestDetail': (data) async => RequestDetailWidget(
         order:
