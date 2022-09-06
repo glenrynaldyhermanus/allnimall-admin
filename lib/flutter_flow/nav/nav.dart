@@ -125,6 +125,46 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => RequestDetailWidget(
                 order: params.getParam('order', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'OrderDetail',
+              path: 'orderDetail',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => OrderDetailWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditCustomerForOrder',
+              path: 'editCustomerForOrder',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => EditCustomerForOrderWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditOrderInformation',
+              path: 'editOrderInformation',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => EditOrderInformationWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditOrderSchedule',
+              path: 'editOrderSchedule',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => EditOrderScheduleWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

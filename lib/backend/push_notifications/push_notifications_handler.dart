@@ -92,6 +92,22 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
+  'OrderDetail': (data) async => OrderDetailWidget(
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
+      ),
+  'EditCustomerForOrder': (data) async => EditCustomerForOrderWidget(
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
+      ),
+  'EditOrderInformation': (data) async => EditOrderInformationWidget(
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
+      ),
+  'EditOrderSchedule': (data) async => EditOrderScheduleWidget(
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
+      ),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>
