@@ -121,20 +121,15 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                         context.pushNamed(
                           'RangerList',
                           queryParams: {
-                            'isSelection': serializeParam(true, ParamType.bool),
+                            'issAsssignment':
+                                serializeParam(true, ParamType.bool),
+                            'order': serializeParam(
+                                widget.order, ParamType.Document),
                           }.withoutNulls,
+                          extra: <String, dynamic>{
+                            'order': widget.order,
+                          },
                         );
-                        if (FFAppState().selectedRanger != null) {
-                          final ordersUpdateData = createOrdersRecordData(
-                            rangerUid: FFAppState().selectedRanger,
-                            rangerName: FFAppState().selectedRangerName,
-                            rangerPhone: FFAppState().selectedRangerPhone,
-                            rangerProfilePicture:
-                                FFAppState().selectedRangerPicture,
-                          );
-                          await widget.order!.reference
-                              .update(ordersUpdateData);
-                        }
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
