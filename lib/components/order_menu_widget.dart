@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/cancelation_reasons_widget.dart';
 import '../components/delete_confirmation_widget.dart';
@@ -5,6 +6,7 @@ import '../components/payment_confirmation_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
@@ -358,6 +360,80 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                                         children: [
                                           Text(
                                             'Re-Schedule',
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            context.pop();
+                            context.pushNamed(
+                              'RangerList',
+                              queryParams: {
+                                'isSelection':
+                                    serializeParam(true, ParamType.bool),
+                              }.withoutNulls,
+                            );
+                            if (FFAppState().selectedRanger != null) {
+                              final ordersUpdateData = createOrdersRecordData(
+                                rangerUid: FFAppState().selectedRanger,
+                                rangerName: FFAppState().selectedRangerName,
+                                rangerPhone: FFAppState().selectedRangerPhone,
+                                rangerProfilePicture:
+                                    FFAppState().selectedRangerPicture,
+                              );
+                              await widget.order!.reference
+                                  .update(ordersUpdateData);
+                            }
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 60,
+                            decoration: BoxDecoration(),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 8, 8, 8),
+                                      child: Icon(
+                                        Icons.group_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Re-Assign Groomer',
                                             style: FlutterFlowTheme.of(context)
                                                 .subtitle2,
                                           ),
