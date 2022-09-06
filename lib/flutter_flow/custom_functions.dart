@@ -55,3 +55,16 @@ String generateWhatsAppUrl(String? phone) {
   phone = phone!.replaceAll("+", "").trim();
   return "https://api.whatsapp.com/send?phone=$phone";
 }
+
+String countEndTimeForOrder(
+  int? startHour,
+  int? numOfPets,
+) {
+  int workHour = startHour! + numOfPets!;
+  String workHourString = workHour.toString();
+  if (workHourString.length == 1) {
+    workHourString = "0$workHour";
+  }
+
+  return "$workHourString:00";
+}

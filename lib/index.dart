@@ -6,3 +6,4 @@ export 'create_order/create_order_widget.dart' show CreateOrderWidget;
 export 'create_customer/create_customer_widget.dart' show CreateCustomerWidget;
 export 'customer_list/customer_list_widget.dart' show CustomerListWidget;
 export 'ranger_list/ranger_list_widget.dart' show RangerListWidget;
+export 'request_detail/request_detail_widget.dart' show RequestDetailWidget;
