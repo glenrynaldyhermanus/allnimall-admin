@@ -218,13 +218,13 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                           final ordersUpdateData =
                                               createOrdersRecordData(
                                             rangerUid:
-                                                FFAppState().selectedRanger,
+                                                columnRangersRecord.reference,
                                             rangerName:
-                                                FFAppState().selectedRangerName,
-                                            rangerPhone: FFAppState()
-                                                .selectedRangerPhone,
-                                            rangerProfilePicture: FFAppState()
-                                                .selectedRangerPicture,
+                                                columnRangersRecord.displayName,
+                                            rangerPhone:
+                                                columnRangersRecord.phoneNumber,
+                                            rangerProfilePicture:
+                                                columnRangersRecord.photoUrl,
                                           );
                                           await widget.order!.reference
                                               .update(ordersUpdateData);
