@@ -67,37 +67,115 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    'Pilih Waktu',
-                    style: FlutterFlowTheme.of(context).title2.override(
-                          fontFamily: 'Outfit',
-                          color: Color(0xFF090F13),
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Pilih Waktu',
+                              style:
+                                  FlutterFlowTheme.of(context).title2.override(
+                                        fontFamily: 'Outfit',
+                                        color: Color(0xFF090F13),
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                            ),
+                          ],
                         ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    '${widget.order!.quantity?.toString()} ${widget.order!.petCategory} - ${widget.order!.prefferedTime}',
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.normal,
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              '${widget.order!.quantity?.toString()} ${widget.order!.petCategory} - ${widget.order!.prefferedTime}',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ],
                         ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                    child: InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'RangerList',
+                          queryParams: {
+                            'isSelection': serializeParam(true, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                        if (FFAppState().selectedRanger != null) {
+                          final ordersUpdateData = createOrdersRecordData(
+                            rangerUid: FFAppState().selectedRanger,
+                            rangerName: FFAppState().selectedRangerName,
+                            rangerPhone: FFAppState().selectedRangerPhone,
+                            rangerProfilePicture:
+                                FFAppState().selectedRangerPicture,
+                          );
+                          await widget.order!.reference
+                              .update(ordersUpdateData);
+                        }
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+                              child: Text(
+                                valueOrDefault<String>(
+                                  FFAppState().selectedRangerName,
+                                  'Select Groomer',
+                                ),
+                                maxLines: 1,
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 40,
+                            height: 40,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.network(
+                              'https://picsum.photos/seed/854/600',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 0),
@@ -114,10 +192,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               8, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -201,10 +275,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               9, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -288,10 +358,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               10, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -375,10 +441,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               11, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -462,10 +524,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               12, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -549,10 +607,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               13, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -636,10 +690,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               14, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -723,10 +773,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               15, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(

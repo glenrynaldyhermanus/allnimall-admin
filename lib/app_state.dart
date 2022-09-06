@@ -41,6 +41,12 @@ class FFAppState {
   String selectedRangerPicture = '';
 
   String searchQuery = '';
+
+  DocumentReference? assignedRanger;
+
+  String assignedRangerName = '';
+
+  String assignedRangerPicture = '';
 }
 
 LatLng? _latLngFromString(String? val) {

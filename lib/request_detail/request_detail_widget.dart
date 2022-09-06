@@ -50,7 +50,7 @@ class _RequestDetailWidgetState extends State<RequestDetailWidget> {
         ),
         actions: [],
         centerTitle: false,
-        elevation: 2,
+        elevation: 0,
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
