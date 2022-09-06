@@ -124,6 +124,17 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                             'isSelection': serializeParam(true, ParamType.bool),
                           }.withoutNulls,
                         );
+                        if (FFAppState().selectedRanger != null) {
+                          final ordersUpdateData = createOrdersRecordData(
+                            rangerUid: FFAppState().selectedRanger,
+                            rangerName: FFAppState().selectedRangerName,
+                            rangerPhone: FFAppState().selectedRangerPhone,
+                            rangerProfilePicture:
+                                FFAppState().selectedRangerPicture,
+                          );
+                          await widget.order!.reference
+                              .update(ordersUpdateData);
+                        }
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -181,10 +192,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               8, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -268,10 +275,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               9, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -355,10 +358,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               10, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -442,10 +441,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               11, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -529,10 +524,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               12, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -616,10 +607,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               13, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -703,10 +690,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               14, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
@@ -790,10 +773,6 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                           endTime: functions.countEndTimeForOrder(
                               15, widget.order!.quantity),
                           confirmedAt: getCurrentTimestamp,
-                          rangerUid: currentUserReference,
-                          rangerName: currentUserDisplayName,
-                          rangerPhone: currentPhoneNumber,
-                          rangerProfilePicture: currentUserPhoto,
                         );
                         await widget.order!.reference.update(ordersUpdateData);
                         await actions.backToRoot(
