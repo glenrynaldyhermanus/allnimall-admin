@@ -9,13 +9,13 @@ import 'package:google_fonts/google_fonts.dart';
 class RangerListWidget extends StatefulWidget {
   const RangerListWidget({
     Key? key,
-    this.isSelection,
-    this.issAsssignment,
+    this.isSelections,
+    this.isAsssignment,
     this.order,
   }) : super(key: key);
 
-  final bool? isSelection;
-  final bool? issAsssignment;
+  final bool? isSelections;
+  final bool? isAsssignment;
   final OrdersRecord? order;
 
   @override
@@ -199,7 +199,7 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                       0, 0, 0, 1),
                                   child: InkWell(
                                     onTap: () async {
-                                      if (widget.isSelection!) {
+                                      if (widget.isSelections!) {
                                         setState(() =>
                                             FFAppState().selectedRanger =
                                                 columnRangersRecord.reference);
@@ -214,20 +214,7 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                                 columnRangersRecord.photoUrl!);
                                         context.pop();
                                       } else {
-                                        if (widget.issAsssignment!) {
-                                          setState(() => FFAppState()
-                                                  .selectedRanger =
-                                              columnRangersRecord.reference);
-                                          setState(() => FFAppState()
-                                                  .selectedRangerName =
-                                              columnRangersRecord.displayName!);
-                                          setState(() => FFAppState()
-                                                  .selectedRangerPhone =
-                                              columnRangersRecord.phoneNumber!);
-                                          setState(() => FFAppState()
-                                                  .selectedRangerPicture =
-                                              columnRangersRecord.photoUrl!);
-
+                                        if (widget.isAsssignment!) {
                                           final ordersUpdateData =
                                               createOrdersRecordData(
                                             rangerUid:

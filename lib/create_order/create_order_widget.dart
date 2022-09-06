@@ -487,8 +487,10 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                   context.pushNamed(
                                     'RangerList',
                                     queryParams: {
-                                      'isSelection':
+                                      'isSelections':
                                           serializeParam(true, ParamType.bool),
+                                      'isAsssignment':
+                                          serializeParam(false, ParamType.bool),
                                     }.withoutNulls,
                                   );
                                 },
