@@ -145,53 +145,268 @@ class _MenuWidgetState extends State<MenuWidget> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children: [
-                    if (valueOrDefault(currentUserDocument?.role, '') ==
-                        'Admin')
-                      AuthUserStreamWidget(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color:
-                                    FlutterFlowTheme.of(context).primaryBtnText,
-                                shape: BoxShape.rectangle,
-                              ),
-                              child: InkWell(
-                                onTap: () async {
-                                  context.pushNamed('CreateOrder');
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24, 0, 0, 0),
-                                      child: Text(
-                                        'Create Order',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText2,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Color(0xFF95A1AC),
-                                          size: 18,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed('CreateOrder');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 0, 0),
+                                  child: Text(
+                                    'Create Order',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText2,
+                                  ),
                                 ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: InkWell(
+                              onTap: () async {
+                                context.pushNamed('CreateOrder');
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24, 0, 0, 0),
+                                    child: Text(
+                                      'Master Datas',
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle1,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed('CreateOrder');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 4, 0),
+                                  child: Icon(
+                                    Icons.pets,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Service',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed('CreateOrder');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 4, 0),
+                                  child: Icon(
+                                    Icons.content_cut,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Discounts',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed('CreateOrder');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 4, 0),
+                                  child: Icon(
+                                    Icons.people,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Customer',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed('CreateOrder');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 4, 0),
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Ranger',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                       child: Row(
@@ -202,6 +417,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                             onPressed: () async {
                               GoRouter.of(context).prepareAuthEvent();
                               await signOut();
+
                               context.goNamedAuth('Login', mounted);
                             },
                             text: 'Log Out',

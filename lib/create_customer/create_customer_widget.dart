@@ -20,12 +20,16 @@ class CreateCustomerWidget extends StatefulWidget {
 }
 
 class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
+  TextEditingController? addressController;
+
+  var placePickerValue = FFPlace();
+
+  TextEditingController? handphoneController;
+
+  TextEditingController? nameController;
+
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
-  TextEditingController? addressController;
-  var placePickerValue = FFPlace();
-  TextEditingController? handphoneController;
-  TextEditingController? nameController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -97,6 +101,26 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           contentPadding:
@@ -126,6 +150,26 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 0,
@@ -173,6 +217,26 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 0,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 0,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
                                     width: 0,

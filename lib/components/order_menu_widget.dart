@@ -175,6 +175,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                         InkWell(
                           onTap: () async {
                             context.pop();
+
                             context.pushNamed(
                               'EditCustomerForOrder',
                               queryParams: {
@@ -241,6 +242,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                         InkWell(
                           onTap: () async {
                             context.pop();
+
                             context.pushNamed(
                               'EditOrderInformation',
                               queryParams: {
@@ -307,6 +309,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                         InkWell(
                           onTap: () async {
                             context.pop();
+
                             context.pushNamed(
                               'EditOrderSchedule',
                               queryParams: {
@@ -373,6 +376,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                         InkWell(
                           onTap: () async {
                             context.pop();
+
                             context.pushNamed(
                               'RangerList',
                               queryParams: {

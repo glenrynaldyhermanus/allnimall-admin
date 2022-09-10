@@ -21,14 +21,19 @@ class CreateOrderWidget extends StatefulWidget {
 }
 
 class _CreateOrderWidgetState extends State<CreateOrderWidget> {
-  DateTime? datePicked;
+  TextEditingController? amountController;
+
+  TextEditingController? quantityController;
+
   String? petCategoryListValue;
   String? petServiceListValue;
-  TextEditingController? quantityController;
-  TextEditingController? amountController;
+  DateTime? datePicked;
   String? timeListValue;
+
   TextEditingController? endTimeController;
+
   TextEditingController? startTimeController;
+
   OrdersRecord? createdOrder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -221,6 +226,26 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           contentPadding:
@@ -251,6 +276,26 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 0,
@@ -393,6 +438,26 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                       topRight: Radius.circular(4.0),
                                     ),
                                   ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
                                   filled: true,
                                   fillColor: Colors.white,
                                   contentPadding:
@@ -428,6 +493,26 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                     ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
                                       width: 0,

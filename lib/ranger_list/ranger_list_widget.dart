@@ -24,6 +24,7 @@ class RangerListWidget extends StatefulWidget {
 
 class _RangerListWidgetState extends State<RangerListWidget> {
   TextEditingController? textController;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -132,6 +133,31 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                                 ),
                                               ),
                                               focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4.0),
+                                                  topRight:
+                                                      Radius.circular(4.0),
+                                                ),
+                                              ),
+                                              errorBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4.0),
+                                                  topRight:
+                                                      Radius.circular(4.0),
+                                                ),
+                                              ),
+                                              focusedErrorBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0x00000000),
