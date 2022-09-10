@@ -32,3 +32,5 @@ export 'create_article/create_article_widget.dart' show CreateArticleWidget;
 export 'f_a_q_list/f_a_q_list_widget.dart' show FAQListWidget;
 export 'create_f_a_q/create_f_a_q_widget.dart' show CreateFAQWidget;
 export 'edit_f_a_q/edit_f_a_q_widget.dart' show EditFAQWidget;
+export 'feedback_list/feedback_list_widget.dart' show FeedbackListWidget;
+export 'edit_feedback/edit_feedback_widget.dart' show EditFeedbackWidget;

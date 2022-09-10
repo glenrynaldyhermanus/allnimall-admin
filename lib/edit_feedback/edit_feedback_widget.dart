@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -8,31 +9,33 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EditArticleWidget extends StatefulWidget {
-  const EditArticleWidget({
+class EditFeedbackWidget extends StatefulWidget {
+  const EditFeedbackWidget({
     Key? key,
-    this.article,
+    this.featureRequest,
   }) : super(key: key);
 
-  final ArticlesRecord? article;
+  final FeatureRequestsRecord? featureRequest;
 
   @override
-  _EditArticleWidgetState createState() => _EditArticleWidgetState();
+  _EditFeedbackWidgetState createState() => _EditFeedbackWidgetState();
 }
 
-class _EditArticleWidgetState extends State<EditArticleWidget> {
-  TextEditingController? articleController;
+class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
+  TextEditingController? feedbackController;
 
-  TextEditingController? titleController;
+  TextEditingController? responseController;
 
-  bool? switchListTileValue;
+  String? dropDownValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    articleController = TextEditingController(text: widget.article!.article);
-    titleController = TextEditingController(text: widget.article!.title);
+    feedbackController =
+        TextEditingController(text: widget.featureRequest!.feedback);
+    responseController =
+        TextEditingController(text: widget.featureRequest!.response);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -44,7 +47,7 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
         title: Text(
-          'Edit Article',
+          'Edit Feedback',
           style: FlutterFlowTheme.of(context).title3.override(
                 fontFamily: 'Poppins',
                 color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -62,7 +65,7 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
               size: 30,
             ),
             onPressed: () async {
-              await widget.article!.reference.delete();
+              await widget.featureRequest!.reference.delete();
               context.pop();
             },
           ),
@@ -83,164 +86,169 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Column(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                        child: TextFormField(
+                          controller: feedbackController,
+                          readOnly: true,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Feedback',
+                            labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyText2,
+                          maxLines: 4,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                        child: TextFormField(
+                          controller: responseController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Response',
+                            labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyText2,
+                          maxLines: 4,
+                        ),
+                      ),
+                      Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.network(
-                              valueOrDefault<String>(
-                                widget.article!.imageUrl,
-                                'https://via.placeholder.com/240x160.png?text=Pick+image',
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                              child: FlutterFlowDropDown(
+                                initialOption: dropDownValue ??=
+                                    widget.featureRequest!.status,
+                                options: ['New', 'Progressing', 'Closed'],
+                                onChanged: (val) =>
+                                    setState(() => dropDownValue = val),
+                                width: 180,
+                                height: 50,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                                hintText: 'Please select...',
+                                fillColor: Colors.white,
+                                elevation: 2,
+                                borderColor: Colors.transparent,
+                                borderWidth: 0,
+                                borderRadius: 0,
+                                margin: EdgeInsetsDirectional.fromSTEB(
+                                    24, 4, 24, 4),
+                                hidesUnderline: true,
                               ),
-                              width: 240,
-                              height: 160,
-                              fit: BoxFit.cover,
                             ),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                        child: TextFormField(
-                          controller: titleController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Title',
-                            labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                          ),
-                          style: FlutterFlowTheme.of(context).bodyText2,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                        child: TextFormField(
-                          controller: articleController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Article',
-                            labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                          ),
-                          style: FlutterFlowTheme.of(context).bodyText2,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                        child: SwitchListTile(
-                          value: switchListTileValue ??=
-                              widget.article!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
-                          title: Text(
-                            'Publish discount?',
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                          ),
-                          tileColor: FlutterFlowTheme.of(context).tertiaryColor,
-                          dense: false,
-                          controlAffinity: ListTileControlAffinity.trailing,
-                        ),
-                      ),
-                      Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            final articlesUpdateData = createArticlesRecordData(
-                              isActive: switchListTileValue,
-                              title: titleController!.text,
-                              article: articleController!.text,
+                            final featureRequestsUpdateData =
+                                createFeatureRequestsRecordData(
+                              response: responseController!.text,
+                              status: dropDownValue,
                             );
-                            await widget.article!.reference
-                                .update(articlesUpdateData);
+                            await widget.featureRequest!.reference
+                                .update(featureRequestsUpdateData);
                             context.pop();
                           },
                           text: 'Save',
