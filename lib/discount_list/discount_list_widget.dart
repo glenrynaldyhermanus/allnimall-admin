@@ -235,7 +235,7 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                         future: (_algoliaRequestCompleter ??=
                                 Completer<List<DiscountsRecord>>()
                                   ..complete(DiscountsRecord.search(
-                                    term: textController!.text,
+                                    term: FFAppState().searchQuery,
                                     maxResults: 10,
                                   )))
                             .future,
