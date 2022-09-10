@@ -181,19 +181,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'DiscountList',
               path: 'discountList',
+              requireAuth: true,
               builder: (context, params) => DiscountListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
               ),
             ),
             FFRoute(
-              name: 'FormDiscount',
-              path: 'formDiscount',
+              name: 'EditDiscount',
+              path: 'editDiscount',
+              requireAuth: true,
               asyncParams: {
                 'discount': getDoc('discounts', DiscountsRecord.serializer),
               },
-              builder: (context, params) => FormDiscountWidget(
+              builder: (context, params) => EditDiscountWidget(
                 discount: params.getParam('discount', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'CreateDiscount',
+              path: 'createDiscount',
+              requireAuth: true,
+              builder: (context, params) => CreateDiscountWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

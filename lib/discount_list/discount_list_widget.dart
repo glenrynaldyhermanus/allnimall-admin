@@ -56,7 +56,7 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
               size: 30,
             ),
             onPressed: () async {
-              context.pushNamed('FormDiscount');
+              context.pushNamed('CreateDiscount');
             },
           ),
         ],
@@ -270,7 +270,7 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                       child: InkWell(
                                         onTap: () async {
                                           context.pushNamed(
-                                            'FormDiscount',
+                                            'EditDiscount',
                                             queryParams: {
                                               'discount': serializeParam(
                                                   columnDiscountsRecord,
