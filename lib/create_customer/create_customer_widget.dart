@@ -300,8 +300,10 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   8, 0, 0, 0),
                                           child: FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
+                                            onPressed: () async {
+                                              setState(() => FFAppState()
+                                                      .selectedCustomerAddress =
+                                                  placePickerValue.address);
                                             },
                                             text: 'Use ',
                                             icon: Icon(
