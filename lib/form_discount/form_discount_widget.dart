@@ -282,7 +282,7 @@ class _FormDiscountWidgetState extends State<FormDiscountWidget> {
                                   createDiscountsRecordData(
                                 discount:
                                     double.parse(discountController!.text),
-                                isActive: true,
+                                isActive: switchListTileValue,
                                 name: nameController!.text,
                                 unit: dropDownValue,
                               );
@@ -293,7 +293,7 @@ class _FormDiscountWidgetState extends State<FormDiscountWidget> {
                                   createDiscountsRecordData(
                                 discount:
                                     double.parse(discountController!.text),
-                                isActive: true,
+                                isActive: switchListTileValue,
                                 name: nameController!.text,
                                 unit: dropDownValue,
                               );
