@@ -453,6 +453,112 @@ class _MenuWidgetState extends State<MenuWidget> {
                         ],
                       ),
                     ),
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'ArticleList',
+                          queryParams: {
+                            'isSelection':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 8, 0),
+                                  child: Icon(
+                                    Icons.menu_book_rounded,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Articles',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'FAQList',
+                          queryParams: {
+                            'isSelection':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 8, 0),
+                                  child: Icon(
+                                    Icons.help,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'FAQs',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                       child: Row(

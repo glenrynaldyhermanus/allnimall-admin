@@ -13,6 +13,8 @@ import 'schema/service_categories_record.dart';
 import 'schema/services_record.dart';
 import 'schema/activities_record.dart';
 import 'schema/discounts_record.dart';
+import 'schema/articles_record.dart';
+import 'schema/faqs_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -29,6 +31,8 @@ export 'schema/service_categories_record.dart';
 export 'schema/services_record.dart';
 export 'schema/activities_record.dart';
 export 'schema/discounts_record.dart';
+export 'schema/articles_record.dart';
+export 'schema/faqs_record.dart';
 
 /// Functions to query RangersRecords (as a Stream and as a Future).
 Stream<List<RangersRecord>> queryRangersRecord({
@@ -409,6 +413,90 @@ Future<FFFirestorePage<DiscountsRecord>> queryDiscountsRecordPage({
     queryCollectionPage(
       DiscountsRecord.collection,
       DiscountsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query ArticlesRecords (as a Stream and as a Future).
+Stream<List<ArticlesRecord>> queryArticlesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ArticlesRecord.collection,
+      ArticlesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ArticlesRecord>> queryArticlesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ArticlesRecord.collection,
+      ArticlesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<ArticlesRecord>> queryArticlesRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      ArticlesRecord.collection,
+      ArticlesRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query FaqsRecords (as a Stream and as a Future).
+Stream<List<FaqsRecord>> queryFaqsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      FaqsRecord.collection,
+      FaqsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<FaqsRecord>> queryFaqsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      FaqsRecord.collection,
+      FaqsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<FaqsRecord>> queryFaqsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      FaqsRecord.collection,
+      FaqsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
