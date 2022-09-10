@@ -65,28 +65,8 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
               size: 30,
             ),
             onPressed: () async {
-              var confirmDialogResponse = await showDialog<bool>(
-                    context: context,
-                    builder: (alertDialogContext) {
-                      return AlertDialog(
-                        title: Text('Delete Discount?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () =>
-                                Navigator.pop(alertDialogContext, false),
-                            child: Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () =>
-                                Navigator.pop(alertDialogContext, true),
-                            child: Text('Confirm'),
-                          ),
-                        ],
-                      );
-                    },
-                  ) ??
-                  false;
               await widget.discount!.reference.delete();
+              context.pop();
             },
           ),
         ],
