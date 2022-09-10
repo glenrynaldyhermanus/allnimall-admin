@@ -10,6 +10,7 @@ import 'dart:io';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateCustomerWidget extends StatefulWidget {
@@ -20,22 +21,23 @@ class CreateCustomerWidget extends StatefulWidget {
 }
 
 class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
-  TextEditingController? addressController;
-
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
-
   TextEditingController? handphoneController;
 
   TextEditingController? nameController;
 
   var placePickerValue = FFPlace();
+  LatLng? googleMapsCenter;
+  final googleMapsController = Completer<GoogleMapController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    addressController = TextEditingController(text: placePickerValue.address);
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() => FFAppState().selectedCustomerAddress = '');
+    });
+
     handphoneController = TextEditingController();
     nameController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -235,73 +237,101 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                              child: Row(
+                              child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: addressController,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Alamat',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .bodyText2,
-                                        hintText:
-                                            'Jalan Lenteng Agung Raya No 62 Jakarta Selatan',
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .bodyText2,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
+                                  Text(
+                                    'Selected Address',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 12,
                                         ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
+                                  ),
+                                  Text(
+                                    placePickerValue.address,
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText2,
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      FFButtonWidget(
+                                        onPressed: () {
+                                          print('Button pressed ...');
+                                        },
+                                        text: 'Edit',
+                                        icon: Icon(
+                                          Icons.edit_sharp,
+                                          size: 15,
                                         ),
-                                        errorBorder: OutlineInputBorder(
+                                        options: FFButtonOptions(
+                                          width: 92,
+                                          height: 40,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .subtitle2
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                  ),
                                           borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 0,
+                                            color: Colors.transparent,
+                                            width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                24, 0, 0, 0),
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2,
-                                      maxLines: 5,
-                                      keyboardType: TextInputType.multiline,
-                                    ),
+                                      if (FFAppState()
+                                                  .selectedCustomerAddress ==
+                                              null ||
+                                          FFAppState()
+                                                  .selectedCustomerAddress ==
+                                              '')
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8, 0, 0, 0),
+                                          child: FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: 'Use ',
+                                            icon: Icon(
+                                              Icons.done,
+                                              size: 15,
+                                            ),
+                                            options: FFButtonOptions(
+                                              width: 92,
+                                              height: 40,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryColor,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 14,
+                                                      ),
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -356,7 +386,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                           ],
                         ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
                             if (functions.isCustomerExistsByPhone(
@@ -379,18 +409,41 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                 },
                               );
                             } else {
-                              final customersCreateData =
-                                  createCustomersRecordData(
-                                displayName: nameController!.text,
-                                phoneNumber: handphoneController!.text,
-                                orderLatlng: googleMapsCenter,
-                                orderAddress: addressController!.text,
-                                createdTime: getCurrentTimestamp,
-                              );
-                              await CustomersRecord.collection
-                                  .doc()
-                                  .set(customersCreateData);
-                              context.pop();
+                              if (FFAppState().selectedCustomerAddress !=
+                                      null &&
+                                  FFAppState().selectedCustomerAddress != '') {
+                                final customersCreateData =
+                                    createCustomersRecordData(
+                                  displayName: nameController!.text,
+                                  phoneNumber: handphoneController!.text,
+                                  orderLatlng: googleMapsCenter,
+                                  orderAddress:
+                                      FFAppState().selectedCustomerAddress,
+                                  createdTime: getCurrentTimestamp,
+                                );
+                                await CustomersRecord.collection
+                                    .doc()
+                                    .set(customersCreateData);
+                                context.pop();
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Failed insert'),
+                                      content:
+                                          Text('Please use or confirm address'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             }
                           },
                           text: 'Save',
