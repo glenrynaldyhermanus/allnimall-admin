@@ -199,8 +199,9 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 20, 0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                setState(() => FFAppState().searchQuery =
+                                    textController!.text);
                               },
                               text: 'Search',
                               options: FFButtonOptions(
