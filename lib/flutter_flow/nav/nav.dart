@@ -88,14 +88,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => HomeWidget(),
             ),
             FFRoute(
-              name: 'Menu',
-              path: 'menu',
-              builder: (context, params) => MenuWidget(),
-            ),
-            FFRoute(
               name: 'CreateOrder',
               path: 'createOrder',
               builder: (context, params) => CreateOrderWidget(),
+            ),
+            FFRoute(
+              name: 'Menu',
+              path: 'menu',
+              builder: (context, params) => MenuWidget(),
             ),
             FFRoute(
               name: 'CreateCustomer',

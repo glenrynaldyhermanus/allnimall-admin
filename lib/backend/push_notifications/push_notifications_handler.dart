@@ -79,8 +79,8 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
 final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'Login': (data) async => LoginWidget(),
-  'Menu': (data) async => MenuWidget(),
   'CreateOrder': (data) async => CreateOrderWidget(),
+  'Menu': (data) async => MenuWidget(),
   'CreateCustomer': (data) async => CreateCustomerWidget(),
   'CustomerList': (data) async => CustomerListWidget(
         isSelection: getParameter(data, 'isSelection'),
