@@ -412,8 +412,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
                                       title: Text('Failed insert'),
-                                      content:
-                                          Text('Please use or confirm address'),
+                                      content: Text('Please select location'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
