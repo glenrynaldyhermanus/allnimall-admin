@@ -22,14 +22,14 @@ class CreateCustomerWidget extends StatefulWidget {
 class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
   TextEditingController? addressController;
 
-  var placePickerValue = FFPlace();
+  LatLng? googleMapsCenter;
+  final googleMapsController = Completer<GoogleMapController>();
 
   TextEditingController? handphoneController;
 
   TextEditingController? nameController;
 
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
+  var placePickerValue = FFPlace();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -74,12 +74,12 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: TextFormField(
                           controller: nameController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Nama Lengkap',
+                            labelText: 'Full Name',
                             labelStyle: FlutterFlowTheme.of(context).bodyText2,
                             hintText: 'Glen Rynaldy Hermanus',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -132,12 +132,12 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: TextFormField(
                           controller: handphoneController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Handphone',
+                            labelText: 'Phone',
                             labelStyle: FlutterFlowTheme.of(context).bodyText2,
                             hintText: '+6281314169140',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -192,158 +192,168 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: addressController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Alamat',
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).bodyText2,
-                                  hintText:
-                                      'Jalan Lenteng Agung Raya No 62 Jakarta Selatan',
-                                  hintStyle:
-                                      FlutterFlowTheme.of(context).bodyText2,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          24, 0, 0, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyText2,
-                                maxLines: 5,
-                                keyboardType: TextInputType.multiline,
-                              ),
-                            ),
-                            FlutterFlowPlacePicker(
-                              iOSGoogleMapsApiKey:
-                                  'AIzaSyAX9Kl_giqmL8K8JGZlFN6RaPLxq6g6Xp0',
-                              androidGoogleMapsApiKey:
-                                  'AIzaSyBydXSoppRjB-gdhCkIckjS0O_t9hzMgtw',
-                              webGoogleMapsApiKey:
-                                  'AIzaSyAVmO1JRU552L2OhuDi0sdRhwgleBPNO3c',
-                              onSelect: (place) async {
-                                setState(() => placePickerValue = place);
-                                (await googleMapsController.future)
-                                    .animateCamera(CameraUpdate.newLatLng(
-                                        place.latLng.toGoogleMaps()));
-                              },
-                              defaultText: '',
-                              icon: Icon(
-                                Icons.place,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              buttonOptions: FFButtonOptions(
-                                width: 44,
-                                height: 44,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
+                        child: FlutterFlowPlacePicker(
+                          iOSGoogleMapsApiKey:
+                              'AIzaSyAX9Kl_giqmL8K8JGZlFN6RaPLxq6g6Xp0',
+                          androidGoogleMapsApiKey:
+                              'AIzaSyBydXSoppRjB-gdhCkIckjS0O_t9hzMgtw',
+                          webGoogleMapsApiKey:
+                              'AIzaSyAVmO1JRU552L2OhuDi0sdRhwgleBPNO3c',
+                          onSelect: (place) async {
+                            setState(() => placePickerValue = place);
+                            (await googleMapsController.future).animateCamera(
+                                CameraUpdate.newLatLng(
+                                    place.latLng.toGoogleMaps()));
+                          },
+                          defaultText: 'Select Location',
+                          icon: Icon(
+                            Icons.place,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          buttonOptions: FFButtonOptions(
+                            width: double.infinity,
+                            height: 50,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
                                     ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (placePickerValue != null)
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: addressController,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Alamat',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .bodyText2,
+                                        hintText:
+                                            'Jalan Lenteng Agung Raya No 62 Jakarta Selatan',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .bodyText2,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 0,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 0,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 0,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 0,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        contentPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                24, 0, 0, 0),
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText2,
+                                      maxLines: 5,
+                                      keyboardType: TextInputType.multiline,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 240,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    FlutterFlowGoogleMap(
+                                      controller: googleMapsController,
+                                      onCameraIdle: (latLng) =>
+                                          googleMapsCenter = latLng,
+                                      initialLocation: googleMapsCenter ??=
+                                          placePickerValue.latLng,
+                                      markerColor: GoogleMarkerColor.violet,
+                                      mapType: MapType.normal,
+                                      style: GoogleMapStyle.standard,
+                                      initialZoom: 14,
+                                      allowInteraction: true,
+                                      allowZoom: true,
+                                      showZoomControls: true,
+                                      showLocation: true,
+                                      showCompass: false,
+                                      showMapToolbar: false,
+                                      showTraffic: false,
+                                      centerMapOnMarkerTap: true,
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 24),
+                                        child: Icon(
+                                          Icons.location_on_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 48,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 240,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFEEEEEE),
-                          ),
-                          child: Stack(
-                            children: [
-                              FlutterFlowGoogleMap(
-                                controller: googleMapsController,
-                                onCameraIdle: (latLng) =>
-                                    googleMapsCenter = latLng,
-                                initialLocation: googleMapsCenter ??=
-                                    placePickerValue.latLng,
-                                markerColor: GoogleMarkerColor.violet,
-                                mapType: MapType.normal,
-                                style: GoogleMapStyle.standard,
-                                initialZoom: 14,
-                                allowInteraction: true,
-                                allowZoom: true,
-                                showZoomControls: true,
-                                showLocation: true,
-                                showCompass: false,
-                                showMapToolbar: false,
-                                showTraffic: false,
-                                centerMapOnMarkerTap: true,
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 24),
-                                  child: Icon(
-                                    Icons.location_on_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 48,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
                         child: FFButtonWidget(
@@ -382,7 +392,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                               context.pop();
                             }
                           },
-                          text: 'Create Customer',
+                          text: 'Save',
                           options: FFButtonOptions(
                             width: 270,
                             height: 50,
