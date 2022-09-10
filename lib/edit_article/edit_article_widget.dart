@@ -1,11 +1,9 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,7 +25,6 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
 
   TextEditingController? titleController;
 
-  String uploadedFileUrl = '';
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -86,78 +83,22 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      InkWell(
-                        onTap: () async {
-                          final selectedMedia =
-                              await selectMediaWithSourceBottomSheet(
-                            context: context,
-                            allowPhoto: true,
-                          );
-                          if (selectedMedia != null &&
-                              selectedMedia.every((m) =>
-                                  validateFileFormat(m.storagePath, context))) {
-                            showUploadMessage(
-                              context,
-                              'Uploading file...',
-                              showLoading: true,
-                            );
-                            final downloadUrls = (await Future.wait(
-                                    selectedMedia.map((m) async =>
-                                        await uploadData(
-                                            m.storagePath, m.bytes))))
-                                .where((u) => u != null)
-                                .map((u) => u!)
-                                .toList();
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            if (downloadUrls.length == selectedMedia.length) {
-                              setState(
-                                  () => uploadedFileUrl = downloadUrls.first);
-                              showUploadMessage(
-                                context,
-                                'Success!',
-                              );
-                            } else {
-                              showUploadMessage(
-                                context,
-                                'Failed to upload media',
-                              );
-                              return;
-                            }
-                          }
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            if (uploadedFileUrl == null ||
-                                uploadedFileUrl == '')
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  valueOrDefault<String>(
-                                    widget.article!.imageUrl,
-                                    'https://via.placeholder.com/240x160.png?text=Pick+image',
-                                  ),
-                                  width: 240,
-                                  height: 160,
-                                  fit: BoxFit.cover,
-                                ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              valueOrDefault<String>(
+                                widget.article!.imageUrl,
+                                'https://via.placeholder.com/240x160.png?text=Pick+image',
                               ),
-                            if (uploadedFileUrl != null &&
-                                uploadedFileUrl != '')
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  valueOrDefault<String>(
-                                    uploadedFileUrl,
-                                    'https://via.placeholder.com/240x160.png?text=Pick+image',
-                                  ),
-                                  width: 240,
-                                  height: 160,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                          ],
-                        ),
+                              width: 240,
+                              height: 160,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
@@ -297,7 +238,6 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
                               isActive: switchListTileValue,
                               title: titleController!.text,
                               article: articleController!.text,
-                              imageUrl: uploadedFileUrl,
                             );
                             await widget.article!.reference
                                 .update(articlesUpdateData);

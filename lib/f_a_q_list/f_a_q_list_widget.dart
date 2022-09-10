@@ -370,6 +370,9 @@ class _FAQListWidgetState extends State<FAQListWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryColor,
                                                                 fontSize: 12,
                                                               ),
                                                         ),
@@ -392,7 +395,7 @@ class _FAQListWidgetState extends State<FAQListWidget> {
                                                                       'Poppins',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primaryText,
+                                                                      .secondaryText,
                                                                   fontSize: 14,
                                                                 ),
                                                           ),

@@ -353,7 +353,12 @@ class _ArticleListWidgetState extends State<ArticleListWidget> {
                                                             maxLines: 2,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .subtitle2,
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize: 14,
+                                                                ),
                                                           ),
                                                         ),
                                                       ],
