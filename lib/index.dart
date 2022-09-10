@@ -3,8 +3,8 @@ export 'login/login_widget.dart' show LoginWidget;
 export 'home/home_widget.dart' show HomeWidget;
 export 'menu/menu_widget.dart' show MenuWidget;
 export 'create_order/create_order_widget.dart' show CreateOrderWidget;
-export 'create_customer/create_customer_widget.dart' show CreateCustomerWidget;
 export 'customer_list/customer_list_widget.dart' show CustomerListWidget;
+export 'create_customer/create_customer_widget.dart' show CreateCustomerWidget;
 export 'ranger_list/ranger_list_widget.dart' show RangerListWidget;
 export 'request_detail/request_detail_widget.dart' show RequestDetailWidget;
 export 'order_detail/order_detail_widget.dart' show OrderDetailWidget;
@@ -17,3 +17,4 @@ export 'edit_order_schedule/edit_order_schedule_widget.dart'
 export 'service_category_list/service_category_list_widget.dart'
     show ServiceCategoryListWidget;
 export 'discount_list/discount_list_widget.dart' show DiscountListWidget;
+export 'create_discount/create_discount_widget.dart' show CreateDiscountWidget;

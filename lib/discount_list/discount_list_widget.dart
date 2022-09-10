@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -43,7 +44,22 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                 color: FlutterFlowTheme.of(context).tertiaryColor,
               ),
         ),
-        actions: [],
+        actions: [
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.add,
+              color: FlutterFlowTheme.of(context).tertiaryColor,
+              size: 30,
+            ),
+            onPressed: () async {
+              context.pushNamed('CreateDiscount');
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 2,
       ),
@@ -251,131 +267,146 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 2, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20, 0, 0, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  child: Image.network(
-                                                    'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
-                                                    width: 74,
-                                                    height: 74,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
+                                      child: InkWell(
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'CreateDiscount',
+                                            queryParams: {
+                                              'discount': serializeParam(
+                                                  columnDiscountsRecord,
+                                                  ParamType.Document),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'discount': columnDiscountsRecord,
+                                            },
+                                          );
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
+                                                  .fromSTEB(20, 0, 0, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        columnDiscountsRecord
-                                                            .name!,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle2,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        formatNumber(
-                                                          columnDiscountsRecord
-                                                              .discount!,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .commaDecimal,
-                                                          currency: 'Rp',
-                                                        ),
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize: 12,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        ' / ',
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize: 12,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        columnDiscountsRecord
-                                                            .unit!,
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize: 12,
-                                                                ),
-                                                      ),
-                                                    ],
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: Image.network(
+                                                      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+                                                      width: 74,
+                                                      height: 74,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 8, 0),
-                                                  child: Icon(
-                                                    Icons
-                                                        .chevron_right_outlined,
-                                                    color: Color(0xFF95A1AC),
-                                                    size: 24,
-                                                  ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(10, 0, 0, 0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          columnDiscountsRecord
+                                                              .name!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle2,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          formatNumber(
+                                                            columnDiscountsRecord
+                                                                .discount!,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .commaDecimal,
+                                                            currency: 'Rp',
+                                                          ),
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 12,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          ' / ',
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 12,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          columnDiscountsRecord
+                                                              .unit!,
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 12,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 8, 0),
+                                                    child: Icon(
+                                                      Icons
+                                                          .chevron_right_outlined,
+                                                      color: Color(0xFF95A1AC),
+                                                      size: 24,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
