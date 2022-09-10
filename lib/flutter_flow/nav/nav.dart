@@ -120,6 +120,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateCustomerWidget(),
             ),
             FFRoute(
+              name: 'EditCustomer',
+              path: 'editCustomer',
+              asyncParams: {
+                'customer': getDoc('customers', CustomersRecord.serializer),
+              },
+              builder: (context, params) => EditCustomerWidget(
+                customer: params.getParam('customer', ParamType.Document),
+              ),
+            ),
+            FFRoute(
               name: 'RangerList',
               path: 'rangerList',
               asyncParams: {

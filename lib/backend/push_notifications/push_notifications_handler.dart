@@ -89,6 +89,10 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         isSelection: getParameter(data, 'isSelection'),
       ),
   'CreateCustomer': (data) async => CreateCustomerWidget(),
+  'EditCustomer': (data) async => EditCustomerWidget(
+        customer: await getDocumentParameter(
+            data, 'customer', CustomersRecord.serializer),
+      ),
   'RangerList': (data) async => RangerListWidget(
         isSelections: getParameter(data, 'isSelections'),
         isAsssignment: getParameter(data, 'isAsssignment'),
