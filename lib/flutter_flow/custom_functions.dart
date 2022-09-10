@@ -69,10 +69,10 @@ String countEndTimeForOrder(
   return "$workHourString:00";
 }
 
-String saveOrEditTitle(bool? isEditing) {
+String publishedString(bool? isPublished) {
   // Add your function code here!
-  if (isEditing != null && isEditing) {
-    return "Edit ";
+  if (isPublished != null && isPublished) {
+    return "Published";
   }
-  return "Create ";
+  return "Unpublished";
 }
