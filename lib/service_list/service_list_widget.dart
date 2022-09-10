@@ -355,6 +355,8 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                       (columnIndex) {
                                     final columnServicesRecord =
                                         columnServicesRecordList[columnIndex];
+                                    print('"OUT >> ');
+                                    print(columnServicesRecord);
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 1),
