@@ -49,7 +49,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
         title: Text(
-          'Edit Category',
+          'Edit Service',
           style: FlutterFlowTheme.of(context).title3.override(
                 fontFamily: 'Poppins',
                 color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -267,7 +267,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                           onChanged: (newValue) =>
                               setState(() => switchListTileValue = newValue),
                           title: Text(
-                            'Publish discount?',
+                            'Publish service?',
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                           tileColor: FlutterFlowTheme.of(context).tertiaryColor,

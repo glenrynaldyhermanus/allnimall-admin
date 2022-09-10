@@ -46,19 +46,24 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
               ),
         ),
         actions: [
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.add,
-              color: FlutterFlowTheme.of(context).tertiaryColor,
-              size: 30,
-            ),
-            onPressed: () async {
-              context.pushNamed('CreateServiceCategory');
-            },
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30,
+                borderWidth: 1,
+                buttonSize: 60,
+                icon: Icon(
+                  Icons.add,
+                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                  size: 30,
+                ),
+                onPressed: () async {
+                  context.pushNamed('CreateServiceCategory');
+                },
+              ),
+            ],
           ),
         ],
         centerTitle: false,

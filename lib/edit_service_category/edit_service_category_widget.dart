@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -50,23 +49,7 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                 color: FlutterFlowTheme.of(context).tertiaryColor,
               ),
         ),
-        actions: [
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.delete_forever_outlined,
-              color: FlutterFlowTheme.of(context).secondaryColor,
-              size: 30,
-            ),
-            onPressed: () async {
-              await widget.category!.reference.delete();
-              context.pop();
-            },
-          ),
-        ],
+        actions: [],
         centerTitle: false,
         elevation: 2,
       ),
@@ -183,7 +166,7 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                           onChanged: (newValue) =>
                               setState(() => switchListTileValue = newValue),
                           title: Text(
-                            'Publish discount?',
+                            'Publish category?',
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                           tileColor: FlutterFlowTheme.of(context).tertiaryColor,
