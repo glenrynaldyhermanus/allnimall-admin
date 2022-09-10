@@ -191,8 +191,12 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: StreamBuilder<List<RangersRecord>>(
                         stream: queryRangersRecord(
-                          queryBuilder: (rangersRecord) =>
-                              rangersRecord.where('role', isEqualTo: 'Groomer'),
+                          queryBuilder: (rangersRecord) => rangersRecord
+                              .where('role', isEqualTo: 'Groomer')
+                              .where('display_name',
+                                  isGreaterThanOrEqualTo:
+                                      FFAppState().searchQuery),
+                          limit: 10,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -281,15 +285,27 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    child: Image.network(
-                                                      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
-                                                      width: 74,
-                                                      height: 74,
-                                                      fit: BoxFit.cover,
+                                                  Container(
+                                                    width: 48,
+                                                    height: 48,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFD8D1F2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24),
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      child: Icon(
+                                                        Icons.person,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        size: 24,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -327,7 +343,14 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                                               .email!,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText2,
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryColor,
+                                                              ),
                                                         ),
                                                       ],
                                                     ),
