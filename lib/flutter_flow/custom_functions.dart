@@ -69,10 +69,10 @@ String countEndTimeForOrder(
   return "$workHourString:00";
 }
 
-String publishedString(bool? isPublished) {
+String searchQueryAlgolia(String? searchQuery) {
   // Add your function code here!
-  if (isPublished != null && isPublished) {
-    return "Published";
+  if (searchQuery == null || searchQuery.isEmpty) {
+    return " ";
   }
-  return "Unpublished";
+  return searchQuery;
 }
