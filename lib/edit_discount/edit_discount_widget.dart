@@ -5,13 +5,12 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FormDiscountWidget extends StatefulWidget {
-  const FormDiscountWidget({
+class EditDiscountWidget extends StatefulWidget {
+  const EditDiscountWidget({
     Key? key,
     this.discount,
   }) : super(key: key);
@@ -19,10 +18,10 @@ class FormDiscountWidget extends StatefulWidget {
   final DiscountsRecord? discount;
 
   @override
-  _FormDiscountWidgetState createState() => _FormDiscountWidgetState();
+  _EditDiscountWidgetState createState() => _EditDiscountWidgetState();
 }
 
-class _FormDiscountWidgetState extends State<FormDiscountWidget> {
+class _EditDiscountWidgetState extends State<EditDiscountWidget> {
   TextEditingController? discountController;
 
   TextEditingController? nameController;
@@ -48,7 +47,7 @@ class _FormDiscountWidgetState extends State<FormDiscountWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
         title: Text(
-          '${functions.saveOrEditTitle(widget.discount != null)}Discount',
+          'Edit Discount',
           style: FlutterFlowTheme.of(context).title3.override(
                 fontFamily: 'Poppins',
                 color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -277,31 +276,15 @@ class _FormDiscountWidgetState extends State<FormDiscountWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            if (widget.discount != null) {
-                              final discountsUpdateData =
-                                  createDiscountsRecordData(
-                                discount:
-                                    double.parse(discountController!.text),
-                                isActive: switchListTileValue,
-                                name: nameController!.text,
-                                unit: dropDownValue,
-                              );
-                              await widget.discount!.reference
-                                  .update(discountsUpdateData);
-                            } else {
-                              final discountsCreateData =
-                                  createDiscountsRecordData(
-                                discount:
-                                    double.parse(discountController!.text),
-                                isActive: switchListTileValue,
-                                name: nameController!.text,
-                                unit: dropDownValue,
-                              );
-                              await DiscountsRecord.collection
-                                  .doc()
-                                  .set(discountsCreateData);
-                            }
-
+                            final discountsUpdateData =
+                                createDiscountsRecordData(
+                              discount: double.parse(discountController!.text),
+                              isActive: switchListTileValue,
+                              name: nameController!.text,
+                              unit: dropDownValue,
+                            );
+                            await widget.discount!.reference
+                                .update(discountsUpdateData);
                             context.pop();
                           },
                           text: 'Save',
