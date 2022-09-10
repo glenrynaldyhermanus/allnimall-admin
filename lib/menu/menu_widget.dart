@@ -233,20 +233,27 @@ class _MenuWidgetState extends State<MenuWidget> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: InkWell(
-                            onTap: () async {
-                              context.pushNamed('CreateOrder');
-                            },
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'ServiceCategoryList',
+                          queryParams: {
+                            'isSelection':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -276,23 +283,30 @@ class _MenuWidgetState extends State<MenuWidget> {
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: InkWell(
-                            onTap: () async {
-                              context.pushNamed('CreateOrder');
-                            },
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'DiscountList',
+                          queryParams: {
+                            'isSelection':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -322,8 +336,8 @@ class _MenuWidgetState extends State<MenuWidget> {
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     InkWell(
                       onTap: () async {
