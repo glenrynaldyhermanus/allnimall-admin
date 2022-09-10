@@ -98,6 +98,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateOrderWidget(),
             ),
             FFRoute(
+              name: 'OrderDetail',
+              path: 'orderDetail',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => OrderDetailWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
               name: 'CustomerList',
               path: 'customerList',
               builder: (context, params) => CustomerListWidget(
@@ -128,16 +138,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => RequestDetailWidget(
-                order: params.getParam('order', ParamType.Document),
-              ),
-            ),
-            FFRoute(
-              name: 'OrderDetail',
-              path: 'orderDetail',
-              asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
-              },
-              builder: (context, params) => OrderDetailWidget(
                 order: params.getParam('order', ParamType.Document),
               ),
             ),
