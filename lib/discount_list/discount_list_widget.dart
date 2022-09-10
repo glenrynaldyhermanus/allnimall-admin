@@ -304,12 +304,9 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
-                                                        formatNumber(
-                                                          columnDiscountsRecord
-                                                              .discount!,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                        ),
+                                                        columnDiscountsRecord
+                                                            .discount!
+                                                            .toString(),
                                                         maxLines: 1,
                                                         style:
                                                             FlutterFlowTheme.of(
