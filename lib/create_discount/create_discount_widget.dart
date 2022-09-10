@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -47,42 +46,7 @@ class _CreateDiscountWidgetState extends State<CreateDiscountWidget> {
                 color: FlutterFlowTheme.of(context).tertiaryColor,
               ),
         ),
-        actions: [
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.delete_forever_outlined,
-              color: FlutterFlowTheme.of(context).secondaryColor,
-              size: 30,
-            ),
-            onPressed: () async {
-              var confirmDialogResponse = await showDialog<bool>(
-                    context: context,
-                    builder: (alertDialogContext) {
-                      return AlertDialog(
-                        title: Text('Delete Discount?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () =>
-                                Navigator.pop(alertDialogContext, false),
-                            child: Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () =>
-                                Navigator.pop(alertDialogContext, true),
-                            child: Text('Confirm'),
-                          ),
-                        ],
-                      );
-                    },
-                  ) ??
-                  false;
-            },
-          ),
-        ],
+        actions: [],
         centerTitle: false,
         elevation: 2,
       ),

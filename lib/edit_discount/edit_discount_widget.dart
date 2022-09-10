@@ -86,6 +86,7 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
                     },
                   ) ??
                   false;
+              await widget.discount!.reference.delete();
             },
           ),
         ],
