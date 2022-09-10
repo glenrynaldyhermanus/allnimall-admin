@@ -227,7 +227,8 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                           ),
                         ),
                       ),
-                      if (placePickerValue != null)
+                      if (placePickerValue.address != null &&
+                          placePickerValue.address != '')
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
