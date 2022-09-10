@@ -453,6 +453,27 @@ class _MenuWidgetState extends State<MenuWidget> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          context.pushNamed('CreateOrder');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                              child: Text(
+                                'Support',
+                                style: FlutterFlowTheme.of(context).subtitle1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     InkWell(
                       onTap: () async {
                         context.pushNamed(
@@ -541,6 +562,59 @@ class _MenuWidgetState extends State<MenuWidget> {
                                 ),
                                 Text(
                                   'FAQs',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'FeedbackList',
+                          queryParams: {
+                            'isSelection':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 8, 0),
+                                  child: Icon(
+                                    Icons.bug_report_outlined,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Feedback',
                                   style: FlutterFlowTheme.of(context).bodyText2,
                                 ),
                                 Expanded(

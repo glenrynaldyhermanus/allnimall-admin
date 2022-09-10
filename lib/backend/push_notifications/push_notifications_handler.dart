@@ -155,6 +155,13 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'EditFAQ': (data) async => EditFAQWidget(
         faq: await getDocumentParameter(data, 'faq', FaqsRecord.serializer),
       ),
+  'FeedbackList': (data) async => FeedbackListWidget(
+        isSelection: getParameter(data, 'isSelection'),
+      ),
+  'EditFeedback': (data) async => EditFeedbackWidget(
+        featureRequest: await getDocumentParameter(
+            data, 'featureRequest', FeatureRequestsRecord.serializer),
+      ),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

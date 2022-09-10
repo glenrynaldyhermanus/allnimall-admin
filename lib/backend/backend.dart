@@ -15,6 +15,7 @@ import 'schema/activities_record.dart';
 import 'schema/discounts_record.dart';
 import 'schema/articles_record.dart';
 import 'schema/faqs_record.dart';
+import 'schema/feature_requests_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -33,6 +34,7 @@ export 'schema/activities_record.dart';
 export 'schema/discounts_record.dart';
 export 'schema/articles_record.dart';
 export 'schema/faqs_record.dart';
+export 'schema/feature_requests_record.dart';
 
 /// Functions to query RangersRecords (as a Stream and as a Future).
 Stream<List<RangersRecord>> queryRangersRecord({
@@ -497,6 +499,48 @@ Future<FFFirestorePage<FaqsRecord>> queryFaqsRecordPage({
     queryCollectionPage(
       FaqsRecord.collection,
       FaqsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query FeatureRequestsRecords (as a Stream and as a Future).
+Stream<List<FeatureRequestsRecord>> queryFeatureRequestsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      FeatureRequestsRecord.collection,
+      FeatureRequestsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<FeatureRequestsRecord>> queryFeatureRequestsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      FeatureRequestsRecord.collection,
+      FeatureRequestsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<FeatureRequestsRecord>> queryFeatureRequestsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      FeatureRequestsRecord.collection,
+      FeatureRequestsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

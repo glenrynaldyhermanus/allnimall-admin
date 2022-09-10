@@ -305,6 +305,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => EditFAQWidget(
                 faq: params.getParam('faq', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'FeedbackList',
+              path: 'feedbackList',
+              requireAuth: true,
+              builder: (context, params) => FeedbackListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
+            ),
+            FFRoute(
+              name: 'EditFeedback',
+              path: 'editFeedback',
+              requireAuth: true,
+              asyncParams: {
+                'featureRequest': getDoc(
+                    'feature_requests', FeatureRequestsRecord.serializer),
+              },
+              builder: (context, params) => EditFeedbackWidget(
+                featureRequest:
+                    params.getParam('featureRequest', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
