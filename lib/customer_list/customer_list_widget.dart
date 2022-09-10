@@ -109,10 +109,10 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                             controller: textController,
                                             obscureText: false,
                                             decoration: InputDecoration(
-                                              labelText: 'Search name or phone',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText2,
+                                              hintText: 'Search name',
                                               enabledBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
