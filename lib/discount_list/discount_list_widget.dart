@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,16 +22,12 @@ class DiscountListWidget extends StatefulWidget {
 class _DiscountListWidgetState extends State<DiscountListWidget> {
   TextEditingController? textController;
 
+  List<DiscountsRecord>? algoliaSearchResults = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() => FFAppState().searchQuery = '');
-    });
-
     textController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -204,8 +199,15 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 20, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() => FFAppState().searchQuery =
-                                    textController!.text);
+                                setState(() => algoliaSearchResults = null);
+                                await DiscountsRecord.search(
+                                  term: textController!.text,
+                                  maxResults: 10,
+                                )
+                                    .then((r) => algoliaSearchResults = r)
+                                    .onError(
+                                        (_, __) => algoliaSearchResults = [])
+                                    .whenComplete(() => setState(() {}));
                               },
                               text: 'Search',
                               options: FFButtonOptions(
