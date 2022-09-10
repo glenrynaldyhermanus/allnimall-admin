@@ -76,3 +76,16 @@ String searchQueryAlgolia(String? searchQuery) {
   }
   return searchQuery;
 }
+
+String addressString(
+  String? localAddress,
+  String? geoAddress,
+) {
+  if (localAddress != null && localAddress.isNotEmpty) {
+    return localAddress;
+  }
+  if (geoAddress != null && geoAddress.isNotEmpty) {
+    return geoAddress;
+  }
+  return "Empty address";
+}
