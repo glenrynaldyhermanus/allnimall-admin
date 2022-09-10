@@ -145,82 +145,25 @@ class _MenuWidgetState extends State<MenuWidget> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: InkWell(
-                            onTap: () async {
-                              context.pushNamed('CreateOrder');
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 0, 0),
-                                  child: Text(
-                                    'Create Order',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText2,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0.9, 0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Color(0xFF95A1AC),
-                                      size: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: InkWell(
-                              onTap: () async {
-                                context.pushNamed('CreateOrder');
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24, 0, 0, 0),
-                                    child: Text(
-                                      'Master Datas',
-                                      style: FlutterFlowTheme.of(context)
-                                          .subtitle1,
-                                    ),
-                                  ),
-                                ],
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          context.pushNamed('CreateOrder');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                              child: Text(
+                                'Order',
+                                style: FlutterFlowTheme.of(context).subtitle1,
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Row(
@@ -242,7 +185,74 @@ class _MenuWidgetState extends State<MenuWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 4, 0),
+                                      24, 0, 8, 0),
+                                  child: Icon(
+                                    Icons.menu,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Create Order',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          context.pushNamed('CreateOrder');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                              child: Text(
+                                'Data',
+                                style: FlutterFlowTheme.of(context).subtitle1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              context.pushNamed('CreateOrder');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 8, 0),
                                   child: Icon(
                                     Icons.pets,
                                     color: Colors.black,
@@ -288,7 +298,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 4, 0),
+                                      24, 0, 8, 0),
                                   child: Icon(
                                     Icons.content_cut,
                                     color: Colors.black,
@@ -334,7 +344,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 4, 0),
+                                      24, 0, 8, 0),
                                   child: Icon(
                                     Icons.people,
                                     color: Colors.black,
@@ -380,7 +390,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 4, 0),
+                                      24, 0, 8, 0),
                                   child: Icon(
                                     Icons.person,
                                     color: Colors.black,
