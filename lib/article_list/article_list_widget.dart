@@ -346,12 +346,15 @@ class _ArticleListWidgetState extends State<ArticleListWidget> {
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
-                                                        Text(
-                                                          columnArticlesRecord
-                                                              .title!,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .subtitle2,
+                                                        Expanded(
+                                                          child: Text(
+                                                            columnArticlesRecord
+                                                                .title!,
+                                                            maxLines: 2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
