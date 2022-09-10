@@ -56,6 +56,39 @@ abstract class CustomersRecord
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
+  static CustomersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      CustomersRecord(
+        (c) => c
+          ..email = snapshot.data['email']
+          ..displayName = snapshot.data['display_name']
+          ..photoUrl = snapshot.data['photo_url']
+          ..uid = snapshot.data['uid']
+          ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
+              snapshot.data['created_time']))
+          ..phoneNumber = snapshot.data['phone_number']
+          ..orderLatlng = safeGet(() => LatLng(
+                snapshot.data['_geoloc']['lat'],
+                snapshot.data['_geoloc']['lng'],
+              ))
+          ..orderAddress = snapshot.data['order_address']
+          ..ffRef = CustomersRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<CustomersRecord>> search(
+          {String? term,
+          FutureOr<LatLng>? location,
+          int? maxResults,
+          double? searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'customers',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   CustomersRecord._();
   factory CustomersRecord([void Function(CustomersRecordBuilder) updates]) =
       _$CustomersRecord;
