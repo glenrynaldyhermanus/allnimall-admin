@@ -206,12 +206,11 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                 controller: textController,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  labelText:
-                                                      'Search name or phone',
                                                   labelStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .bodyText2,
+                                                  hintText: 'Search service',
                                                   enabledBorder:
                                                       UnderlineInputBorder(
                                                     borderSide: BorderSide(
@@ -457,18 +456,9 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                formatNumber(
-                                                                  columnServicesRecord
-                                                                      .fee!,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .decimal,
-                                                                  decimalType:
-                                                                      DecimalType
-                                                                          .commaDecimal,
-                                                                  currency:
-                                                                      'Rp',
-                                                                ),
+                                                                columnServicesRecord
+                                                                    .fee!
+                                                                    .toString(),
                                                                 maxLines: 1,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
