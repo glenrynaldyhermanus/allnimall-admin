@@ -183,7 +183,7 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                           onChanged: (newValue) =>
                               setState(() => switchListTileValue = newValue),
                           title: Text(
-                            'Publish discount?',
+                            'Publish category?',
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                           tileColor: FlutterFlowTheme.of(context).tertiaryColor,
