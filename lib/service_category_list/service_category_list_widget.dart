@@ -3,7 +3,9 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ServiceCategoryListWidget extends StatefulWidget {
@@ -27,6 +29,11 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() => FFAppState().searchQuery = '');
+    });
+
     textController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -131,7 +138,8 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                             controller: textController,
                                             obscureText: false,
                                             decoration: InputDecoration(
-                                              labelText: 'Search name or phone',
+                                              labelText:
+                                                  'Search category or type',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText2,
@@ -234,8 +242,12 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: StreamBuilder<List<ServiceCategoriesRecord>>(
-                        stream: queryServiceCategoriesRecord(),
+                      child: FutureBuilder<List<ServiceCategoriesRecord>>(
+                        future: ServiceCategoriesRecord.search(
+                          term: functions
+                              .searchQueryAlgolia(FFAppState().searchQuery),
+                          maxResults: 10,
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -253,6 +265,15 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                           List<ServiceCategoriesRecord>
                               columnServiceCategoriesRecordList =
                               snapshot.data!;
+                          // Customize what your widget looks like with no search results.
+                          if (snapshot.data!.isEmpty) {
+                            return Container(
+                              height: 100,
+                              child: Center(
+                                child: Text('No results.'),
+                              ),
+                            );
+                          }
                           return SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -267,7 +288,7 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                       0, 0, 0, 1),
                                   child: Container(
                                     width: double.infinity,
-                                    height: 90,
+                                    height: 72,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -303,15 +324,27 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    child: Image.network(
-                                                      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
-                                                      width: 74,
-                                                      height: 74,
-                                                      fit: BoxFit.cover,
+                                                  Container(
+                                                    width: 48,
+                                                    height: 48,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFD8D1F2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      child: Icon(
+                                                        Icons.room_service,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        size: 24,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -331,6 +364,29 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            columnServiceCategoriesRecord
+                                                                .type!,
+                                                            maxLines: 1,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryColor,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
                                                         Text(
                                                           columnServiceCategoriesRecord
                                                               .name!,
@@ -340,30 +396,97 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                         ),
                                                       ],
                                                     ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            columnServiceCategoriesRecord
-                                                                .type!,
-                                                            maxLines: 1,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize: 12,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
                                                   ],
                                                 ),
                                               ),
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                if (columnServiceCategoriesRecord
+                                                        .isActive ==
+                                                    true)
+                                                  Container(
+                                                    width: 72,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 5, 0, 5),
+                                                      child: Text(
+                                                        'Active',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                if (columnServiceCategoriesRecord
+                                                        .isActive ==
+                                                    false)
+                                                  Container(
+                                                    width: 72,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .backgroundComponents,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 5, 0, 5),
+                                                      child: Text(
+                                                        'Inactive',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
                                             ),
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
