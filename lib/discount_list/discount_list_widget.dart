@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DiscountListWidget extends StatefulWidget {
@@ -125,7 +126,7 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                             controller: textController,
                                             obscureText: false,
                                             decoration: InputDecoration(
-                                              labelText: 'Search name or phone',
+                                              labelText: 'Search discount',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText2,
@@ -229,7 +230,20 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: StreamBuilder<List<DiscountsRecord>>(
-                        stream: queryDiscountsRecord(),
+                        stream: queryDiscountsRecord(
+                          queryBuilder: (discountsRecord) => discountsRecord
+                              .where('name',
+                                  isGreaterThanOrEqualTo:
+                                      FFAppState().searchQuery != ''
+                                          ? FFAppState().searchQuery
+                                          : null)
+                              .where('name',
+                                  isLessThanOrEqualTo:
+                                      FFAppState().searchQuery != ''
+                                          ? FFAppState().searchQuery
+                                          : null),
+                          limit: 10,
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -259,7 +273,7 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                       0, 0, 0, 1),
                                   child: Container(
                                     width: double.infinity,
-                                    height: 90,
+                                    height: 72,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -292,15 +306,28 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    child: Image.network(
-                                                      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
-                                                      width: 74,
-                                                      height: 74,
-                                                      fit: BoxFit.cover,
+                                                  Container(
+                                                    width: 48,
+                                                    height: 48,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFD8D1F2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      child: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .percentage,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        size: 24,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
