@@ -80,7 +80,7 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
         elevation: 2,
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           context.pushNamed(
             'CreateService',
@@ -94,10 +94,13 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
         },
         backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
         elevation: 8,
-        child: Icon(
-          Icons.add,
-          color: FlutterFlowTheme.of(context).tertiaryColor,
-          size: 24,
+        label: Text(
+          'Add Service',
+          textAlign: TextAlign.center,
+          style: FlutterFlowTheme.of(context).bodyText1.override(
+                fontFamily: 'Poppins',
+                color: FlutterFlowTheme.of(context).tertiaryColor,
+              ),
         ),
       ),
       body: SafeArea(
