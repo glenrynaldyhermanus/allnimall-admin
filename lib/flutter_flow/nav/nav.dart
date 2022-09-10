@@ -255,6 +255,56 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateServiceWidget(
                 category: params.getParam('category', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'EditArticle',
+              path: 'editArticle',
+              requireAuth: true,
+              asyncParams: {
+                'article': getDoc('articles', ArticlesRecord.serializer),
+              },
+              builder: (context, params) => EditArticleWidget(
+                article: params.getParam('article', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'ArticleList',
+              path: 'articleList',
+              requireAuth: true,
+              builder: (context, params) => ArticleListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
+            ),
+            FFRoute(
+              name: 'CreateArticle',
+              path: 'createArticle',
+              requireAuth: true,
+              builder: (context, params) => CreateArticleWidget(),
+            ),
+            FFRoute(
+              name: 'FAQList',
+              path: 'fAQList',
+              requireAuth: true,
+              builder: (context, params) => FAQListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
+            ),
+            FFRoute(
+              name: 'CreateFAQ',
+              path: 'createFAQ',
+              requireAuth: true,
+              builder: (context, params) => CreateFAQWidget(),
+            ),
+            FFRoute(
+              name: 'EditFAQ',
+              path: 'editFAQ',
+              requireAuth: true,
+              asyncParams: {
+                'faq': getDoc('faqs', FaqsRecord.serializer),
+              },
+              builder: (context, params) => EditFAQWidget(
+                faq: params.getParam('faq', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
