@@ -51,6 +51,34 @@ abstract class ServicesRecord
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
+  static ServicesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      ServicesRecord(
+        (c) => c
+          ..categoryUid = safeGet(() => toRef(snapshot.data['category_uid']))
+          ..name = snapshot.data['name']
+          ..fee = snapshot.data['fee']?.toDouble()
+          ..categoryName = snapshot.data['category_name']
+          ..isActive = snapshot.data['is_active']
+          ..description = snapshot.data['description']
+          ..sequence = snapshot.data['sequence']?.round()
+          ..ffRef = ServicesRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<ServicesRecord>> search(
+          {String? term,
+          FutureOr<LatLng>? location,
+          int? maxResults,
+          double? searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'services',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   ServicesRecord._();
   factory ServicesRecord([void Function(ServicesRecordBuilder) updates]) =
       _$ServicesRecord;

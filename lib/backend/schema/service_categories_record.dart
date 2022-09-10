@@ -40,6 +40,30 @@ abstract class ServiceCategoriesRecord
       ref.get().then(
           (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
+  static ServiceCategoriesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      ServiceCategoriesRecord(
+        (c) => c
+          ..name = snapshot.data['name']
+          ..type = snapshot.data['type']
+          ..isActive = snapshot.data['is_active']
+          ..ffRef = ServiceCategoriesRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<ServiceCategoriesRecord>> search(
+          {String? term,
+          FutureOr<LatLng>? location,
+          int? maxResults,
+          double? searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'service_categories',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   ServiceCategoriesRecord._();
   factory ServiceCategoriesRecord(
           [void Function(ServiceCategoriesRecordBuilder) updates]) =
