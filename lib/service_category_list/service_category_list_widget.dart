@@ -138,11 +138,11 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                             controller: textController,
                                             obscureText: false,
                                             decoration: InputDecoration(
-                                              labelText:
-                                                  'Search category or type',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText2,
+                                              hintText:
+                                                  'Search category or type',
                                               enabledBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(

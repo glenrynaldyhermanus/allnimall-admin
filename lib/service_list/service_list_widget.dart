@@ -206,12 +206,11 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                 controller: textController,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  labelText:
-                                                      'Search name or phone',
                                                   labelStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .bodyText2,
+                                                  hintText: 'Search service',
                                                   enabledBorder:
                                                       UnderlineInputBorder(
                                                     borderSide: BorderSide(
