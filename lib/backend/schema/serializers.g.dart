@@ -9,6 +9,7 @@ part of 'serializers.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ActivitiesRecord.serializer)
       ..add(CustomersRecord.serializer)
+      ..add(DiscountsRecord.serializer)
       ..add(OrderPetsRecord.serializer)
       ..add(OrdersRecord.serializer)
       ..add(PetsRecord.serializer)

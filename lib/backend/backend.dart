@@ -12,6 +12,7 @@ import 'schema/order_pets_record.dart';
 import 'schema/service_categories_record.dart';
 import 'schema/services_record.dart';
 import 'schema/activities_record.dart';
+import 'schema/discounts_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -27,6 +28,7 @@ export 'schema/order_pets_record.dart';
 export 'schema/service_categories_record.dart';
 export 'schema/services_record.dart';
 export 'schema/activities_record.dart';
+export 'schema/discounts_record.dart';
 
 /// Functions to query RangersRecords (as a Stream and as a Future).
 Stream<List<RangersRecord>> queryRangersRecord({
@@ -365,6 +367,48 @@ Future<FFFirestorePage<ActivitiesRecord>> queryActivitiesRecordPage({
     queryCollectionPage(
       ActivitiesRecord.collection(parent),
       ActivitiesRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query DiscountsRecords (as a Stream and as a Future).
+Stream<List<DiscountsRecord>> queryDiscountsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      DiscountsRecord.collection,
+      DiscountsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<DiscountsRecord>> queryDiscountsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      DiscountsRecord.collection,
+      DiscountsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<DiscountsRecord>> queryDiscountsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      DiscountsRecord.collection,
+      DiscountsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
