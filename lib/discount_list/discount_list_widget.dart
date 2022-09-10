@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,6 +28,11 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() => FFAppState().searchQuery = '');
+    });
+
     textController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -126,10 +132,10 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                             controller: textController,
                                             obscureText: false,
                                             decoration: InputDecoration(
-                                              labelText: 'Search discount',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText2,
+                                              hintText: 'Search discount',
                                               enabledBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
