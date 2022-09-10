@@ -33,6 +33,7 @@ class _EditAddressWidgetState extends State<EditAddressWidget> {
       padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
       child: Container(
         width: double.infinity,
+        height: 360,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: [
@@ -191,6 +192,7 @@ class _EditAddressWidgetState extends State<EditAddressWidget> {
                       onPressed: () async {
                         setState(() => FFAppState().selectedCustomerAddress =
                             nameController!.text);
+                        Navigator.pop(context);
                       },
                       text: 'Save',
                       options: FFButtonOptions(

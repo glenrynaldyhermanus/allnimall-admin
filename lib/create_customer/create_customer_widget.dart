@@ -262,102 +262,50 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      if (FFAppState()
-                                                  .selectedCustomerAddress !=
-                                              null &&
-                                          FFAppState()
-                                                  .selectedCustomerAddress !=
-                                              '')
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: EditAddressWidget(
-                                                    address: FFAppState()
-                                                        .selectedCustomerAddress,
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                          text: 'Edit',
-                                          icon: Icon(
-                                            Icons.edit_sharp,
-                                            size: 15,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: 92,
-                                            height: 40,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                      if (FFAppState()
-                                                  .selectedCustomerAddress ==
-                                              null ||
-                                          FFAppState()
-                                                  .selectedCustomerAddress ==
-                                              '')
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              setState(() => FFAppState()
-                                                      .selectedCustomerAddress =
-                                                  placePickerValue.address);
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child: EditAddressWidget(
+                                                  address:
+                                                      placePickerValue.address,
+                                                ),
+                                              );
                                             },
-                                            text: 'Use ',
-                                            icon: Icon(
-                                              Icons.done,
-                                              size: 15,
-                                            ),
-                                            options: FFButtonOptions(
-                                              width: 92,
-                                              height: 40,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .subtitle2
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.white,
-                                                        fontSize: 14,
-                                                      ),
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                          ),
+                                          );
+                                        },
+                                        text: 'Edit',
+                                        icon: Icon(
+                                          Icons.edit_sharp,
+                                          size: 15,
                                         ),
+                                        options: FFButtonOptions(
+                                          width: 92,
+                                          height: 40,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .subtitle2
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                  ),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -436,16 +384,22 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                 },
                               );
                             } else {
-                              if (FFAppState().selectedCustomerAddress !=
+                              if (functions.addressString(
+                                          FFAppState().selectedCustomerAddress,
+                                          placePickerValue.address) !=
                                       null &&
-                                  FFAppState().selectedCustomerAddress != '') {
+                                  functions.addressString(
+                                          FFAppState().selectedCustomerAddress,
+                                          placePickerValue.address) !=
+                                      '') {
                                 final customersCreateData =
                                     createCustomersRecordData(
                                   displayName: nameController!.text,
                                   phoneNumber: handphoneController!.text,
                                   orderLatlng: googleMapsCenter,
-                                  orderAddress:
+                                  orderAddress: functions.addressString(
                                       FFAppState().selectedCustomerAddress,
+                                      placePickerValue.address),
                                   createdTime: getCurrentTimestamp,
                                 );
                                 await CustomersRecord.collection

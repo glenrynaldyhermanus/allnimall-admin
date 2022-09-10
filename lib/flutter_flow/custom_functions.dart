@@ -87,5 +87,5 @@ String addressString(
   if (geoAddress != null && geoAddress.isNotEmpty) {
     return geoAddress;
   }
-  return "Empty address";
+  return "";
 }
