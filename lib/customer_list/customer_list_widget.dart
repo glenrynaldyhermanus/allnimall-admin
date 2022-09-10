@@ -213,7 +213,12 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: StreamBuilder<List<CustomersRecord>>(
-                        stream: queryCustomersRecord(),
+                        stream: queryCustomersRecord(
+                          queryBuilder: (customersRecord) =>
+                              customersRecord.where('display_name',
+                                  isGreaterThanOrEqualTo:
+                                      FFAppState().searchQuery),
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
