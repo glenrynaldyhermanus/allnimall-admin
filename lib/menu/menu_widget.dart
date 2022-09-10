@@ -325,20 +325,33 @@ class _MenuWidgetState extends State<MenuWidget> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: InkWell(
-                            onTap: () async {
-                              context.pushNamed('CreateOrder');
-                            },
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'CustomerList',
+                          queryParams: {
+                            'isSelection':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.bottomToTop,
+                            ),
+                          },
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -368,23 +381,32 @@ class _MenuWidgetState extends State<MenuWidget> {
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: InkWell(
-                            onTap: () async {
-                              context.pushNamed('CreateOrder');
-                            },
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'RangerList',
+                          queryParams: {
+                            'isSelections':
+                                serializeParam(false, ParamType.bool),
+                            'isAsssignment':
+                                serializeParam(false, ParamType.bool),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              shape: BoxShape.rectangle,
+                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -414,8 +436,8 @@ class _MenuWidgetState extends State<MenuWidget> {
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
