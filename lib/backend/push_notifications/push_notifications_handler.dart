@@ -81,10 +81,18 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'Login': (data) async => LoginWidget(),
   'Menu': (data) async => MenuWidget(),
   'CreateOrder': (data) async => CreateOrderWidget(),
+  'OrderDetail': (data) async => OrderDetailWidget(
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
+      ),
   'CustomerList': (data) async => CustomerListWidget(
         isSelection: getParameter(data, 'isSelection'),
       ),
   'CreateCustomer': (data) async => CreateCustomerWidget(),
+  'EditCustomer': (data) async => EditCustomerWidget(
+        customer: await getDocumentParameter(
+            data, 'customer', CustomersRecord.serializer),
+      ),
   'RangerList': (data) async => RangerListWidget(
         isSelections: getParameter(data, 'isSelections'),
         isAsssignment: getParameter(data, 'isAsssignment'),
@@ -92,10 +100,6 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
   'RequestDetail': (data) async => RequestDetailWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'OrderDetail': (data) async => OrderDetailWidget(
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),

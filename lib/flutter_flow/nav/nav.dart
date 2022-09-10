@@ -98,6 +98,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateOrderWidget(),
             ),
             FFRoute(
+              name: 'OrderDetail',
+              path: 'orderDetail',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => OrderDetailWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
               name: 'CustomerList',
               path: 'customerList',
               builder: (context, params) => CustomerListWidget(
@@ -108,6 +118,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'CreateCustomer',
               path: 'createCustomer',
               builder: (context, params) => CreateCustomerWidget(),
+            ),
+            FFRoute(
+              name: 'EditCustomer',
+              path: 'editCustomer',
+              asyncParams: {
+                'customer': getDoc('customers', CustomersRecord.serializer),
+              },
+              builder: (context, params) => EditCustomerWidget(
+                customer: params.getParam('customer', ParamType.Document),
+              ),
             ),
             FFRoute(
               name: 'RangerList',
@@ -128,16 +148,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => RequestDetailWidget(
-                order: params.getParam('order', ParamType.Document),
-              ),
-            ),
-            FFRoute(
-              name: 'OrderDetail',
-              path: 'orderDetail',
-              asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
-              },
-              builder: (context, params) => OrderDetailWidget(
                 order: params.getParam('order', ParamType.Document),
               ),
             ),

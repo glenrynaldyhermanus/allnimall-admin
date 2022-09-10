@@ -368,7 +368,7 @@ class _EditCustomerForOrderWidgetState
                             options: FFButtonOptions(
                               width: 270,
                               height: 50,
-                              color: Color(0xFF0F1113),
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               textStyle: FlutterFlowTheme.of(context)
                                   .subtitle2
                                   .override(
