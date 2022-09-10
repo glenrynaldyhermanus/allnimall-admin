@@ -217,7 +217,10 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                           queryBuilder: (customersRecord) =>
                               customersRecord.where('display_name',
                                   isGreaterThanOrEqualTo:
-                                      FFAppState().searchQuery),
+                                      FFAppState().searchQuery != ''
+                                          ? FFAppState().searchQuery
+                                          : null),
+                          limit: 10,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.

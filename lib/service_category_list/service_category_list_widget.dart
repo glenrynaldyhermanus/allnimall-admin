@@ -3,7 +3,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -242,11 +241,15 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: FutureBuilder<List<ServiceCategoriesRecord>>(
-                        future: ServiceCategoriesRecord.search(
-                          term: functions
-                              .searchQueryAlgolia(FFAppState().searchQuery),
-                          maxResults: 10,
+                      child: StreamBuilder<List<ServiceCategoriesRecord>>(
+                        stream: queryServiceCategoriesRecord(
+                          queryBuilder: (serviceCategoriesRecord) =>
+                              serviceCategoriesRecord.where('name',
+                                  isGreaterThanOrEqualTo:
+                                      FFAppState().searchQuery != ''
+                                          ? FFAppState().searchQuery
+                                          : null),
+                          limit: 10,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -265,15 +268,6 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                           List<ServiceCategoriesRecord>
                               columnServiceCategoriesRecordList =
                               snapshot.data!;
-                          // Customize what your widget looks like with no search results.
-                          if (snapshot.data!.isEmpty) {
-                            return Container(
-                              height: 100,
-                              child: Center(
-                                child: Text('No results.'),
-                              ),
-                            );
-                          }
                           return SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
