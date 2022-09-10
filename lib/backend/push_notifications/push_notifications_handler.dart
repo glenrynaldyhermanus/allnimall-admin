@@ -114,6 +114,11 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'ServiceCategoryList': (data) async => ServiceCategoryListWidget(
         isSelection: getParameter(data, 'isSelection'),
       ),
+  'EditServiceCategory': (data) async => EditServiceCategoryWidget(
+        category: await getDocumentParameter(
+            data, 'category', ServiceCategoriesRecord.serializer),
+      ),
+  'CreateServiceCategory': (data) async => CreateServiceCategoryWidget(),
   'DiscountList': (data) async => DiscountListWidget(
         isSelection: getParameter(data, 'isSelection'),
       ),
@@ -122,6 +127,19 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
             data, 'discount', DiscountsRecord.serializer),
       ),
   'CreateDiscount': (data) async => CreateDiscountWidget(),
+  'ServiceList': (data) async => ServiceListWidget(
+        isSelection: getParameter(data, 'isSelection'),
+        category: await getDocumentParameter(
+            data, 'category', ServiceCategoriesRecord.serializer),
+      ),
+  'EditService': (data) async => EditServiceWidget(
+        service: await getDocumentParameter(
+            data, 'service', ServicesRecord.serializer),
+      ),
+  'CreateService': (data) async => CreateServiceWidget(
+        category: await getDocumentParameter(
+            data, 'category', ServiceCategoriesRecord.serializer),
+      ),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>
