@@ -186,12 +186,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'CreateDiscount',
-              path: 'createDiscount',
+              name: 'FormDiscount',
+              path: 'formDiscount',
               asyncParams: {
                 'discount': getDoc('discounts', DiscountsRecord.serializer),
               },
-              builder: (context, params) => CreateDiscountWidget(
+              builder: (context, params) => FormDiscountWidget(
                 discount: params.getParam('discount', ParamType.Document),
               ),
             )

@@ -117,7 +117,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'DiscountList': (data) async => DiscountListWidget(
         isSelection: getParameter(data, 'isSelection'),
       ),
-  'CreateDiscount': (data) async => CreateDiscountWidget(
+  'FormDiscount': (data) async => FormDiscountWidget(
         discount: await getDocumentParameter(
             data, 'discount', DiscountsRecord.serializer),
       ),

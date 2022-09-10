@@ -17,4 +17,4 @@ export 'edit_order_schedule/edit_order_schedule_widget.dart'
 export 'service_category_list/service_category_list_widget.dart'
     show ServiceCategoryListWidget;
 export 'discount_list/discount_list_widget.dart' show DiscountListWidget;
-export 'create_discount/create_discount_widget.dart' show CreateDiscountWidget;
+export 'form_discount/form_discount_widget.dart' show FormDiscountWidget;
