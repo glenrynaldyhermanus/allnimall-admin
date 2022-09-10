@@ -371,7 +371,7 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                             maxLines: 1,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .subtitle2
+                                                                .bodyText2
                                                                 .override(
                                                                   fontFamily:
                                                                       'Poppins',
