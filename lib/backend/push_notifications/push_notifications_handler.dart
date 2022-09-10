@@ -81,10 +81,10 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'Login': (data) async => LoginWidget(),
   'Menu': (data) async => MenuWidget(),
   'CreateOrder': (data) async => CreateOrderWidget(),
-  'CreateCustomer': (data) async => CreateCustomerWidget(),
   'CustomerList': (data) async => CustomerListWidget(
         isSelection: getParameter(data, 'isSelection'),
       ),
+  'CreateCustomer': (data) async => CreateCustomerWidget(),
   'RangerList': (data) async => RangerListWidget(
         isSelections: getParameter(data, 'isSelections'),
         isAsssignment: getParameter(data, 'isAsssignment'),
@@ -116,6 +116,10 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'DiscountList': (data) async => DiscountListWidget(
         isSelection: getParameter(data, 'isSelection'),
+      ),
+  'CreateDiscount': (data) async => CreateDiscountWidget(
+        discount: await getDocumentParameter(
+            data, 'discount', DiscountsRecord.serializer),
       ),
 };
 

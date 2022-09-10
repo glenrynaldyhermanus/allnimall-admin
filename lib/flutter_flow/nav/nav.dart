@@ -98,16 +98,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateOrderWidget(),
             ),
             FFRoute(
-              name: 'CreateCustomer',
-              path: 'createCustomer',
-              builder: (context, params) => CreateCustomerWidget(),
-            ),
-            FFRoute(
               name: 'CustomerList',
               path: 'customerList',
               builder: (context, params) => CustomerListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
               ),
+            ),
+            FFRoute(
+              name: 'CreateCustomer',
+              path: 'createCustomer',
+              builder: (context, params) => CreateCustomerWidget(),
             ),
             FFRoute(
               name: 'RangerList',
@@ -183,6 +183,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'discountList',
               builder: (context, params) => DiscountListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
+            ),
+            FFRoute(
+              name: 'CreateDiscount',
+              path: 'createDiscount',
+              asyncParams: {
+                'discount': getDoc('discounts', DiscountsRecord.serializer),
+              },
+              builder: (context, params) => CreateDiscountWidget(
+                discount: params.getParam('discount', ParamType.Document),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
