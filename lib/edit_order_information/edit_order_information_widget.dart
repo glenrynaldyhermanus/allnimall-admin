@@ -24,10 +24,12 @@ class EditOrderInformationWidget extends StatefulWidget {
 
 class _EditOrderInformationWidgetState
     extends State<EditOrderInformationWidget> {
+  TextEditingController? amountController;
+
+  TextEditingController? quantityController;
+
   String? petCategoryListValue;
   String? petServiceListValue;
-  TextEditingController? quantityController;
-  TextEditingController? amountController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -139,6 +141,26 @@ class _EditOrderInformationWidgetState
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           contentPadding:
@@ -169,6 +191,26 @@ class _EditOrderInformationWidgetState
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 0,
