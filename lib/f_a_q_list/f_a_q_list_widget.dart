@@ -366,28 +366,11 @@ class _FAQListWidgetState extends State<FAQListWidget> {
                                                               .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          columnFaqsRecord
-                                                              .question!,
-                                                          maxLines: 1,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .subtitle2
+                                                              .bodyText1
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                               ),
                                                         ),
                                                       ],
@@ -396,18 +379,23 @@ class _FAQListWidgetState extends State<FAQListWidget> {
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
-                                                        Text(
-                                                          columnFaqsRecord
-                                                              .answer!,
-                                                          maxLines: 1,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .subtitle2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontSize: 14,
-                                                              ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            columnFaqsRecord
+                                                                .question!,
+                                                            maxLines: 2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize: 14,
+                                                                ),
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
