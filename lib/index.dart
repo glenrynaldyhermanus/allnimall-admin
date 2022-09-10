@@ -14,3 +14,6 @@ export 'edit_order_information/edit_order_information_widget.dart'
     show EditOrderInformationWidget;
 export 'edit_order_schedule/edit_order_schedule_widget.dart'
     show EditOrderScheduleWidget;
+export 'service_category_list/service_category_list_widget.dart'
+    show ServiceCategoryListWidget;
+export 'discount_list/discount_list_widget.dart' show DiscountListWidget;

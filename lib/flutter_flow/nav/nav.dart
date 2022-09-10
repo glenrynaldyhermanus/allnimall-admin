@@ -170,6 +170,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => EditOrderScheduleWidget(
                 order: params.getParam('order', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'ServiceCategoryList',
+              path: 'serviceCategoryList',
+              builder: (context, params) => ServiceCategoryListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
+            ),
+            FFRoute(
+              name: 'DiscountList',
+              path: 'discountList',
+              builder: (context, params) => DiscountListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
