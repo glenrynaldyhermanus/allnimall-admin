@@ -179,6 +179,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'EditServiceCategory',
+              path: 'editServiceCategory',
+              requireAuth: true,
+              asyncParams: {
+                'category': getDoc(
+                    'service_categories', ServiceCategoriesRecord.serializer),
+              },
+              builder: (context, params) => EditServiceCategoryWidget(
+                category: params.getParam('category', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'CreateServiceCategory',
+              path: 'createServiceCategory',
+              requireAuth: true,
+              builder: (context, params) => CreateServiceCategoryWidget(),
+            ),
+            FFRoute(
               name: 'DiscountList',
               path: 'discountList',
               requireAuth: true,
@@ -202,6 +220,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createDiscount',
               requireAuth: true,
               builder: (context, params) => CreateDiscountWidget(),
+            ),
+            FFRoute(
+              name: 'ServiceList',
+              path: 'serviceList',
+              asyncParams: {
+                'category': getDoc(
+                    'service_categories', ServiceCategoriesRecord.serializer),
+              },
+              builder: (context, params) => ServiceListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+                category: params.getParam('category', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditService',
+              path: 'editService',
+              requireAuth: true,
+              asyncParams: {
+                'service': getDoc('services', ServicesRecord.serializer),
+              },
+              builder: (context, params) => EditServiceWidget(
+                service: params.getParam('service', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'CreateService',
+              path: 'createService',
+              requireAuth: true,
+              asyncParams: {
+                'category': getDoc(
+                    'service_categories', ServiceCategoriesRecord.serializer),
+              },
+              builder: (context, params) => CreateServiceWidget(
+                category: params.getParam('category', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

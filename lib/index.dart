@@ -16,6 +16,13 @@ export 'edit_order_schedule/edit_order_schedule_widget.dart'
     show EditOrderScheduleWidget;
 export 'service_category_list/service_category_list_widget.dart'
     show ServiceCategoryListWidget;
+export 'edit_service_category/edit_service_category_widget.dart'
+    show EditServiceCategoryWidget;
+export 'create_service_category/create_service_category_widget.dart'
+    show CreateServiceCategoryWidget;
 export 'discount_list/discount_list_widget.dart' show DiscountListWidget;
 export 'edit_discount/edit_discount_widget.dart' show EditDiscountWidget;
 export 'create_discount/create_discount_widget.dart' show CreateDiscountWidget;
+export 'service_list/service_list_widget.dart' show ServiceListWidget;
+export 'edit_service/edit_service_widget.dart' show EditServiceWidget;
+export 'create_service/create_service_widget.dart' show CreateServiceWidget;

@@ -6,20 +6,21 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ServiceCategoryListWidget extends StatefulWidget {
-  const ServiceCategoryListWidget({
+class ServiceListWidget extends StatefulWidget {
+  const ServiceListWidget({
     Key? key,
     this.isSelection,
+    this.category,
   }) : super(key: key);
 
   final bool? isSelection;
+  final ServiceCategoriesRecord? category;
 
   @override
-  _ServiceCategoryListWidgetState createState() =>
-      _ServiceCategoryListWidgetState();
+  _ServiceListWidgetState createState() => _ServiceListWidgetState();
 }
 
-class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
+class _ServiceListWidgetState extends State<ServiceListWidget> {
   TextEditingController? textController;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -39,32 +40,66 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
         title: Text(
-          'Service Categories',
+          widget.category!.name!,
           style: FlutterFlowTheme.of(context).title3.override(
                 fontFamily: 'Poppins',
                 color: FlutterFlowTheme.of(context).tertiaryColor,
               ),
         ),
         actions: [
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.add,
-              color: FlutterFlowTheme.of(context).tertiaryColor,
-              size: 30,
-            ),
-            onPressed: () async {
-              context.pushNamed('CreateServiceCategory');
-            },
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30,
+                borderWidth: 1,
+                buttonSize: 60,
+                icon: Icon(
+                  Icons.mode_edit,
+                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                  size: 24,
+                ),
+                onPressed: () async {
+                  context.pushNamed(
+                    'EditServiceCategory',
+                    queryParams: {
+                      'category':
+                          serializeParam(widget.category, ParamType.Document),
+                    }.withoutNulls,
+                    extra: <String, dynamic>{
+                      'category': widget.category,
+                    },
+                  );
+                },
+              ),
+            ],
           ),
         ],
         centerTitle: false,
         elevation: 2,
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          context.pushNamed(
+            'CreateService',
+            queryParams: {
+              'category': serializeParam(widget.category, ParamType.Document),
+            }.withoutNulls,
+            extra: <String, dynamic>{
+              'category': widget.category,
+            },
+          );
+        },
+        backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
+        elevation: 8,
+        child: Icon(
+          Icons.add,
+          color: FlutterFlowTheme.of(context).tertiaryColor,
+          size: 24,
+        ),
+      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -229,8 +264,8 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: StreamBuilder<List<ServiceCategoriesRecord>>(
-                        stream: queryServiceCategoriesRecord(),
+                      child: StreamBuilder<List<ServicesRecord>>(
+                        stream: queryServicesRecord(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -245,18 +280,16 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                               ),
                             );
                           }
-                          List<ServiceCategoriesRecord>
-                              columnServiceCategoriesRecordList =
+                          List<ServicesRecord> columnServicesRecordList =
                               snapshot.data!;
                           return SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  columnServiceCategoriesRecordList.length,
-                                  (columnIndex) {
-                                final columnServiceCategoriesRecord =
-                                    columnServiceCategoriesRecordList[
-                                        columnIndex];
+                              children:
+                                  List.generate(columnServicesRecordList.length,
+                                      (columnIndex) {
+                                final columnServicesRecord =
+                                    columnServicesRecordList[columnIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 1),
@@ -273,17 +306,14 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                       child: InkWell(
                                         onTap: () async {
                                           context.pushNamed(
-                                            'ServiceList',
+                                            'EditService',
                                             queryParams: {
-                                              'isSelection': serializeParam(
-                                                  false, ParamType.bool),
-                                              'category': serializeParam(
-                                                  columnServiceCategoriesRecord,
+                                              'service': serializeParam(
+                                                  columnServicesRecord,
                                                   ParamType.Document),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
-                                              'category':
-                                                  columnServiceCategoriesRecord,
+                                              'service': columnServicesRecord,
                                             },
                                           );
                                         },
@@ -327,7 +357,7 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                           MainAxisSize.max,
                                                       children: [
                                                         Text(
-                                                          columnServiceCategoriesRecord
+                                                          columnServicesRecord
                                                               .name!,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -341,8 +371,8 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                       children: [
                                                         Expanded(
                                                           child: Text(
-                                                            columnServiceCategoriesRecord
-                                                                .type!,
+                                                            columnServicesRecord
+                                                                .description!,
                                                             maxLines: 1,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
