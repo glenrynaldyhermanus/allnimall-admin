@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/edit_address_widget.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -216,7 +217,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                           buttonOptions: FFButtonOptions(
                             width: double.infinity,
                             height: 50,
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: FlutterFlowTheme.of(context).secondaryColor,
                             textStyle:
                                 FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Poppins',
@@ -251,7 +252,9 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                         ),
                                   ),
                                   Text(
-                                    placePickerValue.address,
+                                    functions.addressString(
+                                        FFAppState().selectedCustomerAddress,
+                                        placePickerValue.address),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText2,
                                   ),
@@ -259,36 +262,58 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      FFButtonWidget(
-                                        onPressed: () {
-                                          print('Button pressed ...');
-                                        },
-                                        text: 'Edit',
-                                        icon: Icon(
-                                          Icons.edit_sharp,
-                                          size: 15,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: 92,
-                                          height: 40,
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .subtitle2
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: Colors.white,
-                                                    fontSize: 14,
+                                      if (FFAppState()
+                                                  .selectedCustomerAddress !=
+                                              null &&
+                                          FFAppState()
+                                                  .selectedCustomerAddress !=
+                                              '')
+                                        FFButtonWidget(
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
+                                                  child: EditAddressWidget(
+                                                    address: FFAppState()
+                                                        .selectedCustomerAddress,
                                                   ),
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
+                                                );
+                                              },
+                                            );
+                                          },
+                                          text: 'Edit',
+                                          icon: Icon(
+                                            Icons.edit_sharp,
+                                            size: 15,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                          options: FFButtonOptions(
+                                            width: 92,
+                                            height: 40,
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .subtitle2
+                                                    .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                    ),
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
-                                      ),
                                       if (FFAppState()
                                                   .selectedCustomerAddress ==
                                               null ||
@@ -315,7 +340,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                               height: 40,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryColor,
+                                                      .alternate,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .subtitle2
