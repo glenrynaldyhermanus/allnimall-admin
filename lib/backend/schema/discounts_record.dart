@@ -41,31 +41,6 @@ abstract class DiscountsRecord
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
-  static DiscountsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
-      DiscountsRecord(
-        (c) => c
-          ..discount = snapshot.data['discount']?.toDouble()
-          ..isActive = snapshot.data['is_active']
-          ..name = snapshot.data['name']
-          ..unit = snapshot.data['unit']
-          ..ffRef = DiscountsRecord.collection.doc(snapshot.objectID),
-      );
-
-  static Future<List<DiscountsRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
-      FFAlgoliaManager.instance
-          .algoliaQuery(
-            index: 'discounts',
-            term: term,
-            maxResults: maxResults,
-            location: location,
-            searchRadiusMeters: searchRadiusMeters,
-          )
-          .then((r) => r.map(fromAlgolia).toList());
-
   DiscountsRecord._();
   factory DiscountsRecord([void Function(DiscountsRecordBuilder) updates]) =
       _$DiscountsRecord;
