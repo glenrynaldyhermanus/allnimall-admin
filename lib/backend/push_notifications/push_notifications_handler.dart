@@ -107,11 +107,11 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
-  'EditOrderInformation': (data) async => EditOrderInformationWidget(
+  'EditOrderSchedule': (data) async => EditOrderScheduleWidget(
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
-  'EditOrderSchedule': (data) async => EditOrderScheduleWidget(
+  'EditOrderInformation': (data) async => EditOrderInformationWidget(
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),

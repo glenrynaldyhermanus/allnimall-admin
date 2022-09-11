@@ -162,22 +162,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'EditOrderInformation',
-              path: 'editOrderInformation',
-              asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
-              },
-              builder: (context, params) => EditOrderInformationWidget(
-                order: params.getParam('order', ParamType.Document),
-              ),
-            ),
-            FFRoute(
               name: 'EditOrderSchedule',
               path: 'editOrderSchedule',
               asyncParams: {
                 'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => EditOrderScheduleWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditOrderInformation',
+              path: 'editOrderInformation',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => EditOrderInformationWidget(
                 order: params.getParam('order', ParamType.Document),
               ),
             ),

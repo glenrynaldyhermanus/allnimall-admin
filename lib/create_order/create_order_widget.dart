@@ -110,7 +110,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                   size: 24,
                                 ),
                                 onPressed: () async {
-                                  context.pushNamed('CustomerList');
+                                  context.pushNamed(
+                                    'CustomerList',
+                                    queryParams: {
+                                      'isSelection':
+                                          serializeParam(true, ParamType.bool),
+                                    }.withoutNulls,
+                                  );
                                 },
                               ),
                             ],
