@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,7 +49,22 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                 color: FlutterFlowTheme.of(context).tertiaryColor,
               ),
         ),
-        actions: [],
+        actions: [
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.add,
+              color: FlutterFlowTheme.of(context).tertiaryColor,
+              size: 30,
+            ),
+            onPressed: () async {
+              context.pushNamed('CreateRanger');
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 2,
       ),
