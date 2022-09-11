@@ -120,16 +120,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateCustomerWidget(),
             ),
             FFRoute(
-              name: 'EditCustomer',
-              path: 'editCustomer',
-              asyncParams: {
-                'customer': getDoc('customers', CustomersRecord.serializer),
-              },
-              builder: (context, params) => EditCustomerWidget(
-                customer: params.getParam('customer', ParamType.Document),
-              ),
-            ),
-            FFRoute(
               name: 'RangerList',
               path: 'rangerList',
               asyncParams: {
@@ -149,6 +139,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               },
               builder: (context, params) => RequestDetailWidget(
                 order: params.getParam('order', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditCustomer',
+              path: 'editCustomer',
+              asyncParams: {
+                'customer': getDoc('customers', CustomersRecord.serializer),
+              },
+              builder: (context, params) => EditCustomerWidget(
+                customer: params.getParam('customer', ParamType.Document),
               ),
             ),
             FFRoute(
@@ -336,6 +336,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 featureRequest:
                     params.getParam('featureRequest', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'CreateRanger',
+              path: 'createRanger',
+              builder: (context, params) => CreateRangerWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
