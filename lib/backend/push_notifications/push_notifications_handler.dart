@@ -166,6 +166,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         featureRequest: await getDocumentParameter(
             data, 'featureRequest', FeatureRequestsRecord.serializer),
       ),
+  'CreateRanger': (data) async => CreateRangerWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

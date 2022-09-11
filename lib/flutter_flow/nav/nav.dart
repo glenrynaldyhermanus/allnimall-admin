@@ -336,6 +336,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 featureRequest:
                     params.getParam('featureRequest', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'CreateRanger',
+              path: 'createRanger',
+              builder: (context, params) => CreateRangerWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

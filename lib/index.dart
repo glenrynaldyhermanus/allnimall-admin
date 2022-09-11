@@ -35,3 +35,4 @@ export 'create_f_a_q/create_f_a_q_widget.dart' show CreateFAQWidget;
 export 'edit_f_a_q/edit_f_a_q_widget.dart' show EditFAQWidget;
 export 'feedback_list/feedback_list_widget.dart' show FeedbackListWidget;
 export 'edit_feedback/edit_feedback_widget.dart' show EditFeedbackWidget;
+export 'create_ranger/create_ranger_widget.dart' show CreateRangerWidget;
