@@ -267,22 +267,27 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                       0, 0, 0, 1),
                                   child: InkWell(
                                     onTap: () async {
-                                      setState(() => FFAppState()
-                                              .selectedCustomerName =
-                                          columnCustomersRecord.displayName!);
-                                      setState(() =>
-                                          FFAppState().selectedCustomer =
-                                              columnCustomersRecord.reference);
-                                      setState(() => FFAppState()
-                                              .selectedCustomerAddress =
-                                          columnCustomersRecord.orderAddress!);
-                                      setState(() => FFAppState()
-                                              .selectedCustomerPhone =
-                                          columnCustomersRecord.phoneNumber!);
-                                      setState(() => FFAppState()
-                                              .selectedCustomerLatLng =
-                                          columnCustomersRecord.orderLatlng);
-                                      context.pop();
+                                      if (widget.isSelection == true) {
+                                        setState(() => FFAppState()
+                                                .selectedCustomerName =
+                                            columnCustomersRecord.displayName!);
+                                        setState(() => FFAppState()
+                                                .selectedCustomer =
+                                            columnCustomersRecord.reference);
+                                        setState(() => FFAppState()
+                                                .selectedCustomerAddress =
+                                            columnCustomersRecord
+                                                .orderAddress!);
+                                        setState(() => FFAppState()
+                                                .selectedCustomerPhone =
+                                            columnCustomersRecord.phoneNumber!);
+                                        setState(() => FFAppState()
+                                                .selectedCustomerLatLng =
+                                            columnCustomersRecord.orderLatlng);
+                                        context.pop();
+                                      } else {
+                                        context.pushNamed('EditCustomer');
+                                      }
                                     },
                                     child: Container(
                                       width: double.infinity,
