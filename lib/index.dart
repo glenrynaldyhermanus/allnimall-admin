@@ -11,10 +11,10 @@ export 'request_detail/request_detail_widget.dart' show RequestDetailWidget;
 export 'edit_customer/edit_customer_widget.dart' show EditCustomerWidget;
 export 'edit_customer_for_order/edit_customer_for_order_widget.dart'
     show EditCustomerForOrderWidget;
-export 'edit_order_information/edit_order_information_widget.dart'
-    show EditOrderInformationWidget;
 export 'edit_order_schedule/edit_order_schedule_widget.dart'
     show EditOrderScheduleWidget;
+export 'edit_order_information/edit_order_information_widget.dart'
+    show EditOrderInformationWidget;
 export 'service_category_list/service_category_list_widget.dart'
     show ServiceCategoryListWidget;
 export 'edit_service_category/edit_service_category_widget.dart'

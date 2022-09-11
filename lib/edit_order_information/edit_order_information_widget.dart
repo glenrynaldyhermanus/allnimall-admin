@@ -76,7 +76,12 @@ class _EditOrderInformationWidgetState
                       child: FlutterFlowDropDown(
                         initialOption: petCategoryListValue ??=
                             widget.order!.petCategory,
-                        options: ['Kucing'],
+                        options: [
+                          'Kucing',
+                          'Anjing Small',
+                          'Anjing Medium',
+                          'Anjing Large'
+                        ],
                         onChanged: (val) =>
                             setState(() => petCategoryListValue = val),
                         height: 50,
@@ -96,7 +101,15 @@ class _EditOrderInformationWidgetState
                       child: FlutterFlowDropDown(
                         initialOption: petServiceListValue ??=
                             widget.order!.service,
-                        options: ['Mandi Lengkap', 'Mandi Sehat', 'Shaving'],
+                        options: [
+                          'Mandi Lengkap',
+                          'Mandi Sehat',
+                          'Mandi Jamur',
+                          'Mandi Kutu',
+                          'Cukur Minor',
+                          'Cukur Major',
+                          'Cukur Style'
+                        ],
                         onChanged: (val) =>
                             setState(() => petServiceListValue = val),
                         height: 50,
