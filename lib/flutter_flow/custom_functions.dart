@@ -89,3 +89,19 @@ String addressString(
   }
   return "";
 }
+
+double countTotalService(
+  ServicesRecord? service,
+  List<AddOnsRecord>? addOns,
+  int? numOfPet,
+) {
+  double serviceFee = service!.fee!;
+
+  if (addOns != null) {
+    for (AddOnsRecord addOn in addOns) {
+      serviceFee += addOn.fee!;
+    }
+  }
+
+  return serviceFee * numOfPet!;
+}
