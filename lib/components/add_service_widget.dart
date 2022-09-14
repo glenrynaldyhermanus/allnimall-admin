@@ -203,6 +203,10 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                Divider(
+                  height: 16,
+                  thickness: 1,
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
