@@ -34,6 +34,13 @@ class _$ActivitiesRecordSerializer
         ..add('sequence')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.isActive;
+    if (value != null) {
+      result
+        ..add('is_active')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -65,6 +72,10 @@ class _$ActivitiesRecordSerializer
           result.sequence = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'is_active':
+          result.isActive = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -84,13 +95,17 @@ class _$ActivitiesRecord extends ActivitiesRecord {
   @override
   final int? sequence;
   @override
+  final bool? isActive;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ActivitiesRecord(
           [void Function(ActivitiesRecordBuilder)? updates]) =>
       (new ActivitiesRecordBuilder()..update(updates))._build();
 
-  _$ActivitiesRecord._({this.activity, this.sequence, this.ffRef}) : super._();
+  _$ActivitiesRecord._(
+      {this.activity, this.sequence, this.isActive, this.ffRef})
+      : super._();
 
   @override
   ActivitiesRecord rebuild(void Function(ActivitiesRecordBuilder) updates) =>
@@ -106,13 +121,16 @@ class _$ActivitiesRecord extends ActivitiesRecord {
     return other is ActivitiesRecord &&
         activity == other.activity &&
         sequence == other.sequence &&
+        isActive == other.isActive &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, activity.hashCode), sequence.hashCode), ffRef.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, activity.hashCode), sequence.hashCode),
+            isActive.hashCode),
+        ffRef.hashCode));
   }
 
   @override
@@ -120,6 +138,7 @@ class _$ActivitiesRecord extends ActivitiesRecord {
     return (newBuiltValueToStringHelper(r'ActivitiesRecord')
           ..add('activity', activity)
           ..add('sequence', sequence)
+          ..add('isActive', isActive)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -137,6 +156,10 @@ class ActivitiesRecordBuilder
   int? get sequence => _$this._sequence;
   set sequence(int? sequence) => _$this._sequence = sequence;
 
+  bool? _isActive;
+  bool? get isActive => _$this._isActive;
+  set isActive(bool? isActive) => _$this._isActive = isActive;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -150,6 +173,7 @@ class ActivitiesRecordBuilder
     if ($v != null) {
       _activity = $v.activity;
       _sequence = $v.sequence;
+      _isActive = $v.isActive;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -173,7 +197,10 @@ class ActivitiesRecordBuilder
   _$ActivitiesRecord _build() {
     final _$result = _$v ??
         new _$ActivitiesRecord._(
-            activity: activity, sequence: sequence, ffRef: ffRef);
+            activity: activity,
+            sequence: sequence,
+            isActive: isActive,
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }
