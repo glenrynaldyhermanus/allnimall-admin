@@ -182,7 +182,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                 ),
                                 onPressed: () async {
                                   context.pushNamed(
-                                    'ServiceList',
+                                    'ServiceCategoryList',
                                     queryParams: {
                                       'isSelection':
                                           serializeParam(true, ParamType.bool),
