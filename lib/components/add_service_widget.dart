@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddServiceWidget extends StatefulWidget {
@@ -218,7 +217,7 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                       child: Container(
-                        width: 120,
+                        width: 148,
                         height: 50,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -230,19 +229,19 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                           ),
                         ),
                         child: FlutterFlowCountController(
-                          decrementIconBuilder: (enabled) => FaIcon(
-                            FontAwesomeIcons.minus,
+                          decrementIconBuilder: (enabled) => Icon(
+                            Icons.remove_circle,
                             color: enabled
                                 ? FlutterFlowTheme.of(context).secondaryColor
-                                : Color(0xFFEEEEEE),
-                            size: 16,
+                                : Color(0xFF828D9A),
+                            size: 28,
                           ),
-                          incrementIconBuilder: (enabled) => FaIcon(
-                            FontAwesomeIcons.plus,
+                          incrementIconBuilder: (enabled) => Icon(
+                            Icons.add_circle,
                             color: enabled
                                 ? FlutterFlowTheme.of(context).secondaryColor
-                                : Color(0xFFEEEEEE),
-                            size: 16,
+                                : Color(0xFF828D9A),
+                            size: 28,
                           ),
                           countBuilder: (count) => Text(
                             count.toString(),
