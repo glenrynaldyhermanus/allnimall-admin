@@ -5,8 +5,8 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ActivityListWidget extends StatefulWidget {
-  const ActivityListWidget({
+class AddOnListWidget extends StatefulWidget {
+  const AddOnListWidget({
     Key? key,
     this.isSelection,
     this.service,
@@ -16,10 +16,10 @@ class ActivityListWidget extends StatefulWidget {
   final ServicesRecord? service;
 
   @override
-  _ActivityListWidgetState createState() => _ActivityListWidgetState();
+  _AddOnListWidgetState createState() => _AddOnListWidgetState();
 }
 
-class _ActivityListWidgetState extends State<ActivityListWidget> {
+class _AddOnListWidgetState extends State<AddOnListWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,14 +46,14 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
             ),
           );
         }
-        final activityListServicesRecord = snapshot.data!;
+        final addOnListServicesRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
             title: Text(
-              activityListServicesRecord.name!,
+              addOnListServicesRecord.name!,
               style: FlutterFlowTheme.of(context).title3.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -100,11 +100,11 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                       Expanded(
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                          child: StreamBuilder<List<ActivitiesRecord>>(
-                            stream: queryActivitiesRecord(
+                          child: StreamBuilder<List<AddOnsRecord>>(
+                            stream: queryAddOnsRecord(
                               parent: widget.service!.reference,
-                              queryBuilder: (activitiesRecord) =>
-                                  activitiesRecord.orderBy('sequence'),
+                              queryBuilder: (addOnsRecord) =>
+                                  addOnsRecord.orderBy('sequence'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -120,16 +120,16 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                   ),
                                 );
                               }
-                              List<ActivitiesRecord>
-                                  columnActivitiesRecordList = snapshot.data!;
+                              List<AddOnsRecord> columnAddOnsRecordList =
+                                  snapshot.data!;
                               return SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: List.generate(
-                                      columnActivitiesRecordList.length,
+                                      columnAddOnsRecordList.length,
                                       (columnIndex) {
-                                    final columnActivitiesRecord =
-                                        columnActivitiesRecordList[columnIndex];
+                                    final columnAddOnsRecord =
+                                        columnAddOnsRecordList[columnIndex];
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 1),
@@ -198,11 +198,45 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                             MainAxisSize.max,
                                                         children: [
                                                           Text(
-                                                            columnActivitiesRecord
-                                                                .activity!,
+                                                            columnAddOnsRecord
+                                                                .name!,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .subtitle2,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              formatNumber(
+                                                                columnAddOnsRecord
+                                                                    .fee!,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .commaDecimal,
+                                                                currency: 'Rp',
+                                                              ),
+                                                              maxLines: 1,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryColor,
+                                                                    fontSize:
+                                                                        12,
+                                                                  ),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
@@ -215,7 +249,7 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  if (columnActivitiesRecord
+                                                  if (columnAddOnsRecord
                                                           .isActive ==
                                                       true)
                                                     Container(
@@ -255,7 +289,7 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                         ),
                                                       ),
                                                     ),
-                                                  if (columnActivitiesRecord
+                                                  if (columnAddOnsRecord
                                                           .isActive ==
                                                       false)
                                                     Container(

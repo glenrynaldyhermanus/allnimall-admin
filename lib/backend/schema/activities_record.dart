@@ -15,6 +15,9 @@ abstract class ActivitiesRecord
 
   int? get sequence;
 
+  @BuiltValueField(wireName: 'is_active')
+  bool? get isActive;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -23,7 +26,8 @@ abstract class ActivitiesRecord
 
   static void _initializeBuilder(ActivitiesRecordBuilder builder) => builder
     ..activity = ''
-    ..sequence = 0;
+    ..sequence = 0
+    ..isActive = false;
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -54,13 +58,15 @@ abstract class ActivitiesRecord
 Map<String, dynamic> createActivitiesRecordData({
   String? activity,
   int? sequence,
+  bool? isActive,
 }) {
   final firestoreData = serializers.toFirestore(
     ActivitiesRecord.serializer,
     ActivitiesRecord(
       (a) => a
         ..activity = activity
-        ..sequence = sequence,
+        ..sequence = sequence
+        ..isActive = isActive,
     ),
   );
 
