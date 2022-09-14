@@ -16,6 +16,7 @@ import 'schema/discounts_record.dart';
 import 'schema/articles_record.dart';
 import 'schema/faqs_record.dart';
 import 'schema/feature_requests_record.dart';
+import 'schema/add_ons_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -35,6 +36,7 @@ export 'schema/discounts_record.dart';
 export 'schema/articles_record.dart';
 export 'schema/faqs_record.dart';
 export 'schema/feature_requests_record.dart';
+export 'schema/add_ons_record.dart';
 
 /// Functions to query RangersRecords (as a Stream and as a Future).
 Stream<List<RangersRecord>> queryRangersRecord({
@@ -541,6 +543,51 @@ Future<FFFirestorePage<FeatureRequestsRecord>> queryFeatureRequestsRecordPage({
     queryCollectionPage(
       FeatureRequestsRecord.collection,
       FeatureRequestsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query AddOnsRecords (as a Stream and as a Future).
+Stream<List<AddOnsRecord>> queryAddOnsRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      AddOnsRecord.collection(parent),
+      AddOnsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<AddOnsRecord>> queryAddOnsRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      AddOnsRecord.collection(parent),
+      AddOnsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<AddOnsRecord>> queryAddOnsRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      AddOnsRecord.collection(parent),
+      AddOnsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
