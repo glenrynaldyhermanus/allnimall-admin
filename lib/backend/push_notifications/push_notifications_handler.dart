@@ -172,10 +172,26 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         service: await getDocumentParameter(
             data, 'service', ServicesRecord.serializer),
       ),
+  'CreateActivity': (data) async => CreateActivityWidget(
+        service: await getDocumentParameter(
+            data, 'service', ServicesRecord.serializer),
+      ),
+  'EditActivity': (data) async => EditActivityWidget(
+        activity: await getDocumentParameter(
+            data, 'activity', ActivitiesRecord.serializer),
+      ),
   'AddOnList': (data) async => AddOnListWidget(
         isSelection: getParameter(data, 'isSelection'),
         service: await getDocumentParameter(
             data, 'service', ServicesRecord.serializer),
+      ),
+  'CreateAddOn': (data) async => CreateAddOnWidget(
+        service: await getDocumentParameter(
+            data, 'service', ServicesRecord.serializer),
+      ),
+  'EditAddOn': (data) async => EditAddOnWidget(
+        addOn:
+            await getDocumentParameter(data, 'addOn', AddOnsRecord.serializer),
       ),
 };
 

@@ -37,4 +37,8 @@ export 'feedback_list/feedback_list_widget.dart' show FeedbackListWidget;
 export 'edit_feedback/edit_feedback_widget.dart' show EditFeedbackWidget;
 export 'create_ranger/create_ranger_widget.dart' show CreateRangerWidget;
 export 'activity_list/activity_list_widget.dart' show ActivityListWidget;
+export 'create_activity/create_activity_widget.dart' show CreateActivityWidget;
+export 'edit_activity/edit_activity_widget.dart' show EditActivityWidget;
 export 'add_on_list/add_on_list_widget.dart' show AddOnListWidget;
+export 'create_add_on/create_add_on_widget.dart' show CreateAddOnWidget;
+export 'edit_add_on/edit_add_on_widget.dart' show EditAddOnWidget;

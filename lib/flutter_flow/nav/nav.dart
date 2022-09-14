@@ -354,6 +354,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'CreateActivity',
+              path: 'createActivity',
+              requireAuth: true,
+              asyncParams: {
+                'service': getDoc('services', ServicesRecord.serializer),
+              },
+              builder: (context, params) => CreateActivityWidget(
+                service: params.getParam('service', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditActivity',
+              path: 'editActivity',
+              requireAuth: true,
+              asyncParams: {
+                'activity': getDoc('activities', ActivitiesRecord.serializer),
+              },
+              builder: (context, params) => EditActivityWidget(
+                activity: params.getParam('activity', ParamType.Document),
+              ),
+            ),
+            FFRoute(
               name: 'AddOnList',
               path: 'addOnList',
               asyncParams: {
@@ -362,6 +384,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => AddOnListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
                 service: params.getParam('service', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'CreateAddOn',
+              path: 'createAddOn',
+              requireAuth: true,
+              asyncParams: {
+                'service': getDoc('services', ServicesRecord.serializer),
+              },
+              builder: (context, params) => CreateAddOnWidget(
+                service: params.getParam('service', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'EditAddOn',
+              path: 'editAddOn',
+              requireAuth: true,
+              asyncParams: {
+                'addOn': getDoc('add_ons', AddOnsRecord.serializer),
+              },
+              builder: (context, params) => EditAddOnWidget(
+                addOn: params.getParam('addOn', ParamType.Document),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
