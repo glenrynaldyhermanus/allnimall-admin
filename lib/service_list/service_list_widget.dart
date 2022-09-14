@@ -1,8 +1,10 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ServiceListWidget extends StatefulWidget {
@@ -21,6 +23,7 @@ class ServiceListWidget extends StatefulWidget {
 
 class _ServiceListWidgetState extends State<ServiceListWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  int? countControllerValue;
 
   @override
   void initState() {
@@ -425,6 +428,74 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                                           .normal,
                                                                 ),
                                                           ),
+                                                        ),
+                                                      ),
+                                                    if (widget.isSelection ==
+                                                        true)
+                                                      Container(
+                                                        width: 120,
+                                                        height: 36,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0xFF9E9E9E),
+                                                            width: 1,
+                                                          ),
+                                                        ),
+                                                        child:
+                                                            FlutterFlowCountController(
+                                                          decrementIconBuilder:
+                                                              (enabled) =>
+                                                                  FaIcon(
+                                                            FontAwesomeIcons
+                                                                .minus,
+                                                            color: enabled
+                                                                ? Color(
+                                                                    0xDD000000)
+                                                                : Color(
+                                                                    0xFFEEEEEE),
+                                                            size: 16,
+                                                          ),
+                                                          incrementIconBuilder:
+                                                              (enabled) =>
+                                                                  FaIcon(
+                                                            FontAwesomeIcons
+                                                                .plus,
+                                                            color: enabled
+                                                                ? Colors.blue
+                                                                : Color(
+                                                                    0xFFEEEEEE),
+                                                            size: 16,
+                                                          ),
+                                                          countBuilder:
+                                                              (count) => Text(
+                                                            count.toString(),
+                                                            style: GoogleFonts
+                                                                .getFont(
+                                                              'Roboto',
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          count:
+                                                              countControllerValue ??=
+                                                                  0,
+                                                          updateCount: (count) =>
+                                                              setState(() =>
+                                                                  countControllerValue =
+                                                                      count),
+                                                          stepSize: 1,
                                                         ),
                                                       ),
                                                   ],

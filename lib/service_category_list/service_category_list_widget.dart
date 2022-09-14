@@ -294,20 +294,39 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                           0, 2, 0, 0),
                                       child: InkWell(
                                         onTap: () async {
-                                          context.pushNamed(
-                                            'ServiceList',
-                                            queryParams: {
-                                              'isSelection': serializeParam(
-                                                  false, ParamType.bool),
-                                              'category': serializeParam(
-                                                  columnServiceCategoriesRecord,
-                                                  ParamType.Document),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              'category':
-                                                  columnServiceCategoriesRecord,
-                                            },
-                                          );
+                                          if (widget.isSelection == true) {
+                                            context.pushNamed(
+                                              'ServiceList',
+                                              queryParams: {
+                                                'isSelection': serializeParam(
+                                                    true, ParamType.bool),
+                                                'category': serializeParam(
+                                                    columnServiceCategoriesRecord,
+                                                    ParamType.Document),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'category':
+                                                    columnServiceCategoriesRecord,
+                                              },
+                                            );
+
+                                            context.pop();
+                                          } else {
+                                            context.pushNamed(
+                                              'ServiceList',
+                                              queryParams: {
+                                                'isSelection': serializeParam(
+                                                    false, ParamType.bool),
+                                                'category': serializeParam(
+                                                    columnServiceCategoriesRecord,
+                                                    ParamType.Document),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'category':
+                                                    columnServiceCategoriesRecord,
+                                              },
+                                            );
+                                          }
                                         },
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,

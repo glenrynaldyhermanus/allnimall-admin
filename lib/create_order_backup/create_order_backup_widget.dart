@@ -13,26 +13,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreateOrderWidget extends StatefulWidget {
-  const CreateOrderWidget({Key? key}) : super(key: key);
+class CreateOrderBackupWidget extends StatefulWidget {
+  const CreateOrderBackupWidget({Key? key}) : super(key: key);
 
   @override
-  _CreateOrderWidgetState createState() => _CreateOrderWidgetState();
+  _CreateOrderBackupWidgetState createState() =>
+      _CreateOrderBackupWidgetState();
 }
 
-class _CreateOrderWidgetState extends State<CreateOrderWidget> {
+class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
+  TextEditingController? amountController;
+
+  TextEditingController? quantityController;
+
+  String? petCategoryListValue;
+  String? petServiceListValue;
+  DateTime? datePicked;
+  String? timeListValue;
+
   TextEditingController? endTimeController;
 
   TextEditingController? startTimeController;
 
-  DateTime? datePicked;
-  String? timeListValue;
   OrdersRecord? createdOrder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    amountController = TextEditingController();
+    quantityController = TextEditingController();
     endTimeController = TextEditingController();
     startTimeController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -146,53 +156,169 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBtnText,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '${valueOrDefault<String>(
-                                    FFAppState()
-                                        .selectedServices
-                                        .length
-                                        .toString(),
-                                    'Select',
-                                  )} services',
-                                  style: FlutterFlowTheme.of(context).bodyText2,
-                                ),
-                              ),
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
-                                icon: Icon(
-                                  Icons.add_shopping_cart_outlined,
-                                  color: Color(0xFF1F2126),
-                                  size: 24,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed(
-                                    'ServiceList',
-                                    queryParams: {
-                                      'isSelection':
-                                          serializeParam(true, ParamType.bool),
-                                    }.withoutNulls,
-                                  );
-                                },
-                              ),
-                            ],
+                      child: FlutterFlowDropDown(
+                        options: [
+                          'Kucing',
+                          'Anjing Small',
+                          'Anjing Medium',
+                          'Anjing Large'
+                        ],
+                        onChanged: (val) =>
+                            setState(() => petCategoryListValue = val),
+                        height: 50,
+                        textStyle: FlutterFlowTheme.of(context).bodyText2,
+                        hintText: 'Pet Category',
+                        fillColor: Colors.white,
+                        elevation: 2,
+                        borderColor: Colors.transparent,
+                        borderWidth: 0,
+                        borderRadius: 0,
+                        margin: EdgeInsetsDirectional.fromSTEB(22, 4, 12, 4),
+                        hidesUnderline: true,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
+                      child: FlutterFlowDropDown(
+                        options: [
+                          'Mandi Lengkap',
+                          'Mandi Sehat',
+                          'Mandi Jamur',
+                          'Mandi Kutu',
+                          'Cukur Minor',
+                          'Cukur Major',
+                          'Cukur Style'
+                        ],
+                        onChanged: (val) =>
+                            setState(() => petServiceListValue = val),
+                        height: 50,
+                        textStyle: FlutterFlowTheme.of(context).bodyText2,
+                        hintText: 'Service',
+                        fillColor: Colors.white,
+                        elevation: 2,
+                        borderColor: Colors.transparent,
+                        borderWidth: 0,
+                        borderRadius: 0,
+                        margin: EdgeInsetsDirectional.fromSTEB(22, 4, 12, 4),
+                        hidesUnderline: true,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
+                      child: TextFormField(
+                        controller: quantityController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Jumlah',
+                          labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                          hintText: '10',
+                          hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                         ),
+                        style: FlutterFlowTheme.of(context).bodyText2,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
+                      child: TextFormField(
+                        controller: amountController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Total Bayar',
+                          labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                          hintText: '65000',
+                          hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 0,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyText2,
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                     Padding(
@@ -473,7 +599,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                           final ordersCreateData = createOrdersRecordData(
                             createdAt: getCurrentTimestamp,
                             orderNo: functions.generateOrderNo(),
+                            petCategory: petCategoryListValue,
+                            name:
+                                '${petServiceListValue} ${quantityController!.text} ${petCategoryListValue}',
                             scheduledAt: datePicked,
+                            service: petServiceListValue,
+                            quantity: int.parse(quantityController!.text),
+                            amount: double.parse(amountController!.text),
                             status: 'Confirmed',
                             customerAddress:
                                 FFAppState().selectedCustomerAddress,

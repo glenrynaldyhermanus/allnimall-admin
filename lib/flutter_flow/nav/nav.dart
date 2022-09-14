@@ -407,6 +407,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => EditAddOnWidget(
                 addOn: params.getParam('addOn', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'CreateOrderBackup',
+              path: 'createOrderBackup',
+              builder: (context, params) => CreateOrderBackupWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
