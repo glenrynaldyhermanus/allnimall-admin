@@ -15,8 +15,9 @@ Future<ServicesRecord> updateServiceOrderValue(
   // Add your function code here!
 
   if (addOns != null) {
-    service!.addOns!.asList().addAll(addOns);
+    //service!.addOns!.asList().addAll(addOns);
+    service!.addOns!.toList(growable: true).addAll(addOns);
   }
-  service!.quantity = numOfPets;
-  return service;
+  //service!.quantity = numOfPets;
+  return service!;
 }
