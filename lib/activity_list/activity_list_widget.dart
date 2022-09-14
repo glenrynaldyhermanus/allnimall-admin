@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,22 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                     color: FlutterFlowTheme.of(context).tertiaryColor,
                   ),
             ),
-            actions: [],
+            actions: [
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30,
+                borderWidth: 1,
+                buttonSize: 60,
+                icon: Icon(
+                  Icons.add,
+                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                  size: 30,
+                ),
+                onPressed: () {
+                  print('IconButton pressed ...');
+                },
+              ),
+            ],
             centerTitle: false,
             elevation: 2,
           ),
@@ -87,6 +103,8 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                           child: StreamBuilder<List<AddOnsRecord>>(
                             stream: queryAddOnsRecord(
                               parent: widget.service!.reference,
+                              queryBuilder: (addOnsRecord) =>
+                                  addOnsRecord.orderBy('sequence'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

@@ -18,6 +18,8 @@ abstract class ServiceCategoriesRecord
   @BuiltValueField(wireName: 'is_active')
   bool? get isActive;
 
+  int? get sequence;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -26,7 +28,8 @@ abstract class ServiceCategoriesRecord
       builder
         ..name = ''
         ..type = ''
-        ..isActive = false;
+        ..isActive = false
+        ..sequence = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('service_categories');
@@ -55,6 +58,7 @@ Map<String, dynamic> createServiceCategoriesRecordData({
   String? name,
   String? type,
   bool? isActive,
+  int? sequence,
 }) {
   final firestoreData = serializers.toFirestore(
     ServiceCategoriesRecord.serializer,
@@ -62,7 +66,8 @@ Map<String, dynamic> createServiceCategoriesRecordData({
       (s) => s
         ..name = name
         ..type = type
-        ..isActive = isActive,
+        ..isActive = isActive
+        ..sequence = sequence,
     ),
   );
 

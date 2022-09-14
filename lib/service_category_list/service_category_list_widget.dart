@@ -244,11 +244,13 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                       child: StreamBuilder<List<ServiceCategoriesRecord>>(
                         stream: queryServiceCategoriesRecord(
                           queryBuilder: (serviceCategoriesRecord) =>
-                              serviceCategoriesRecord.where('name',
-                                  isGreaterThanOrEqualTo:
-                                      FFAppState().searchQuery != ''
-                                          ? FFAppState().searchQuery
-                                          : null),
+                              serviceCategoriesRecord
+                                  .where('name',
+                                      isGreaterThanOrEqualTo:
+                                          FFAppState().searchQuery != ''
+                                              ? FFAppState().searchQuery
+                                              : null)
+                                  .orderBy('sequence'),
                           limit: 10,
                         ),
                         builder: (context, snapshot) {

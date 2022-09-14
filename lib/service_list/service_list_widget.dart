@@ -156,9 +156,10 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: StreamBuilder<List<ServicesRecord>>(
                             stream: queryServicesRecord(
-                              queryBuilder: (servicesRecord) =>
-                                  servicesRecord.where('category_uid',
-                                      isEqualTo: widget.category!.reference),
+                              queryBuilder: (servicesRecord) => servicesRecord
+                                  .where('category_uid',
+                                      isEqualTo: widget.category!.reference)
+                                  .orderBy('sequence'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
