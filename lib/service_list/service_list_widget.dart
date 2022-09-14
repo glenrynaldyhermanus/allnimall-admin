@@ -202,7 +202,10 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                       padding:
                                                           MediaQuery.of(context)
                                                               .viewInsets,
-                                                      child: AddServiceWidget(),
+                                                      child: AddServiceWidget(
+                                                        service:
+                                                            columnServicesRecord,
+                                                      ),
                                                     );
                                                   },
                                                 );
