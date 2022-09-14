@@ -28,6 +28,11 @@ abstract class ServicesRecord
 
   int? get sequence;
 
+  int? get quantity;
+
+  @BuiltValueField(wireName: 'add_ons')
+  BuiltList<DocumentReference>? get addOns;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -38,7 +43,9 @@ abstract class ServicesRecord
     ..categoryName = ''
     ..isActive = false
     ..description = ''
-    ..sequence = 0;
+    ..sequence = 0
+    ..quantity = 0
+    ..addOns = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('services');
@@ -69,6 +76,7 @@ Map<String, dynamic> createServicesRecordData({
   bool? isActive,
   String? description,
   int? sequence,
+  int? quantity,
 }) {
   final firestoreData = serializers.toFirestore(
     ServicesRecord.serializer,
@@ -80,7 +88,9 @@ Map<String, dynamic> createServicesRecordData({
         ..categoryName = categoryName
         ..isActive = isActive
         ..description = description
-        ..sequence = sequence,
+        ..sequence = sequence
+        ..quantity = quantity
+        ..addOns = null,
     ),
   );
 
