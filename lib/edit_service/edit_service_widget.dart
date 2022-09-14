@@ -277,54 +277,158 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                        child: StreamBuilder<List<ActivitiesRecord>>(
+                          stream: queryActivitiesRecord(
+                            parent: widget.service!.reference,
                           ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Number of activities',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText2,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
                                   ),
                                 ),
-                                FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30,
-                                  borderWidth: 1,
-                                  buttonSize: 60,
-                                  icon: Icon(
-                                    Icons.people_outline_rounded,
-                                    color: Color(0xFF1F2126),
-                                    size: 24,
-                                  ),
-                                  onPressed: () async {
-                                    context.pushNamed(
-                                      'ActivityList',
-                                      queryParams: {
-                                        'isSelection': serializeParam(
-                                            false, ParamType.bool),
-                                        'service': serializeParam(
-                                            widget.service, ParamType.Document),
-                                      }.withoutNulls,
-                                      extra: <String, dynamic>{
-                                        'service': widget.service,
+                              );
+                            }
+                            List<ActivitiesRecord>
+                                containerActivitiesRecordList = snapshot.data!;
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 52,
+                              decoration: BoxDecoration(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryBtnText,
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${containerActivitiesRecordList.length.toString()} activities',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2,
+                                      ),
+                                    ),
+                                    FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30,
+                                      borderWidth: 1,
+                                      buttonSize: 60,
+                                      icon: Icon(
+                                        Icons.volunteer_activism,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryColor,
+                                        size: 24,
+                                      ),
+                                      onPressed: () async {
+                                        context.pushNamed(
+                                          'ActivityList',
+                                          queryParams: {
+                                            'isSelection': serializeParam(
+                                                false, ParamType.bool),
+                                            'service': serializeParam(
+                                                widget.service,
+                                                ParamType.Document),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'service': widget.service,
+                                          },
+                                        );
                                       },
-                                    );
-                                  },
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                        child: StreamBuilder<List<AddOnsRecord>>(
+                          stream: queryAddOnsRecord(
+                            parent: widget.service!.reference,
                           ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<AddOnsRecord> containerAddOnsRecordList =
+                                snapshot.data!;
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 52,
+                              decoration: BoxDecoration(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryBtnText,
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${containerAddOnsRecordList.length.toString()} add ons',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2,
+                                      ),
+                                    ),
+                                    FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30,
+                                      borderWidth: 1,
+                                      buttonSize: 60,
+                                      icon: Icon(
+                                        Icons.add_shopping_cart,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryColor,
+                                        size: 24,
+                                      ),
+                                      onPressed: () async {
+                                        context.pushNamed(
+                                          'AddOnList',
+                                          queryParams: {
+                                            'isSelection': serializeParam(
+                                                false, ParamType.bool),
+                                            'service': serializeParam(
+                                                widget.service,
+                                                ParamType.Document),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'service': widget.service,
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                       Padding(
