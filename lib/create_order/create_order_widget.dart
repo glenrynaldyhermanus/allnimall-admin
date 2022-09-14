@@ -470,29 +470,33 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          final ordersCreateData = createOrdersRecordData(
-                            createdAt: getCurrentTimestamp,
-                            orderNo: functions.generateOrderNo(),
-                            scheduledAt: datePicked,
-                            status: 'Confirmed',
-                            customerAddress:
-                                FFAppState().selectedCustomerAddress,
-                            customerLatlng: FFAppState().selectedCustomerLatLng,
-                            customerName: FFAppState().selectedCustomerName,
-                            paymentStatus: 'Unpaid',
-                            prefferedTime: timeListValue,
-                            notes: '',
-                            startTime: startTimeController!.text,
-                            endTime: endTimeController!.text,
-                            rangerName: FFAppState().selectedRangerName,
-                            rangerPhone: FFAppState().selectedRangerPhone,
-                            rangerProfilePicture:
-                                FFAppState().selectedRangerPicture,
-                            confirmedAt: getCurrentTimestamp,
-                            customerPhone: FFAppState().selectedCustomerPhone,
-                            customerUid: FFAppState().selectedCustomer,
-                            rangerUid: FFAppState().selectedRanger,
-                          );
+                          final ordersCreateData = {
+                            ...createOrdersRecordData(
+                              createdAt: getCurrentTimestamp,
+                              orderNo: functions.generateOrderNo(),
+                              scheduledAt: datePicked,
+                              status: 'Confirmed',
+                              customerAddress:
+                                  FFAppState().selectedCustomerAddress,
+                              customerLatlng:
+                                  FFAppState().selectedCustomerLatLng,
+                              customerName: FFAppState().selectedCustomerName,
+                              paymentStatus: 'Unpaid',
+                              prefferedTime: timeListValue,
+                              notes: '',
+                              startTime: startTimeController!.text,
+                              endTime: endTimeController!.text,
+                              rangerName: FFAppState().selectedRangerName,
+                              rangerPhone: FFAppState().selectedRangerPhone,
+                              rangerProfilePicture:
+                                  FFAppState().selectedRangerPicture,
+                              confirmedAt: getCurrentTimestamp,
+                              customerPhone: FFAppState().selectedCustomerPhone,
+                              customerUid: FFAppState().selectedCustomer,
+                              rangerUid: FFAppState().selectedRanger,
+                            ),
+                            'order_services': FFAppState().selectedServices,
+                          };
                           var ordersRecordReference =
                               OrdersRecord.collection.doc();
                           await ordersRecordReference.set(ordersCreateData);
