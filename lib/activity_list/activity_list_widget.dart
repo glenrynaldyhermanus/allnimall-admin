@@ -70,8 +70,17 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                   color: FlutterFlowTheme.of(context).tertiaryColor,
                   size: 30,
                 ),
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  context.pushNamed(
+                    'CreateActivity',
+                    queryParams: {
+                      'service': serializeParam(
+                          activityListServicesRecord, ParamType.Document),
+                    }.withoutNulls,
+                    extra: <String, dynamic>{
+                      'service': activityListServicesRecord,
+                    },
+                  );
                 },
               ),
             ],
@@ -144,48 +153,27 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 2, 0, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(20, 0, 0, 0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      width: 48,
-                                                      height: 48,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFFD8D1F2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0, 0),
-                                                        child: Icon(
-                                                          Icons.pets_rounded,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                          size: 24,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
+                                          child: InkWell(
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                'EditActivity',
+                                                queryParams: {
+                                                  'activity': serializeParam(
+                                                      columnActivitiesRecord,
+                                                      ParamType.Document),
+                                                }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'activity':
+                                                      columnActivitiesRecord,
+                                                },
+                                              );
+                                            },
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(10, 0, 0, 0),
+                                                      .fromSTEB(20, 0, 0, 0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -193,130 +181,174 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            columnActivitiesRecord
-                                                                .activity!,
-                                                            style: FlutterFlowTheme
+                                                      Container(
+                                                        width: 48,
+                                                        height: 48,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xFFD8D1F2),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                        child: Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0, 0),
+                                                          child: Icon(
+                                                            Icons.pets_rounded,
+                                                            color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .subtitle2,
+                                                                .primaryColor,
+                                                            size: 24,
                                                           ),
-                                                        ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  if (columnActivitiesRecord
-                                                          .isActive ==
-                                                      true)
-                                                    Container(
-                                                      width: 72,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 5, 0, 5),
-                                                        child: Text(
-                                                          'Active',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBtnText,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                              ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                10, 0, 0, 0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Text(
+                                                              columnActivitiesRecord
+                                                                  .activity!,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .subtitle2,
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                    ),
-                                                  if (columnActivitiesRecord
-                                                          .isActive ==
-                                                      false)
-                                                    Container(
-                                                      width: 72,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .backgroundComponents,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 5, 0, 5),
-                                                        child: Text(
-                                                          'Inactive',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBtnText,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 0, 8, 0),
-                                                      child: Icon(
-                                                        Icons
-                                                            .chevron_right_outlined,
-                                                        color:
-                                                            Color(0xFF95A1AC),
-                                                        size: 24,
-                                                      ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ],
+                                                ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    if (columnActivitiesRecord
+                                                            .isActive ==
+                                                        true)
+                                                      Container(
+                                                        width: 72,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(16),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      5, 0, 5),
+                                                          child: Text(
+                                                            'Active',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    if (columnActivitiesRecord
+                                                            .isActive ==
+                                                        false)
+                                                      Container(
+                                                        width: 72,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .backgroundComponents,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(16),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      5, 0, 5),
+                                                          child: Text(
+                                                            'Inactive',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 0, 8, 0),
+                                                        child: Icon(
+                                                          Icons
+                                                              .chevron_right_outlined,
+                                                          color:
+                                                              Color(0xFF95A1AC),
+                                                          size: 24,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

@@ -25,6 +25,8 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
 
   TextEditingController? nameController;
 
+  TextEditingController? sequenceController;
+
   TextEditingController? feeController;
 
   bool? switchListTileValue;
@@ -36,6 +38,8 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
     descriptionController =
         TextEditingController(text: widget.service!.description);
     nameController = TextEditingController(text: widget.service!.name);
+    sequenceController =
+        TextEditingController(text: widget.service!.sequence?.toString());
     feeController =
         TextEditingController(text: widget.service!.fee?.toString());
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -88,6 +92,63 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                        child: TextFormField(
+                          controller: sequenceController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyText2,
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: TextFormField(
@@ -437,9 +498,10 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                           onPressed: () async {
                             final servicesUpdateData = createServicesRecordData(
                               isActive: switchListTileValue,
-                              name: nameController!.text,
+                              name: sequenceController!.text,
                               fee: double.parse(feeController!.text),
                               description: descriptionController!.text,
+                              sequence: int.parse(sequenceController!.text),
                             );
                             await widget.service!.reference
                                 .update(servicesUpdateData);
