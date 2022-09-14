@@ -46,6 +46,12 @@ class _$ServiceCategoriesRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.sequence;
+    if (value != null) {
+      result
+        ..add('sequence')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -81,6 +87,10 @@ class _$ServiceCategoriesRecordSerializer
           result.isActive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'sequence':
+          result.sequence = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -102,13 +112,16 @@ class _$ServiceCategoriesRecord extends ServiceCategoriesRecord {
   @override
   final bool? isActive;
   @override
+  final int? sequence;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ServiceCategoriesRecord(
           [void Function(ServiceCategoriesRecordBuilder)? updates]) =>
       (new ServiceCategoriesRecordBuilder()..update(updates))._build();
 
-  _$ServiceCategoriesRecord._({this.name, this.type, this.isActive, this.ffRef})
+  _$ServiceCategoriesRecord._(
+      {this.name, this.type, this.isActive, this.sequence, this.ffRef})
       : super._();
 
   @override
@@ -127,13 +140,15 @@ class _$ServiceCategoriesRecord extends ServiceCategoriesRecord {
         name == other.name &&
         type == other.type &&
         isActive == other.isActive &&
+        sequence == other.sequence &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, name.hashCode), type.hashCode), isActive.hashCode),
+        $jc($jc($jc($jc(0, name.hashCode), type.hashCode), isActive.hashCode),
+            sequence.hashCode),
         ffRef.hashCode));
   }
 
@@ -143,6 +158,7 @@ class _$ServiceCategoriesRecord extends ServiceCategoriesRecord {
           ..add('name', name)
           ..add('type', type)
           ..add('isActive', isActive)
+          ..add('sequence', sequence)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -165,6 +181,10 @@ class ServiceCategoriesRecordBuilder
   bool? get isActive => _$this._isActive;
   set isActive(bool? isActive) => _$this._isActive = isActive;
 
+  int? _sequence;
+  int? get sequence => _$this._sequence;
+  set sequence(int? sequence) => _$this._sequence = sequence;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -179,6 +199,7 @@ class ServiceCategoriesRecordBuilder
       _name = $v.name;
       _type = $v.type;
       _isActive = $v.isActive;
+      _sequence = $v.sequence;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -202,7 +223,11 @@ class ServiceCategoriesRecordBuilder
   _$ServiceCategoriesRecord _build() {
     final _$result = _$v ??
         new _$ServiceCategoriesRecord._(
-            name: name, type: type, isActive: isActive, ffRef: ffRef);
+            name: name,
+            type: type,
+            isActive: isActive,
+            sequence: sequence,
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }
