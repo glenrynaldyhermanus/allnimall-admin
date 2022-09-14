@@ -37,3 +37,4 @@ export 'feedback_list/feedback_list_widget.dart' show FeedbackListWidget;
 export 'edit_feedback/edit_feedback_widget.dart' show EditFeedbackWidget;
 export 'create_ranger/create_ranger_widget.dart' show CreateRangerWidget;
 export 'activity_list/activity_list_widget.dart' show ActivityListWidget;
+export 'add_on_list/add_on_list_widget.dart' show AddOnListWidget;

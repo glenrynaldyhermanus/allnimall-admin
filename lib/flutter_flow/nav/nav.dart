@@ -352,6 +352,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 isSelection: params.getParam('isSelection', ParamType.bool),
                 service: params.getParam('service', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'AddOnList',
+              path: 'addOnList',
+              asyncParams: {
+                'service': getDoc('services', ServicesRecord.serializer),
+              },
+              builder: (context, params) => AddOnListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+                service: params.getParam('service', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
