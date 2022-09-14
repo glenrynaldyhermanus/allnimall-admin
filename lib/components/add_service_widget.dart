@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +28,7 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
           .map((e) => e.key)
           .toList();
 
+  ServicesRecord? updatedService;
   int? countControllerValue;
 
   @override
@@ -277,7 +279,20 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.pop();
+                            Navigator.pop(context);
+                            updatedService =
+                                await actions.updateServiceOrderValue(
+                              widget.service,
+                              countControllerValue,
+                              checkboxListTileCheckedItems
+                                  .map((e) => e.reference)
+                                  .toList(),
+                            );
+                            setState(() => FFAppState()
+                                .selectedServices
+                                .add(updatedService!.reference));
+
+                            setState(() {});
                           },
                           text: 'Add service - ${formatNumber(
                             functions.countTotalService(

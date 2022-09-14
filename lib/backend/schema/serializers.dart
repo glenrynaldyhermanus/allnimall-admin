@@ -36,6 +36,8 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   FaqsRecord,
   FeatureRequestsRecord,
   AddOnsRecord,
+  ServicesStruct,
+  AddOnsStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

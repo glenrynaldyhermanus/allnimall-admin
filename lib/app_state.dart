@@ -49,6 +49,8 @@ class FFAppState {
   String assignedRangerPicture = '';
 
   List<DocumentReference> selectedServices = [];
+
+  DocumentReference? selectedService;
 }
 
 LatLng? _latLngFromString(String? val) {
