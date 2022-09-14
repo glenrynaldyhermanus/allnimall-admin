@@ -279,12 +279,15 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                           onPressed: () async {
                             context.pop();
                           },
-                          text: functions
-                              .countTotalService(
-                                  widget.service,
-                                  checkboxListTileCheckedItems.toList(),
-                                  countControllerValue)
-                              .toString(),
+                          text: 'Add service - ${formatNumber(
+                            functions.countTotalService(
+                                widget.service,
+                                checkboxListTileCheckedItems.toList(),
+                                countControllerValue),
+                            formatType: FormatType.decimal,
+                            decimalType: DecimalType.periodDecimal,
+                            currency: 'Rp',
+                          )}',
                           options: FFButtonOptions(
                             height: 50,
                             color: FlutterFlowTheme.of(context).primaryColor,
