@@ -1,10 +1,9 @@
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ServiceListWidget extends StatefulWidget {
@@ -23,7 +22,6 @@ class ServiceListWidget extends StatefulWidget {
 
 class _ServiceListWidgetState extends State<ServiceListWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  int? countControllerValue;
 
   @override
   void initState() {
@@ -349,155 +347,145 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                 Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    if (columnServicesRecord
-                                                            .isActive ==
-                                                        true)
-                                                      Container(
-                                                        width: 72,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(16),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 5),
-                                                          child: Text(
-                                                            'Active',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBtnText,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    if (columnServicesRecord
-                                                            .isActive ==
+                                                    if (widget.isSelection ==
                                                         false)
-                                                      Container(
-                                                        width: 72,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .backgroundComponents,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(16),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 5),
-                                                          child: Text(
-                                                            'Inactive',
-                                                            textAlign: TextAlign
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
                                                                 .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: FlutterFlowTheme.of(
+                                                        children: [
+                                                          if (columnServicesRecord
+                                                                  .isActive ==
+                                                              true)
+                                                            Container(
+                                                              width: 72,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            5,
+                                                                            0,
+                                                                            5),
+                                                                child: Text(
+                                                                  'Active',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primaryBtnText,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Outfit',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBtnText,
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                                 ),
-                                                          ),
-                                                        ),
+                                                              ),
+                                                            ),
+                                                          if (columnServicesRecord
+                                                                  .isActive ==
+                                                              false)
+                                                            Container(
+                                                              width: 72,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .backgroundComponents,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            5,
+                                                                            0,
+                                                                            5),
+                                                                child: Text(
+                                                                  'Inactive',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Outfit',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBtnText,
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                        ],
                                                       ),
                                                     if (widget.isSelection ==
                                                         true)
-                                                      Container(
-                                                        width: 120,
-                                                        height: 36,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
+                                                      FFButtonWidget(
+                                                        onPressed: () {
+                                                          print(
+                                                              'Button pressed ...');
+                                                        },
+                                                        text: 'Add',
+                                                        options:
+                                                            FFButtonOptions(
+                                                          width: 80,
+                                                          height: 32,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .subtitle2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                          elevation: 0,
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryColor,
+                                                            width: 2,
+                                                          ),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(8),
-                                                          shape: BoxShape
-                                                              .rectangle,
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xFF9E9E9E),
-                                                            width: 1,
-                                                          ),
-                                                        ),
-                                                        child:
-                                                            FlutterFlowCountController(
-                                                          decrementIconBuilder:
-                                                              (enabled) =>
-                                                                  FaIcon(
-                                                            FontAwesomeIcons
-                                                                .minus,
-                                                            color: enabled
-                                                                ? Color(
-                                                                    0xDD000000)
-                                                                : Color(
-                                                                    0xFFEEEEEE),
-                                                            size: 16,
-                                                          ),
-                                                          incrementIconBuilder:
-                                                              (enabled) =>
-                                                                  FaIcon(
-                                                            FontAwesomeIcons
-                                                                .plus,
-                                                            color: enabled
-                                                                ? Colors.blue
-                                                                : Color(
-                                                                    0xFFEEEEEE),
-                                                            size: 16,
-                                                          ),
-                                                          countBuilder:
-                                                              (count) => Text(
-                                                            count.toString(),
-                                                            style: GoogleFonts
-                                                                .getFont(
-                                                              'Roboto',
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 16,
-                                                            ),
-                                                          ),
-                                                          count:
-                                                              countControllerValue ??=
-                                                                  0,
-                                                          updateCount: (count) =>
-                                                              setState(() =>
-                                                                  countControllerValue =
-                                                                      count),
-                                                          stepSize: 1,
                                                         ),
                                                       ),
                                                   ],
