@@ -276,7 +276,59 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Number of activities',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText2,
+                                  ),
+                                ),
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.people_outline_rounded,
+                                    color: Color(0xFF1F2126),
+                                    size: 24,
+                                  ),
+                                  onPressed: () async {
+                                    context.pushNamed(
+                                      'ActivityList',
+                                      queryParams: {
+                                        'isSelection': serializeParam(
+                                            false, ParamType.bool),
+                                        'service': serializeParam(
+                                            widget.service, ParamType.Document),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'service': widget.service,
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
                             final servicesUpdateData = createServicesRecordData(

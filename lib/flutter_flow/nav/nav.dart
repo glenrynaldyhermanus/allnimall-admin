@@ -341,6 +341,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'CreateRanger',
               path: 'createRanger',
               builder: (context, params) => CreateRangerWidget(),
+            ),
+            FFRoute(
+              name: 'ActivityList',
+              path: 'activityList',
+              asyncParams: {
+                'service': getDoc('services', ServicesRecord.serializer),
+              },
+              builder: (context, params) => ActivityListWidget(
+                isSelection: params.getParam('isSelection', ParamType.bool),
+                service: params.getParam('service', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
