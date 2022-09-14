@@ -1,8 +1,10 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddServiceWidget extends StatefulWidget {
@@ -24,6 +26,8 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
           .where((e) => e.value)
           .map((e) => e.key)
           .toList();
+
+  int? countControllerValue;
 
   @override
   void initState() {
@@ -47,7 +51,7 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
       ),
       child: Container(
         width: double.infinity,
-        height: 370,
+        height: 480,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -57,163 +61,243 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
             topRight: Radius.circular(16),
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                    child: Container(
-                      width: 50,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).lineColor,
-                        borderRadius: BorderRadius.circular(8),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                        child: Container(
+                          width: 50,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).lineColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                       ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.service!.name!,
+                            style: FlutterFlowTheme.of(context).title2,
+                          ),
+                        ),
+                        Text(
+                          formatNumber(
+                            widget.service!.fee!,
+                            formatType: FormatType.decimal,
+                            decimalType: DecimalType.commaDecimal,
+                            currency: 'Rp',
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText2
+                              .override(
+                                fontFamily: 'Poppins',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
+                              ),
+                        ),
+                      ],
                     ),
+                  ),
+                  StreamBuilder<List<AddOnsRecord>>(
+                    stream: queryAddOnsRecord(
+                      parent: widget.service!.reference,
+                      queryBuilder: (addOnsRecord) => addOnsRecord
+                          .where('is_active', isEqualTo: true)
+                          .orderBy('sequence'),
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                            ),
+                          ),
+                        );
+                      }
+                      List<AddOnsRecord> columnAddOnsRecordList =
+                          snapshot.data!;
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(columnAddOnsRecordList.length,
+                              (columnIndex) {
+                            final columnAddOnsRecord =
+                                columnAddOnsRecordList[columnIndex];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Divider(
+                                  height: 1,
+                                  thickness: 1,
+                                ),
+                                Theme(
+                                  data: ThemeData(
+                                    unselectedWidgetColor: Color(0xFF95A1AC),
+                                  ),
+                                  child: CheckboxListTile(
+                                    value: checkboxListTileValueMap[
+                                        columnAddOnsRecord] ??= false,
+                                    onChanged: (newValue) => setState(() =>
+                                        checkboxListTileValueMap[
+                                            columnAddOnsRecord] = newValue!),
+                                    title: Text(
+                                      columnAddOnsRecord.name!,
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                    ),
+                                    subtitle: Text(
+                                      formatNumber(
+                                        columnAddOnsRecord.fee!,
+                                        formatType: FormatType.decimal,
+                                        decimalType: DecimalType.commaDecimal,
+                                        currency: '+',
+                                      ),
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryColor,
+                                            fontSize: 12,
+                                          ),
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    activeColor: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    dense: false,
+                                    controlAffinity:
+                                        ListTileControlAffinity.trailing,
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                child: Row(
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                       child: Text(
-                        widget.service!.name!,
-                        style: FlutterFlowTheme.of(context).title2,
+                        'Number of Pets',
+                        style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                     ),
-                    Text(
-                      formatNumber(
-                        widget.service!.fee!,
-                        formatType: FormatType.decimal,
-                        decimalType: DecimalType.commaDecimal,
-                        currency: 'Rp',
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyText2.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).secondaryColor,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                      child: Container(
+                        width: 120,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            width: 1,
                           ),
+                        ),
+                        child: FlutterFlowCountController(
+                          decrementIconBuilder: (enabled) => FaIcon(
+                            FontAwesomeIcons.minus,
+                            color: enabled
+                                ? FlutterFlowTheme.of(context).secondaryColor
+                                : Color(0xFFEEEEEE),
+                            size: 16,
+                          ),
+                          incrementIconBuilder: (enabled) => FaIcon(
+                            FontAwesomeIcons.plus,
+                            color: enabled
+                                ? FlutterFlowTheme.of(context).secondaryColor
+                                : Color(0xFFEEEEEE),
+                            size: 16,
+                          ),
+                          countBuilder: (count) => Text(
+                            count.toString(),
+                            style: GoogleFonts.getFont(
+                              'Roboto',
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                          count: countControllerValue ??= 1,
+                          updateCount: (count) =>
+                              setState(() => countControllerValue = count),
+                          stepSize: 1,
+                          minimum: 1,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Divider(
-                height: 16,
-                thickness: 1,
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
-                child: Text(
-                  'Add Ons',
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                ),
-              ),
-              StreamBuilder<List<AddOnsRecord>>(
-                stream: queryAddOnsRecord(
-                  parent: widget.service!.reference,
-                  queryBuilder: (addOnsRecord) => addOnsRecord
-                      .where('is_active', isEqualTo: true)
-                      .orderBy('sequence'),
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                        ),
-                      ),
-                    );
-                  }
-                  List<AddOnsRecord> columnAddOnsRecordList = snapshot.data!;
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: List.generate(columnAddOnsRecordList.length,
-                        (columnIndex) {
-                      final columnAddOnsRecord =
-                          columnAddOnsRecordList[columnIndex];
-                      return Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Divider(
-                              height: 1,
-                              thickness: 1,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            context.pop();
+                          },
+                          text: 'Add service - ',
+                          options: FFButtonOptions(
+                            height: 50,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                    ),
+                            elevation: 3,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
                             ),
-                            Theme(
-                              data: ThemeData(
-                                unselectedWidgetColor: Color(0xFF95A1AC),
-                              ),
-                              child: CheckboxListTile(
-                                value: checkboxListTileValueMap[
-                                    columnAddOnsRecord] ??= true,
-                                onChanged: (newValue) => setState(() =>
-                                    checkboxListTileValueMap[
-                                        columnAddOnsRecord] = newValue!),
-                                title: Text(
-                                  columnAddOnsRecord.name!,
-                                  style: FlutterFlowTheme.of(context).subtitle2,
-                                ),
-                                tileColor: Color(0xFFF5F5F5),
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                dense: false,
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  );
-                },
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 44),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pop();
-                      },
-                      text: 'Create Note',
-                      options: FFButtonOptions(
-                        width: 270,
-                        height: 50,
-                        color: FlutterFlowTheme.of(context).primaryColor,
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
-                        elevation: 3,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
