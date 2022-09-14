@@ -190,18 +190,31 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                               Color(0xFFD8D1F2),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(8),
+                                                                  .circular(24),
                                                         ),
                                                         child: Align(
                                                           alignment:
                                                               AlignmentDirectional(
                                                                   0, 0),
-                                                          child: Icon(
-                                                            Icons.pets_rounded,
-                                                            color: FlutterFlowTheme
+                                                          child: Text(
+                                                            columnActivitiesRecord
+                                                                .sequence!
+                                                                .toString(),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .primaryColor,
-                                                            size: 24,
+                                                                .bodyText2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                           ),
                                                         ),
                                                       ),
@@ -225,12 +238,23 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Text(
-                                                              columnActivitiesRecord
-                                                                  .activity!,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle2,
+                                                            Expanded(
+                                                              child: Text(
+                                                                columnActivitiesRecord
+                                                                    .activity!,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle2
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
