@@ -64,45 +64,31 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
-                    icon: Icon(
-                      Icons.mode_edit,
-                      color: FlutterFlowTheme.of(context).tertiaryColor,
-                      size: 24,
+                  if (widget.isSelection == false)
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30,
+                      borderWidth: 1,
+                      buttonSize: 60,
+                      icon: Icon(
+                        Icons.mode_edit,
+                        color: FlutterFlowTheme.of(context).tertiaryColor,
+                        size: 24,
+                      ),
+                      onPressed: () async {
+                        context.pushNamed(
+                          'EditServiceCategory',
+                          queryParams: {
+                            'category': serializeParam(
+                                serviceListServiceCategoriesRecord,
+                                ParamType.Document),
+                          }.withoutNulls,
+                          extra: <String, dynamic>{
+                            'category': serviceListServiceCategoriesRecord,
+                          },
+                        );
+                      },
                     ),
-                    onPressed: () async {
-                      context.pushNamed(
-                        'EditServiceCategory',
-                        queryParams: {
-                          'category': serializeParam(
-                              serviceListServiceCategoriesRecord,
-                              ParamType.Document),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          'category': serviceListServiceCategoriesRecord,
-                        },
-                      );
-                    },
-                  ),
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
-                    icon: Icon(
-                      Icons.delete_forever_outlined,
-                      color: FlutterFlowTheme.of(context).secondaryColor,
-                      size: 30,
-                    ),
-                    onPressed: () async {
-                      await widget.category!.reference.delete();
-                      context.pop();
-                    },
-                  ),
                 ],
               ),
             ],
@@ -110,28 +96,31 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
             elevation: 2,
           ),
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () async {
-              context.pushNamed(
-                'CreateService',
-                queryParams: {
-                  'category': serializeParam(
-                      serviceListServiceCategoriesRecord, ParamType.Document),
-                }.withoutNulls,
-                extra: <String, dynamic>{
-                  'category': serviceListServiceCategoriesRecord,
-                },
-              );
-            },
-            backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
-            elevation: 8,
-            label: Text(
-              'Add Service',
-              textAlign: TextAlign.center,
-              style: FlutterFlowTheme.of(context).bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.of(context).tertiaryColor,
-                  ),
+          floatingActionButton: Visibility(
+            visible: widget.isSelection == false,
+            child: FloatingActionButton.extended(
+              onPressed: () async {
+                context.pushNamed(
+                  'CreateService',
+                  queryParams: {
+                    'category': serializeParam(
+                        serviceListServiceCategoriesRecord, ParamType.Document),
+                  }.withoutNulls,
+                  extra: <String, dynamic>{
+                    'category': serviceListServiceCategoriesRecord,
+                  },
+                );
+              },
+              backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
+              elevation: 8,
+              label: Text(
+                'Add Service',
+                textAlign: TextAlign.center,
+                style: FlutterFlowTheme.of(context).bodyText1.override(
+                      fontFamily: 'Poppins',
+                      color: FlutterFlowTheme.of(context).tertiaryColor,
+                    ),
+              ),
             ),
           ),
           body: SafeArea(
@@ -345,6 +334,8 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                 Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     if (widget.isSelection ==
                                                         false)
