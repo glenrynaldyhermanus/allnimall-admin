@@ -1,8 +1,8 @@
 import '../backend/backend.dart';
+import '../components/add_service_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -191,18 +191,35 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                   0, 2, 0, 0),
                                           child: InkWell(
                                             onTap: () async {
-                                              context.pushNamed(
-                                                'EditService',
-                                                queryParams: {
-                                                  'service': serializeParam(
-                                                      columnServicesRecord,
-                                                      ParamType.Document),
-                                                }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  'service':
-                                                      columnServicesRecord,
-                                                },
-                                              );
+                                              if (widget.isSelection!) {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Padding(
+                                                      padding:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets,
+                                                      child: AddServiceWidget(),
+                                                    );
+                                                  },
+                                                );
+                                              } else {
+                                                context.pushNamed(
+                                                  'EditService',
+                                                  queryParams: {
+                                                    'service': serializeParam(
+                                                        columnServicesRecord,
+                                                        ParamType.Document),
+                                                  }.withoutNulls,
+                                                  extra: <String, dynamic>{
+                                                    'service':
+                                                        columnServicesRecord,
+                                                  },
+                                                );
+                                              }
                                             },
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -338,6 +355,51 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     if (widget.isSelection ==
+                                                        true)
+                                                      Container(
+                                                        width: 72,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(16),
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryColor,
+                                                            width: 2,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      5, 0, 5),
+                                                          child: Text(
+                                                            'Add',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    if (widget.isSelection ==
                                                         false)
                                                       Column(
                                                         mainAxisSize:
@@ -435,47 +497,6 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                               ),
                                                             ),
                                                         ],
-                                                      ),
-                                                    if (widget.isSelection ==
-                                                        true)
-                                                      FFButtonWidget(
-                                                        onPressed: () {
-                                                          print(
-                                                              'Button pressed ...');
-                                                        },
-                                                        text: 'Add',
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 80,
-                                                          height: 32,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiaryColor,
-                                                          textStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .subtitle2
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                    fontSize:
-                                                                        14,
-                                                                  ),
-                                                          elevation: 0,
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryColor,
-                                                            width: 2,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                        ),
                                                       ),
                                                   ],
                                                 ),
