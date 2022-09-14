@@ -193,6 +193,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         addOn:
             await getDocumentParameter(data, 'addOn', AddOnsRecord.serializer),
       ),
+  'CreateOrderBackup': (data) async => CreateOrderBackupWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

@@ -42,3 +42,5 @@ export 'edit_activity/edit_activity_widget.dart' show EditActivityWidget;
 export 'add_on_list/add_on_list_widget.dart' show AddOnListWidget;
 export 'create_add_on/create_add_on_widget.dart' show CreateAddOnWidget;
 export 'edit_add_on/edit_add_on_widget.dart' show EditAddOnWidget;
+export 'create_order_backup/create_order_backup_widget.dart'
+    show CreateOrderBackupWidget;
