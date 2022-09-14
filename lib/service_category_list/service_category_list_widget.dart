@@ -295,6 +295,8 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                       child: InkWell(
                                         onTap: () async {
                                           if (widget.isSelection == true) {
+                                            context.pop();
+
                                             context.pushNamed(
                                               'ServiceList',
                                               queryParams: {
@@ -309,8 +311,6 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                     columnServiceCategoriesRecord,
                                               },
                                             );
-
-                                            context.pop();
                                           } else {
                                             context.pushNamed(
                                               'ServiceList',
