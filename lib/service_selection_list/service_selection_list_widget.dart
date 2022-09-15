@@ -56,7 +56,7 @@ class _ServiceSelectionListWidgetState
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
             title: Text(
-              serviceSelectionListOrdersRecord.name!,
+              widget.category!.name!,
               style: FlutterFlowTheme.of(context).title3.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).tertiaryColor,

@@ -287,6 +287,7 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                                 createOrderServicesRecordData(
                               name: widget.service!.name,
                               quantity: countControllerValue,
+                              fee: widget.service!.fee,
                             );
                             await OrderServicesRecord.createDoc(
                                     widget.order!.reference)
