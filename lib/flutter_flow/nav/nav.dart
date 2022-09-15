@@ -246,12 +246,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               asyncParams: {
                 'category': getDoc(
                     'service_categories', ServiceCategoriesRecord.serializer),
-                'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => ServiceListWidget(
-                isSelection: params.getParam('isSelection', ParamType.bool),
                 category: params.getParam('category', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'ServiceListCopy',
+              path: 'serviceSelectionList',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+                'category': getDoc(
+                    'service_categories', ServiceCategoriesRecord.serializer),
+              },
+              builder: (context, params) => ServiceListCopyWidget(
                 order: params.getParam('order', ParamType.Document),
+                category: params.getParam('category', ParamType.Document),
               ),
             ),
             FFRoute(

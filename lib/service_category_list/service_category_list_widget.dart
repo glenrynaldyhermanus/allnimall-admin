@@ -300,29 +300,25 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                             context.pop();
 
                                             context.pushNamed(
-                                              'ServiceList',
+                                              'ServiceListCopy',
                                               queryParams: {
-                                                'isSelection': serializeParam(
-                                                    true, ParamType.bool),
-                                                'category': serializeParam(
-                                                    columnServiceCategoriesRecord,
-                                                    ParamType.Document),
                                                 'order': serializeParam(
                                                     widget.order,
                                                     ParamType.Document),
+                                                'category': serializeParam(
+                                                    columnServiceCategoriesRecord,
+                                                    ParamType.Document),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
+                                                'order': widget.order,
                                                 'category':
                                                     columnServiceCategoriesRecord,
-                                                'order': widget.order,
                                               },
                                             );
                                           } else {
                                             context.pushNamed(
                                               'ServiceList',
                                               queryParams: {
-                                                'isSelection': serializeParam(
-                                                    false, ParamType.bool),
                                                 'category': serializeParam(
                                                     columnServiceCategoriesRecord,
                                                     ParamType.Document),
