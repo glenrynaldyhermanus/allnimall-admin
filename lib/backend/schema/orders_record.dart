@@ -102,9 +102,6 @@ abstract class OrdersRecord
   @BuiltValueField(wireName: 'customer_city')
   String? get customerCity;
 
-  @BuiltValueField(wireName: 'order_services')
-  BuiltList<DocumentReference>? get orderServices;
-
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -130,8 +127,7 @@ abstract class OrdersRecord
     ..rangerProfilePicture = ''
     ..customerPhone = ''
     ..paymentMethod = ''
-    ..customerCity = ''
-    ..orderServices = ListBuilder();
+    ..customerCity = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('orders');
@@ -225,8 +221,7 @@ Map<String, dynamic> createOrdersRecordData({
         ..paymentMethod = paymentMethod
         ..cancelledAt = cancelledAt
         ..onlocationAt = onlocationAt
-        ..customerCity = customerCity
-        ..orderServices = null,
+        ..customerCity = customerCity,
     ),
   );
 

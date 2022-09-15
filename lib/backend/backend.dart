@@ -17,6 +17,7 @@ import 'schema/articles_record.dart';
 import 'schema/faqs_record.dart';
 import 'schema/feature_requests_record.dart';
 import 'schema/add_ons_record.dart';
+import 'schema/order_services_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -37,6 +38,7 @@ export 'schema/articles_record.dart';
 export 'schema/faqs_record.dart';
 export 'schema/feature_requests_record.dart';
 export 'schema/add_ons_record.dart';
+export 'schema/order_services_record.dart';
 
 /// Functions to query RangersRecords (as a Stream and as a Future).
 Stream<List<RangersRecord>> queryRangersRecord({
@@ -588,6 +590,51 @@ Future<FFFirestorePage<AddOnsRecord>> queryAddOnsRecordPage({
     queryCollectionPage(
       AddOnsRecord.collection(parent),
       AddOnsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query OrderServicesRecords (as a Stream and as a Future).
+Stream<List<OrderServicesRecord>> queryOrderServicesRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      OrderServicesRecord.collection(parent),
+      OrderServicesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<OrderServicesRecord>> queryOrderServicesRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      OrderServicesRecord.collection(parent),
+      OrderServicesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<OrderServicesRecord>> queryOrderServicesRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      OrderServicesRecord.collection(parent),
+      OrderServicesRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

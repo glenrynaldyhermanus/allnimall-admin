@@ -11,9 +11,11 @@ class ServiceCategoryListWidget extends StatefulWidget {
   const ServiceCategoryListWidget({
     Key? key,
     this.isSelection,
+    this.order,
   }) : super(key: key);
 
   final bool? isSelection;
+  final OrdersRecord? order;
 
   @override
   _ServiceCategoryListWidgetState createState() =>
@@ -305,10 +307,14 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                 'category': serializeParam(
                                                     columnServiceCategoriesRecord,
                                                     ParamType.Document),
+                                                'order': serializeParam(
+                                                    widget.order,
+                                                    ParamType.Document),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
                                                 'category':
                                                     columnServiceCategoriesRecord,
+                                                'order': widget.order,
                                               },
                                             );
                                           } else {
