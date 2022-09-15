@@ -1,11 +1,13 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditServiceWidget extends StatefulWidget {
@@ -25,7 +27,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
 
   TextEditingController? nameController;
 
-  TextEditingController? sequenceController;
+  int? countControllerValue;
 
   TextEditingController? feeController;
 
@@ -38,8 +40,6 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
     descriptionController =
         TextEditingController(text: widget.service!.description);
     nameController = TextEditingController(text: widget.service!.name);
-    sequenceController =
-        TextEditingController(text: widget.service!.sequence?.toString());
     feeController =
         TextEditingController(text: widget.service!.fee?.toString());
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -92,62 +92,79 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                        child: TextFormField(
-                          controller: sequenceController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Name',
-                            labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24, 16, 24, 0),
+                                child: Text(
+                                  'Sequence',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
                               ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                                child: Container(
+                                  width: 160,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      width: 0,
+                                    ),
+                                  ),
+                                  child: FlutterFlowCountController(
+                                    decrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.minus,
+                                      color: enabled
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondaryColor
+                                          : Color(0xFFEEEEEE),
+                                      size: 20,
+                                    ),
+                                    incrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.plus,
+                                      color: enabled
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondaryColor
+                                          : Color(0xFFEEEEEE),
+                                      size: 20,
+                                    ),
+                                    countBuilder: (count) => Text(
+                                      count.toString(),
+                                      style: GoogleFonts.getFont(
+                                        'Roboto',
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    count: countControllerValue ??= 1,
+                                    updateCount: (count) => setState(
+                                        () => countControllerValue = count),
+                                    stepSize: 1,
+                                    minimum: 1,
+                                  ),
+                                ),
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                            ],
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText2,
-                        ),
+                        ],
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
@@ -498,10 +515,10 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                           onPressed: () async {
                             final servicesUpdateData = createServicesRecordData(
                               isActive: switchListTileValue,
-                              name: sequenceController!.text,
+                              name: nameController!.text,
                               fee: double.parse(feeController!.text),
                               description: descriptionController!.text,
-                              sequence: int.parse(sequenceController!.text),
+                              sequence: countControllerValue,
                             );
                             await widget.service!.reference
                                 .update(servicesUpdateData);
