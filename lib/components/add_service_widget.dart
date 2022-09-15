@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,6 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
           .map((e) => e.key)
           .toList();
 
-  ServicesRecord? updatedService;
   int? countControllerValue;
 
   @override
@@ -284,29 +282,19 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                         child: FFButtonWidget(
                           onPressed: () async {
                             Navigator.pop(context);
-                            updatedService =
-                                await actions.updateServiceOrderValue(
-                              widget.service,
-                              countControllerValue,
-                              checkboxListTileCheckedItems
-                                  .map((e) => e.reference)
-                                  .toList(),
-                            );
 
                             final orderServicesCreateData =
                                 createOrderServicesRecordData(
-                              name: updatedService!.name,
-                              quantity: updatedService!.quantity,
+                              name: widget.service!.name,
+                              quantity: countControllerValue,
                             );
                             await OrderServicesRecord.createDoc(
                                     widget.order!.reference)
                                 .set(orderServicesCreateData);
-
-                            setState(() {});
                           },
                           text: 'Add service - ${formatNumber(
                             functions.countTotalService(
-                                widget.service,
+                                widget.service!.fee,
                                 checkboxListTileCheckedItems.toList(),
                                 countControllerValue),
                             formatType: FormatType.decimal,

@@ -94,17 +94,30 @@ String addressString(
 }
 
 double countTotalService(
-  ServicesRecord? service,
+  double? serviceFee,
   List<AddOnsRecord>? addOns,
   int? numOfPet,
 ) {
-  double serviceFee = service!.fee!;
-
+  serviceFee ??= 0;
   if (addOns != null) {
     for (AddOnsRecord addOn in addOns) {
-      serviceFee += addOn.fee!;
+      if (serviceFee != null) {
+        serviceFee = serviceFee + addOn.fee!;
+      }
     }
   }
+  if (serviceFee != null) {
+    return serviceFee * numOfPet!;
+  }
+  return 0;
+}
 
-  return serviceFee * numOfPet!;
+double countTotalAllService(List<OrderServicesRecord>? services) {
+  double fee = 0;
+
+  for (OrderServicesRecord service in services!) {
+    fee += service.fee! * service.quantity!;
+  }
+
+  return fee;
 }

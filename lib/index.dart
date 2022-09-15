@@ -25,8 +25,8 @@ export 'discount_list/discount_list_widget.dart' show DiscountListWidget;
 export 'edit_discount/edit_discount_widget.dart' show EditDiscountWidget;
 export 'create_discount/create_discount_widget.dart' show CreateDiscountWidget;
 export 'service_list/service_list_widget.dart' show ServiceListWidget;
-export 'service_list_copy/service_list_copy_widget.dart'
-    show ServiceListCopyWidget;
+export 'service_selection_list/service_selection_list_widget.dart'
+    show ServiceSelectionListWidget;
 export 'edit_service/edit_service_widget.dart' show EditServiceWidget;
 export 'create_service/create_service_widget.dart' show CreateServiceWidget;
 export 'edit_article/edit_article_widget.dart' show EditArticleWidget;

@@ -140,7 +140,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         category: await getDocumentParameter(
             data, 'category', ServiceCategoriesRecord.serializer),
       ),
-  'ServiceListCopy': (data) async => ServiceListCopyWidget(
+  'ServiceSelectionList': (data) async => ServiceSelectionListWidget(
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
         category: await getDocumentParameter(
