@@ -14,6 +14,10 @@ String titleByDate(DateTime? dateTime) {
   DateTime now = DateTime.now();
   var days = 0;
 
+  if (dateTime == null) {
+    dateTime = DateTime.now();
+  }
+
   days = (dateTime!.difference(now).inHours / 24).round();
 
   if (days == 0) {
