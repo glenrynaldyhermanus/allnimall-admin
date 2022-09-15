@@ -154,7 +154,8 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                                         fontSize: 16,
                                       ),
                                     ),
-                                    count: countControllerValue ??= 1,
+                                    count: countControllerValue ??=
+                                        widget.service!.sequence!,
                                     updateCount: (count) => setState(
                                         () => countControllerValue = count),
                                     stepSize: 1,
