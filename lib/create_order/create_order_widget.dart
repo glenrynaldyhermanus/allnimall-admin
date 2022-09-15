@@ -32,7 +32,6 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
 
   DateTime? datePicked;
   String? timeListValue;
-  OrdersRecord? createdOrder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -545,19 +544,18 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              final ordersCreateData = createOrdersRecordData(
+                              final ordersUpdateData = createOrdersRecordData(
                                 createdAt: getCurrentTimestamp,
-                                orderNo: functions.generateOrderNo(),
                                 scheduledAt: datePicked,
                                 status: 'Confirmed',
                                 customerAddress:
                                     FFAppState().selectedCustomerAddress,
                                 customerLatlng:
                                     FFAppState().selectedCustomerLatLng,
+                                orderNo: functions.generateOrderNo(),
                                 customerName: FFAppState().selectedCustomerName,
                                 paymentStatus: 'Unpaid',
                                 prefferedTime: timeListValue,
-                                notes: '',
                                 startTime: startTimeController!.text,
                                 endTime: endTimeController!.text,
                                 rangerName: FFAppState().selectedRangerName,
@@ -568,13 +566,10 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                 customerPhone:
                                     FFAppState().selectedCustomerPhone,
                                 customerUid: FFAppState().selectedCustomer,
-                                rangerUid: FFAppState().selectedRanger,
+                                rangerUid: FFAppState().assignedRanger,
                               );
-                              var ordersRecordReference =
-                                  OrdersRecord.collection.doc();
-                              await ordersRecordReference.set(ordersCreateData);
-                              createdOrder = OrdersRecord.getDocumentFromData(
-                                  ordersCreateData, ordersRecordReference);
+                              await createOrderOrdersRecord.reference
+                                  .update(ordersUpdateData);
                               context.pop();
                               await showModalBottomSheet(
                                 isScrollControlled: true,
@@ -584,13 +579,11 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                   return Padding(
                                     padding: MediaQuery.of(context).viewInsets,
                                     child: OrderCreatedWidget(
-                                      order: createdOrder,
+                                      order: createOrderOrdersRecord,
                                     ),
                                   );
                                 },
                               );
-
-                              setState(() {});
                             },
                             text: 'Create Order',
                             options: FFButtonOptions(

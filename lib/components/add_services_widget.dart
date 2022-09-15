@@ -9,8 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddServiceWidget extends StatefulWidget {
-  const AddServiceWidget({
+class AddServicesWidget extends StatefulWidget {
+  const AddServicesWidget({
     Key? key,
     this.service,
     this.order,
@@ -20,10 +20,10 @@ class AddServiceWidget extends StatefulWidget {
   final OrdersRecord? order;
 
   @override
-  _AddServiceWidgetState createState() => _AddServiceWidgetState();
+  _AddServicesWidgetState createState() => _AddServicesWidgetState();
 }
 
-class _AddServiceWidgetState extends State<AddServiceWidget> {
+class _AddServicesWidgetState extends State<AddServicesWidget> {
   Map<AddOnsRecord, bool> checkboxListTileValueMap = {};
   List<AddOnsRecord> get checkboxListTileCheckedItems =>
       checkboxListTileValueMap.entries

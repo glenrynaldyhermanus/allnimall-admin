@@ -1,5 +1,5 @@
 import '../backend/backend.dart';
-import '../components/add_service_widget.dart';
+import '../components/add_services_widget.dart';
 import '../components/edit_services_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -212,11 +212,11 @@ class _ServiceSelectionListWidgetState
                                                                         context)
                                                                     .viewInsets,
                                                             child:
-                                                                AddServiceWidget(
+                                                                AddServicesWidget(
                                                               service:
                                                                   columnServicesRecord,
                                                               order:
-                                                                  widget.order,
+                                                                  serviceSelectionListOrdersRecord,
                                                             ),
                                                           );
                                                         },
