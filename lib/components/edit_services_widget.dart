@@ -265,7 +265,8 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                               fontSize: 16,
                             ),
                           ),
-                          count: countControllerValue ??= 1,
+                          count: countControllerValue ??=
+                              widget.orderService!.quantity!,
                           updateCount: (count) =>
                               setState(() => countControllerValue = count),
                           stepSize: 1,
