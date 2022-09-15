@@ -27,6 +27,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       Function() _navigate = () {};
+      await Future.delayed(const Duration(milliseconds: 500));
       if (valueOrDefault(currentUserDocument?.role, '') == 'Admin') {
         if (!(FFAppState().selectedDate != null)) {
           setState(() => FFAppState().selectedDate = getCurrentTimestamp);
