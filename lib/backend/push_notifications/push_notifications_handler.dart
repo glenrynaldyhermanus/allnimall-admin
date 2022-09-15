@@ -80,7 +80,10 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'Login': (data) async => LoginWidget(),
   'Menu': (data) async => MenuWidget(),
-  'CreateOrder': (data) async => CreateOrderWidget(),
+  'CreateOrder': (data) async => CreateOrderWidget(
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
+      ),
   'OrderDetail': (data) async => OrderDetailWidget(
         order:
             await getDocumentParameter(data, 'order', OrdersRecord.serializer),
@@ -117,6 +120,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'ServiceCategoryList': (data) async => ServiceCategoryListWidget(
         isSelection: getParameter(data, 'isSelection'),
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
   'EditServiceCategory': (data) async => EditServiceCategoryWidget(
         category: await getDocumentParameter(
@@ -135,6 +140,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         isSelection: getParameter(data, 'isSelection'),
         category: await getDocumentParameter(
             data, 'category', ServiceCategoriesRecord.serializer),
+        order:
+            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
       ),
   'EditService': (data) async => EditServiceWidget(
         service: await getDocumentParameter(

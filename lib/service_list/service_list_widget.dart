@@ -12,10 +12,12 @@ class ServiceListWidget extends StatefulWidget {
     Key? key,
     this.isSelection,
     this.category,
+    this.order,
   }) : super(key: key);
 
   final bool? isSelection;
   final ServiceCategoriesRecord? category;
+  final OrdersRecord? order;
 
   @override
   _ServiceListWidgetState createState() => _ServiceListWidgetState();
@@ -206,6 +208,7 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                       child: AddServiceWidget(
                                                         service:
                                                             columnServicesRecord,
+                                                        order: widget.order,
                                                       ),
                                                     );
                                                   },
@@ -552,8 +555,7 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                   onPressed: () async {
                                     context.pop();
                                   },
-                                  text:
-                                      'Add service - ${FFAppState().selectedServices.length.toString()}',
+                                  text: 'Add service',
                                   options: FFButtonOptions(
                                     height: 50,
                                     color: FlutterFlowTheme.of(context)

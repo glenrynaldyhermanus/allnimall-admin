@@ -95,7 +95,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'CreateOrder',
               path: 'createOrder',
-              builder: (context, params) => CreateOrderWidget(),
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
+              builder: (context, params) => CreateOrderWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
             ),
             FFRoute(
               name: 'OrderDetail',
@@ -184,8 +189,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'ServiceCategoryList',
               path: 'serviceCategoryList',
+              asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
+              },
               builder: (context, params) => ServiceCategoryListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
+                order: params.getParam('order', ParamType.Document),
               ),
             ),
             FFRoute(
@@ -237,10 +246,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               asyncParams: {
                 'category': getDoc(
                     'service_categories', ServiceCategoriesRecord.serializer),
+                'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => ServiceListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
                 category: params.getParam('category', ParamType.Document),
+                order: params.getParam('order', ParamType.Document),
               ),
             ),
             FFRoute(

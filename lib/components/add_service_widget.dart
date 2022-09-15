@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -5,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,9 +14,11 @@ class AddServiceWidget extends StatefulWidget {
   const AddServiceWidget({
     Key? key,
     this.service,
+    this.order,
   }) : super(key: key);
 
   final ServicesRecord? service;
+  final OrdersRecord? order;
 
   @override
   _AddServiceWidgetState createState() => _AddServiceWidgetState();
@@ -288,9 +292,15 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                                   .map((e) => e.reference)
                                   .toList(),
                             );
-                            setState(() => FFAppState()
-                                .selectedServices
-                                .add(updatedService!.reference));
+
+                            final orderServicesCreateData =
+                                createOrderServicesRecordData(
+                              name: updatedService!.name,
+                              quantity: updatedService!.quantity,
+                            );
+                            await OrderServicesRecord.createDoc(
+                                    widget.order!.reference)
+                                .set(orderServicesCreateData);
 
                             setState(() {});
                           },

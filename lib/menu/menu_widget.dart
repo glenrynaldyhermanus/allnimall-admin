@@ -1,8 +1,10 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,6 +16,7 @@ class MenuWidget extends StatefulWidget {
 }
 
 class _MenuWidgetState extends State<MenuWidget> {
+  OrdersRecord? newOrder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -178,7 +181,27 @@ class _MenuWidgetState extends State<MenuWidget> {
                           ),
                           child: InkWell(
                             onTap: () async {
-                              context.pushNamed('CreateOrder');
+                              final ordersCreateData = createOrdersRecordData(
+                                status: 'Draft',
+                              );
+                              var ordersRecordReference =
+                                  OrdersRecord.collection.doc();
+                              await ordersRecordReference.set(ordersCreateData);
+                              newOrder = OrdersRecord.getDocumentFromData(
+                                  ordersCreateData, ordersRecordReference);
+
+                              context.pushNamed(
+                                'CreateOrder',
+                                queryParams: {
+                                  'order': serializeParam(
+                                      newOrder, ParamType.Document),
+                                }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  'order': newOrder,
+                                },
+                              );
+
+                              setState(() {});
                             },
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
