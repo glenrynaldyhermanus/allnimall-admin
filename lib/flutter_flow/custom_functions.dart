@@ -115,8 +115,18 @@ double countTotalService(
 double countTotalAllService(List<OrderServicesRecord>? services) {
   double fee = 0;
 
-  for (OrderServicesRecord service in services!) {
-    fee += service.fee! * service.quantity!;
+  if (services == null) {
+    return 0;
+  }
+  for (OrderServicesRecord service in services) {
+    double serviceFee = service.fee!;
+
+    if (service.addOns != null) {
+      for (AddOnsStruct addOn in service.addOns!) {
+        serviceFee += addOn.fee!;
+      }
+    }
+    fee += serviceFee * service.quantity!;
   }
 
   return fee;
@@ -151,4 +161,35 @@ List<AddOnsStruct>? addOnDocToList(List<AddOnsRecord>? addOnsDoc) {
     addOns.add(addOn);
   }
   return addOns;
+}
+
+bool isAddonAdded(
+  List<AddOnsStruct>? addedAddOns,
+  AddOnsRecord? addOn,
+) {
+  // Add your function code here!
+  if (addedAddOns == null) {
+    return false;
+  }
+
+  for (AddOnsStruct addedAddOn in addedAddOns) {
+    if (addedAddOn.addonUid == addOn!.reference) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+OrderServicesRecord? orderServiceFromService(
+  ServicesRecord? service,
+  List<OrderServicesRecord>? orderServices,
+) {
+  // return record where service reference equals to order service uid
+  for (var k in orderServices!) {
+    if (k.serviceUid?.id == service?.reference.id) {
+      return k;
+    }
+  }
+  return null;
 }

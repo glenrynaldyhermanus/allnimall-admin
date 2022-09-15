@@ -1,5 +1,6 @@
 import '../backend/backend.dart';
 import '../components/add_service_widget.dart';
+import '../components/edit_services_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
@@ -168,26 +169,59 @@ class _ServiceSelectionListWidgetState
                                                     .fromSTEB(0, 2, 0, 0),
                                                 child: InkWell(
                                                   onTap: () async {
-                                                    await showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return Padding(
-                                                          padding:
-                                                              MediaQuery.of(
-                                                                      context)
-                                                                  .viewInsets,
-                                                          child:
-                                                              AddServiceWidget(
-                                                            service:
-                                                                columnServicesRecord,
-                                                            order: widget.order,
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
+                                                    if (functions.isServiceAdded(
+                                                        columnServicesRecord,
+                                                        containerOrderServicesRecordList
+                                                            .toList())) {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return Padding(
+                                                            padding:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
+                                                            child:
+                                                                EditServicesWidget(
+                                                              service:
+                                                                  columnServicesRecord,
+                                                              orderService: functions
+                                                                  .orderServiceFromService(
+                                                                      columnServicesRecord,
+                                                                      containerOrderServicesRecordList
+                                                                          .toList()),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    } else {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return Padding(
+                                                            padding:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
+                                                            child:
+                                                                AddServiceWidget(
+                                                              service:
+                                                                  columnServicesRecord,
+                                                              order:
+                                                                  widget.order,
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    }
                                                   },
                                                   child: Row(
                                                     mainAxisSize:
