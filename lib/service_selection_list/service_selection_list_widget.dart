@@ -2,12 +2,12 @@ import '../backend/backend.dart';
 import '../components/add_service_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ServiceListCopyWidget extends StatefulWidget {
-  const ServiceListCopyWidget({
+class ServiceSelectionListWidget extends StatefulWidget {
+  const ServiceSelectionListWidget({
     Key? key,
     this.order,
     this.category,
@@ -17,10 +17,12 @@ class ServiceListCopyWidget extends StatefulWidget {
   final ServiceCategoriesRecord? category;
 
   @override
-  _ServiceListCopyWidgetState createState() => _ServiceListCopyWidgetState();
+  _ServiceSelectionListWidgetState createState() =>
+      _ServiceSelectionListWidgetState();
 }
 
-class _ServiceListCopyWidgetState extends State<ServiceListCopyWidget> {
+class _ServiceSelectionListWidgetState
+    extends State<ServiceSelectionListWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -47,14 +49,14 @@ class _ServiceListCopyWidgetState extends State<ServiceListCopyWidget> {
             ),
           );
         }
-        final serviceListCopyOrdersRecord = snapshot.data!;
+        final serviceSelectionListOrdersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
             title: Text(
-              serviceListCopyOrdersRecord.name!,
+              serviceSelectionListOrdersRecord.name!,
               style: FlutterFlowTheme.of(context).title3.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -372,28 +374,78 @@ class _ServiceListCopyWidgetState extends State<ServiceListCopyWidget> {
                           Expanded(
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  context.pop();
-                                },
-                                text: 'Add service',
-                                options: FFButtonOptions(
-                                  height: 50,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
-                                  elevation: 3,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                              child: StreamBuilder<List<OrderServicesRecord>>(
+                                stream: queryOrderServicesRecord(
+                                  parent: serviceSelectionListOrdersRecord
+                                      .reference,
                                 ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<OrderServicesRecord>
+                                      containerOrderServicesRecordList =
+                                      snapshot.data!;
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16, 16, 16, 16),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '${containerOrderServicesRecordList.length.toString()} items',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiaryColor,
+                                                ),
+                                          ),
+                                          Text(
+                                            formatNumber(
+                                              functions.countTotalAllService(
+                                                  containerOrderServicesRecordList
+                                                      .toList()),
+                                              formatType: FormatType.decimal,
+                                              decimalType:
+                                                  DecimalType.commaDecimal,
+                                              currency: 'Rp',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiaryColor,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),

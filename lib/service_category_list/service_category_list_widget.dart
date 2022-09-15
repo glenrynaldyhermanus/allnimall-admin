@@ -300,7 +300,7 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                             context.pop();
 
                                             context.pushNamed(
-                                              'ServiceListCopy',
+                                              'ServiceSelectionList',
                                               queryParams: {
                                                 'order': serializeParam(
                                                     widget.order,
