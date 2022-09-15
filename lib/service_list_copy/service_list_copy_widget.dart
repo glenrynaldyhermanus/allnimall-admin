@@ -1,23 +1,26 @@
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
+import '../components/add_service_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ServiceListWidget extends StatefulWidget {
-  const ServiceListWidget({
+class ServiceListCopyWidget extends StatefulWidget {
+  const ServiceListCopyWidget({
     Key? key,
     this.category,
+    this.order,
   }) : super(key: key);
 
   final ServiceCategoriesRecord? category;
+  final OrdersRecord? order;
 
   @override
-  _ServiceListWidgetState createState() => _ServiceListWidgetState();
+  _ServiceListCopyWidgetState createState() => _ServiceListCopyWidgetState();
 }
 
-class _ServiceListWidgetState extends State<ServiceListWidget> {
+class _ServiceListCopyWidgetState extends State<ServiceListCopyWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -44,78 +47,24 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
             ),
           );
         }
-        final serviceListServiceCategoriesRecord = snapshot.data!;
+        final serviceListCopyServiceCategoriesRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
             title: Text(
-              serviceListServiceCategoriesRecord.name!,
+              serviceListCopyServiceCategoriesRecord.name!,
               style: FlutterFlowTheme.of(context).title3.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).tertiaryColor,
                   ),
             ),
-            actions: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 60,
-                    icon: Icon(
-                      Icons.mode_edit,
-                      color: FlutterFlowTheme.of(context).tertiaryColor,
-                      size: 24,
-                    ),
-                    onPressed: () async {
-                      context.pushNamed(
-                        'EditServiceCategory',
-                        queryParams: {
-                          'category': serializeParam(
-                              serviceListServiceCategoriesRecord,
-                              ParamType.Document),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          'category': serviceListServiceCategoriesRecord,
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
+            actions: [],
             centerTitle: false,
             elevation: 2,
           ),
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () async {
-              context.pushNamed(
-                'CreateService',
-                queryParams: {
-                  'category': serializeParam(
-                      serviceListServiceCategoriesRecord, ParamType.Document),
-                }.withoutNulls,
-                extra: <String, dynamic>{
-                  'category': serviceListServiceCategoriesRecord,
-                },
-              );
-            },
-            backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
-            elevation: 8,
-            label: Text(
-              'Add Service',
-              textAlign: TextAlign.center,
-              style: FlutterFlowTheme.of(context).bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.of(context).tertiaryColor,
-                  ),
-            ),
-          ),
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -184,16 +133,22 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                   0, 2, 0, 0),
                                           child: InkWell(
                                             onTap: () async {
-                                              context.pushNamed(
-                                                'EditService',
-                                                queryParams: {
-                                                  'service': serializeParam(
-                                                      columnServicesRecord,
-                                                      ParamType.Document),
-                                                }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  'service':
-                                                      columnServicesRecord,
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding:
+                                                        MediaQuery.of(context)
+                                                            .viewInsets,
+                                                    child: AddServiceWidget(
+                                                      service:
+                                                          columnServicesRecord,
+                                                      order: widget.order,
+                                                    ),
+                                                  );
                                                 },
                                               );
                                             },
@@ -330,106 +285,48 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        if (columnServicesRecord
-                                                                .isActive ==
-                                                            true)
-                                                          Container(
-                                                            width: 72,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          5,
-                                                                          0,
-                                                                          5),
-                                                              child: Text(
-                                                                'Active',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: FlutterFlowTheme.of(
+                                                    Container(
+                                                      width: 72,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiaryColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          width: 2,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 5, 0, 5),
+                                                        child: Text(
+                                                          'Add',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Outfit',
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Outfit',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryBtnText,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
+                                                                    .primaryColor,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
                                                               ),
-                                                            ),
-                                                          ),
-                                                        if (columnServicesRecord
-                                                                .isActive ==
-                                                            false)
-                                                          Container(
-                                                            width: 72,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .backgroundComponents,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          5,
-                                                                          0,
-                                                                          5),
-                                                              child: Text(
-                                                                'Inactive',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Outfit',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryBtnText,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                      ],
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -466,6 +363,41 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                             },
                           ),
                         ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  context.pop();
+                                },
+                                text: 'Add service',
+                                options: FFButtonOptions(
+                                  height: 50,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                  elevation: 3,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

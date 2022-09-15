@@ -300,20 +300,13 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                             context.pop();
 
                                             context.pushNamed(
-                                              'ServiceList',
+                                              'ServiceListCopy',
                                               queryParams: {
-                                                'isSelection': serializeParam(
-                                                    true, ParamType.bool),
-                                                'category': serializeParam(
-                                                    columnServiceCategoriesRecord,
-                                                    ParamType.Document),
                                                 'order': serializeParam(
                                                     widget.order,
                                                     ParamType.Document),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
-                                                'category':
-                                                    columnServiceCategoriesRecord,
                                                 'order': widget.order,
                                               },
                                             );
@@ -321,8 +314,6 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                             context.pushNamed(
                                               'ServiceList',
                                               queryParams: {
-                                                'isSelection': serializeParam(
-                                                    false, ParamType.bool),
                                                 'category': serializeParam(
                                                     columnServiceCategoriesRecord,
                                                     ParamType.Document),
