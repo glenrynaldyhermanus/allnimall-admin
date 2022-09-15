@@ -9,12 +9,12 @@ import 'package:google_fonts/google_fonts.dart';
 class ServiceListCopyWidget extends StatefulWidget {
   const ServiceListCopyWidget({
     Key? key,
-    this.category,
     this.order,
+    this.category,
   }) : super(key: key);
 
-  final ServiceCategoriesRecord? category;
   final OrdersRecord? order;
+  final ServiceCategoriesRecord? category;
 
   @override
   _ServiceListCopyWidgetState createState() => _ServiceListCopyWidgetState();
@@ -32,8 +32,8 @@ class _ServiceListCopyWidgetState extends State<ServiceListCopyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ServiceCategoriesRecord>(
-      stream: ServiceCategoriesRecord.getDocument(widget.category!.reference),
+    return StreamBuilder<OrdersRecord>(
+      stream: OrdersRecord.getDocument(widget.order!.reference),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -47,14 +47,14 @@ class _ServiceListCopyWidgetState extends State<ServiceListCopyWidget> {
             ),
           );
         }
-        final serviceListCopyServiceCategoriesRecord = snapshot.data!;
+        final serviceListCopyOrdersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
             title: Text(
-              serviceListCopyServiceCategoriesRecord.name!,
+              serviceListCopyOrdersRecord.name!,
               style: FlutterFlowTheme.of(context).title3.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).tertiaryColor,

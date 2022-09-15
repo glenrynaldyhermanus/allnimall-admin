@@ -305,9 +305,14 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                                 'order': serializeParam(
                                                     widget.order,
                                                     ParamType.Document),
+                                                'category': serializeParam(
+                                                    columnServiceCategoriesRecord,
+                                                    ParamType.Document),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
                                                 'order': widget.order,
+                                                'category':
+                                                    columnServiceCategoriesRecord,
                                               },
                                             );
                                           } else {

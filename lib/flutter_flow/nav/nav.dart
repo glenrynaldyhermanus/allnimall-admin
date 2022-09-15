@@ -255,13 +255,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'ServiceListCopy',
               path: 'serviceSelectionList',
               asyncParams: {
+                'order': getDoc('orders', OrdersRecord.serializer),
                 'category': getDoc(
                     'service_categories', ServiceCategoriesRecord.serializer),
-                'order': getDoc('orders', OrdersRecord.serializer),
               },
               builder: (context, params) => ServiceListCopyWidget(
-                category: params.getParam('category', ParamType.Document),
                 order: params.getParam('order', ParamType.Document),
+                category: params.getParam('category', ParamType.Document),
               ),
             ),
             FFRoute(
