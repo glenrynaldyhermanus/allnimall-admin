@@ -14,6 +14,7 @@ import 'faqs_record.dart';
 import 'feature_requests_record.dart';
 import 'add_ons_record.dart';
 import 'order_services_record.dart';
+import 'order_service_addons_record.dart';
 
 import 'index.dart';
 
@@ -38,6 +39,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   FeatureRequestsRecord,
   AddOnsRecord,
   OrderServicesRecord,
+  OrderServiceAddonsRecord,
   ServicesStruct,
   AddOnsStruct,
 ])

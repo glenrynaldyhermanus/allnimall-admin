@@ -17,6 +17,9 @@ abstract class OrderServicesRecord
 
   int? get quantity;
 
+  @BuiltValueField(wireName: 'service_uid')
+  DocumentReference? get serviceUid;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -59,6 +62,7 @@ Map<String, dynamic> createOrderServicesRecordData({
   String? name,
   double? fee,
   int? quantity,
+  DocumentReference? serviceUid,
 }) {
   final firestoreData = serializers.toFirestore(
     OrderServicesRecord.serializer,
@@ -66,7 +70,8 @@ Map<String, dynamic> createOrderServicesRecordData({
       (o) => o
         ..name = name
         ..fee = fee
-        ..quantity = quantity,
+        ..quantity = quantity
+        ..serviceUid = serviceUid,
     ),
   );
 

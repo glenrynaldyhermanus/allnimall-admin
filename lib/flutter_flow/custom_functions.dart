@@ -121,3 +121,16 @@ double countTotalAllService(List<OrderServicesRecord>? services) {
 
   return fee;
 }
+
+bool isServiceAdded(
+  ServicesRecord? service,
+  List<OrderServicesRecord>? addedServices,
+) {
+  for (OrderServicesRecord order in addedServices!) {
+    if (order.serviceUid == service!.reference) {
+      return true;
+    }
+  }
+
+  return false;
+}
