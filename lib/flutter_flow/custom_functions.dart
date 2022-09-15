@@ -11,14 +11,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
 String titleByDate(DateTime? dateTime) {
+  dateTime ??= DateTime.now();
   DateTime now = DateTime.now();
   var days = 0;
 
-  if (dateTime == null) {
-    dateTime = DateTime.now();
-  }
-
-  days = (dateTime!.difference(now).inHours / 24).round();
+  days = (dateTime.difference(now).inHours / 24).round();
 
   if (days == 0) {
     return "Hari Ini";
@@ -26,15 +23,17 @@ String titleByDate(DateTime? dateTime) {
     return "Besok";
   }
 
-  return DateFormat("EEEE, dd MMM", "id_ID").format(dateTime!);
+  return DateFormat("EEEE, dd MMM", "id_ID").format(dateTime);
 }
 
 DateTime dateStart(DateTime? timestamp) {
-  return DateTime(timestamp!.year, timestamp!.month, timestamp.day, 0, 0, 0);
+  timestamp ??= DateTime.now();
+  return DateTime(timestamp.year, timestamp.month, timestamp.day, 0, 0, 0);
 }
 
 DateTime dateEnd(DateTime? timestamp) {
-  return DateTime(timestamp!.year, timestamp!.month, timestamp.day, 23, 59, 59);
+  timestamp ??= DateTime.now();
+  return DateTime(timestamp.year, timestamp.month, timestamp.day, 23, 59, 59);
 }
 
 String generateOrderNo() {
