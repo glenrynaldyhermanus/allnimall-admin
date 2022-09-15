@@ -153,11 +153,8 @@ List<AddOnsStruct>? addOnDocToList(List<AddOnsRecord>? addOnsDoc) {
 
   List<AddOnsStruct> addOns = [];
   for (AddOnsRecord addOnDoc in addOnsDoc) {
-    AddOnsStruct addOn = AddOnsStruct();
-    addOn.name = addOnDoc.name;
-    addOn.fee = addOnDoc.fee;
-    addOn.addonUid = addOnDoc.reference;
-
+    AddOnsStruct addOn = createAddOnsStruct(
+        name: addOnDoc.name, fee: addOnDoc.fee, addonUid: addOnDoc.reference);
     addOns.add(addOn);
   }
   return addOns;

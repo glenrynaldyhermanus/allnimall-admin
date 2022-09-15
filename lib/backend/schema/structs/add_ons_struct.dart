@@ -29,6 +29,7 @@ abstract class AddOnsStruct
     ..firestoreUtilData = FirestoreUtilData();
 
   AddOnsStruct._();
+
   factory AddOnsStruct([void Function(AddOnsStructBuilder) updates]) =
       _$AddOnsStruct;
 }
