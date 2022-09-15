@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'order_services_record.dart';
+part of 'order_service_addons_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<OrderServicesRecord> _$orderServicesRecordSerializer =
-    new _$OrderServicesRecordSerializer();
+Serializer<OrderServiceAddonsRecord> _$orderServiceAddonsRecordSerializer =
+    new _$OrderServiceAddonsRecordSerializer();
 
-class _$OrderServicesRecordSerializer
-    implements StructuredSerializer<OrderServicesRecord> {
+class _$OrderServiceAddonsRecordSerializer
+    implements StructuredSerializer<OrderServiceAddonsRecord> {
   @override
   final Iterable<Type> types = const [
-    OrderServicesRecord,
-    _$OrderServicesRecord
+    OrderServiceAddonsRecord,
+    _$OrderServiceAddonsRecord
   ];
   @override
-  final String wireName = 'OrderServicesRecord';
+  final String wireName = 'OrderServiceAddonsRecord';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, OrderServicesRecord object,
+      Serializers serializers, OrderServiceAddonsRecord object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
@@ -39,16 +39,18 @@ class _$OrderServicesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    value = object.quantity;
-    if (value != null) {
-      result
-        ..add('quantity')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     value = object.serviceUid;
     if (value != null) {
       result
         ..add('service_uid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.addOnUid;
+    if (value != null) {
+      result
+        ..add('add_on_uid')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
@@ -65,10 +67,10 @@ class _$OrderServicesRecordSerializer
   }
 
   @override
-  OrderServicesRecord deserialize(
+  OrderServiceAddonsRecord deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new OrderServicesRecordBuilder();
+    final result = new OrderServiceAddonsRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,12 +86,14 @@ class _$OrderServicesRecordSerializer
           result.fee = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
-        case 'quantity':
-          result.quantity = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
         case 'service_uid':
           result.serviceUid = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'add_on_uid':
+          result.addOnUid = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
@@ -107,69 +111,70 @@ class _$OrderServicesRecordSerializer
   }
 }
 
-class _$OrderServicesRecord extends OrderServicesRecord {
+class _$OrderServiceAddonsRecord extends OrderServiceAddonsRecord {
   @override
   final String? name;
   @override
   final double? fee;
   @override
-  final int? quantity;
-  @override
   final DocumentReference<Object?>? serviceUid;
+  @override
+  final DocumentReference<Object?>? addOnUid;
   @override
   final DocumentReference<Object?>? ffRef;
 
-  factory _$OrderServicesRecord(
-          [void Function(OrderServicesRecordBuilder)? updates]) =>
-      (new OrderServicesRecordBuilder()..update(updates))._build();
+  factory _$OrderServiceAddonsRecord(
+          [void Function(OrderServiceAddonsRecordBuilder)? updates]) =>
+      (new OrderServiceAddonsRecordBuilder()..update(updates))._build();
 
-  _$OrderServicesRecord._(
-      {this.name, this.fee, this.quantity, this.serviceUid, this.ffRef})
+  _$OrderServiceAddonsRecord._(
+      {this.name, this.fee, this.serviceUid, this.addOnUid, this.ffRef})
       : super._();
 
   @override
-  OrderServicesRecord rebuild(
-          void Function(OrderServicesRecordBuilder) updates) =>
+  OrderServiceAddonsRecord rebuild(
+          void Function(OrderServiceAddonsRecordBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OrderServicesRecordBuilder toBuilder() =>
-      new OrderServicesRecordBuilder()..replace(this);
+  OrderServiceAddonsRecordBuilder toBuilder() =>
+      new OrderServiceAddonsRecordBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is OrderServicesRecord &&
+    return other is OrderServiceAddonsRecord &&
         name == other.name &&
         fee == other.fee &&
-        quantity == other.quantity &&
         serviceUid == other.serviceUid &&
+        addOnUid == other.addOnUid &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, name.hashCode), fee.hashCode), quantity.hashCode),
-            serviceUid.hashCode),
+        $jc($jc($jc($jc(0, name.hashCode), fee.hashCode), serviceUid.hashCode),
+            addOnUid.hashCode),
         ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'OrderServicesRecord')
+    return (newBuiltValueToStringHelper(r'OrderServiceAddonsRecord')
           ..add('name', name)
           ..add('fee', fee)
-          ..add('quantity', quantity)
           ..add('serviceUid', serviceUid)
+          ..add('addOnUid', addOnUid)
           ..add('ffRef', ffRef))
         .toString();
   }
 }
 
-class OrderServicesRecordBuilder
-    implements Builder<OrderServicesRecord, OrderServicesRecordBuilder> {
-  _$OrderServicesRecord? _$v;
+class OrderServiceAddonsRecordBuilder
+    implements
+        Builder<OrderServiceAddonsRecord, OrderServiceAddonsRecordBuilder> {
+  _$OrderServiceAddonsRecord? _$v;
 
   String? _name;
   String? get name => _$this._name;
@@ -179,30 +184,31 @@ class OrderServicesRecordBuilder
   double? get fee => _$this._fee;
   set fee(double? fee) => _$this._fee = fee;
 
-  int? _quantity;
-  int? get quantity => _$this._quantity;
-  set quantity(int? quantity) => _$this._quantity = quantity;
-
   DocumentReference<Object?>? _serviceUid;
   DocumentReference<Object?>? get serviceUid => _$this._serviceUid;
   set serviceUid(DocumentReference<Object?>? serviceUid) =>
       _$this._serviceUid = serviceUid;
 
+  DocumentReference<Object?>? _addOnUid;
+  DocumentReference<Object?>? get addOnUid => _$this._addOnUid;
+  set addOnUid(DocumentReference<Object?>? addOnUid) =>
+      _$this._addOnUid = addOnUid;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
-  OrderServicesRecordBuilder() {
-    OrderServicesRecord._initializeBuilder(this);
+  OrderServiceAddonsRecordBuilder() {
+    OrderServiceAddonsRecord._initializeBuilder(this);
   }
 
-  OrderServicesRecordBuilder get _$this {
+  OrderServiceAddonsRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _name = $v.name;
       _fee = $v.fee;
-      _quantity = $v.quantity;
       _serviceUid = $v.serviceUid;
+      _addOnUid = $v.addOnUid;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -210,26 +216,26 @@ class OrderServicesRecordBuilder
   }
 
   @override
-  void replace(OrderServicesRecord other) {
+  void replace(OrderServiceAddonsRecord other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$OrderServicesRecord;
+    _$v = other as _$OrderServiceAddonsRecord;
   }
 
   @override
-  void update(void Function(OrderServicesRecordBuilder)? updates) {
+  void update(void Function(OrderServiceAddonsRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  OrderServicesRecord build() => _build();
+  OrderServiceAddonsRecord build() => _build();
 
-  _$OrderServicesRecord _build() {
+  _$OrderServiceAddonsRecord _build() {
     final _$result = _$v ??
-        new _$OrderServicesRecord._(
+        new _$OrderServiceAddonsRecord._(
             name: name,
             fee: fee,
-            quantity: quantity,
             serviceUid: serviceUid,
+            addOnUid: addOnUid,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
