@@ -9,21 +9,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddServiceWidget extends StatefulWidget {
-  const AddServiceWidget({
+class EditServicesWidget extends StatefulWidget {
+  const EditServicesWidget({
     Key? key,
     this.service,
-    this.order,
+    this.orderService,
   }) : super(key: key);
 
   final ServicesRecord? service;
-  final OrdersRecord? order;
+  final OrderServicesRecord? orderService;
 
   @override
-  _AddServiceWidgetState createState() => _AddServiceWidgetState();
+  _EditServicesWidgetState createState() => _EditServicesWidgetState();
 }
 
-class _AddServiceWidgetState extends State<AddServiceWidget> {
+class _EditServicesWidgetState extends State<EditServicesWidget> {
   Map<AddOnsRecord, bool> checkboxListTileValueMap = {};
   List<AddOnsRecord> get checkboxListTileCheckedItems =>
       checkboxListTileValueMap.entries
@@ -161,7 +161,11 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                                   ),
                                   child: CheckboxListTile(
                                     value: checkboxListTileValueMap[
-                                        columnAddOnsRecord] ??= false,
+                                            columnAddOnsRecord] ??=
+                                        functions.isAddonAdded(
+                                            widget.orderService!.addOns!
+                                                .toList(),
+                                            columnAddOnsRecord),
                                     onChanged: (newValue) => setState(() =>
                                         checkboxListTileValueMap[
                                             columnAddOnsRecord] = newValue!),
@@ -283,11 +287,11 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                           onPressed: () async {
                             Navigator.pop(context);
 
-                            final orderServicesCreateData = {
+                            final orderServicesUpdateData = {
                               ...createOrderServicesRecordData(
                                 name: widget.service!.name,
-                                quantity: countControllerValue,
                                 fee: widget.service!.fee,
+                                quantity: countControllerValue,
                                 serviceUid: widget.service!.reference,
                               ),
                               'add_ons': getAddOnsListFirestoreData(
@@ -295,9 +299,8 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                                     checkboxListTileCheckedItems.toList()),
                               ),
                             };
-                            await OrderServicesRecord.createDoc(
-                                    widget.order!.reference)
-                                .set(orderServicesCreateData);
+                            await widget.orderService!.reference
+                                .update(orderServicesUpdateData);
                           },
                           text: 'Add service - ${formatNumber(
                             functions.countTotalService(

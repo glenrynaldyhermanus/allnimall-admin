@@ -20,6 +20,9 @@ abstract class OrderServicesRecord
   @BuiltValueField(wireName: 'service_uid')
   DocumentReference? get serviceUid;
 
+  @BuiltValueField(wireName: 'add_ons')
+  BuiltList<AddOnsStruct>? get addOns;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -29,7 +32,8 @@ abstract class OrderServicesRecord
   static void _initializeBuilder(OrderServicesRecordBuilder builder) => builder
     ..name = ''
     ..fee = 0.0
-    ..quantity = 0;
+    ..quantity = 0
+    ..addOns = ListBuilder();
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -71,7 +75,8 @@ Map<String, dynamic> createOrderServicesRecordData({
         ..name = name
         ..fee = fee
         ..quantity = quantity
-        ..serviceUid = serviceUid,
+        ..serviceUid = serviceUid
+        ..addOns = null,
     ),
   );
 

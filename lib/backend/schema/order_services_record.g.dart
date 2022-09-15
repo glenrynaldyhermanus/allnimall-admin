@@ -53,6 +53,14 @@ class _$OrderServicesRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.addOns;
+    if (value != null) {
+      result
+        ..add('add_ons')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(AddOnsStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -94,6 +102,12 @@ class _$OrderServicesRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'add_ons':
+          result.addOns.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(AddOnsStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -117,6 +131,8 @@ class _$OrderServicesRecord extends OrderServicesRecord {
   @override
   final DocumentReference<Object?>? serviceUid;
   @override
+  final BuiltList<AddOnsStruct>? addOns;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$OrderServicesRecord(
@@ -124,7 +140,12 @@ class _$OrderServicesRecord extends OrderServicesRecord {
       (new OrderServicesRecordBuilder()..update(updates))._build();
 
   _$OrderServicesRecord._(
-      {this.name, this.fee, this.quantity, this.serviceUid, this.ffRef})
+      {this.name,
+      this.fee,
+      this.quantity,
+      this.serviceUid,
+      this.addOns,
+      this.ffRef})
       : super._();
 
   @override
@@ -144,14 +165,19 @@ class _$OrderServicesRecord extends OrderServicesRecord {
         fee == other.fee &&
         quantity == other.quantity &&
         serviceUid == other.serviceUid &&
+        addOns == other.addOns &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, name.hashCode), fee.hashCode), quantity.hashCode),
-            serviceUid.hashCode),
+        $jc(
+            $jc(
+                $jc($jc($jc(0, name.hashCode), fee.hashCode),
+                    quantity.hashCode),
+                serviceUid.hashCode),
+            addOns.hashCode),
         ffRef.hashCode));
   }
 
@@ -162,6 +188,7 @@ class _$OrderServicesRecord extends OrderServicesRecord {
           ..add('fee', fee)
           ..add('quantity', quantity)
           ..add('serviceUid', serviceUid)
+          ..add('addOns', addOns)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -188,6 +215,11 @@ class OrderServicesRecordBuilder
   set serviceUid(DocumentReference<Object?>? serviceUid) =>
       _$this._serviceUid = serviceUid;
 
+  ListBuilder<AddOnsStruct>? _addOns;
+  ListBuilder<AddOnsStruct> get addOns =>
+      _$this._addOns ??= new ListBuilder<AddOnsStruct>();
+  set addOns(ListBuilder<AddOnsStruct>? addOns) => _$this._addOns = addOns;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -203,6 +235,7 @@ class OrderServicesRecordBuilder
       _fee = $v.fee;
       _quantity = $v.quantity;
       _serviceUid = $v.serviceUid;
+      _addOns = $v.addOns?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -224,13 +257,27 @@ class OrderServicesRecordBuilder
   OrderServicesRecord build() => _build();
 
   _$OrderServicesRecord _build() {
-    final _$result = _$v ??
-        new _$OrderServicesRecord._(
-            name: name,
-            fee: fee,
-            quantity: quantity,
-            serviceUid: serviceUid,
-            ffRef: ffRef);
+    _$OrderServicesRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$OrderServicesRecord._(
+              name: name,
+              fee: fee,
+              quantity: quantity,
+              serviceUid: serviceUid,
+              addOns: _addOns?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'addOns';
+        _addOns?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'OrderServicesRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
