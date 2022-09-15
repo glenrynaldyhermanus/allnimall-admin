@@ -283,13 +283,18 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
                           onPressed: () async {
                             Navigator.pop(context);
 
-                            final orderServicesCreateData =
-                                createOrderServicesRecordData(
-                              name: widget.service!.name,
-                              quantity: countControllerValue,
-                              fee: widget.service!.fee,
-                              serviceUid: widget.service!.reference,
-                            );
+                            final orderServicesCreateData = {
+                              ...createOrderServicesRecordData(
+                                name: widget.service!.name,
+                                quantity: countControllerValue,
+                                fee: widget.service!.fee,
+                                serviceUid: widget.service!.reference,
+                              ),
+                              'add_ons': getAddOnsListFirestoreData(
+                                functions.addOnDocToList(
+                                    checkboxListTileCheckedItems.toList()),
+                              ),
+                            };
                             await OrderServicesRecord.createDoc(
                                     widget.order!.reference)
                                 .set(orderServicesCreateData);

@@ -134,3 +134,21 @@ bool isServiceAdded(
 
   return false;
 }
+
+List<AddOnsStruct>? addOnDocToList(List<AddOnsRecord>? addOnsDoc) {
+  // map record value to AddOnsStruct
+  if (addOnsDoc == null) {
+    return null;
+  }
+
+  List<AddOnsStruct> addOns = [];
+  for (AddOnsRecord addOnDoc in addOnsDoc) {
+    AddOnsStruct addOn = AddOnsStruct();
+    addOn.name = addOnDoc.name;
+    addOn.fee = addOnDoc.fee;
+    addOn.addonUid = addOnDoc.reference;
+
+    addOns.add(addOn);
+  }
+  return addOns;
+}

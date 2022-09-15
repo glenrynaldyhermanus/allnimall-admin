@@ -14,6 +14,12 @@ abstract class AddOnsStruct
 
   double? get fee;
 
+  @BuiltValueField(wireName: 'service_uid')
+  DocumentReference? get serviceUid;
+
+  @BuiltValueField(wireName: 'addon_uid')
+  DocumentReference? get addonUid;
+
   /// Utility class for Firestore updates
   FirestoreUtilData get firestoreUtilData;
 
@@ -30,6 +36,8 @@ abstract class AddOnsStruct
 AddOnsStruct createAddOnsStruct({
   String? name,
   double? fee,
+  DocumentReference? serviceUid,
+  DocumentReference? addonUid,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -39,6 +47,8 @@ AddOnsStruct createAddOnsStruct({
       (a) => a
         ..name = name
         ..fee = fee
+        ..serviceUid = serviceUid
+        ..addonUid = addonUid
         ..firestoreUtilData = FirestoreUtilData(
           clearUnsetFields: clearUnsetFields,
           create: create,

@@ -38,6 +38,22 @@ class _$AddOnsStructSerializer implements StructuredSerializer<AddOnsStruct> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
+    value = object.serviceUid;
+    if (value != null) {
+      result
+        ..add('service_uid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.addonUid;
+    if (value != null) {
+      result
+        ..add('addon_uid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     return result;
   }
 
@@ -61,6 +77,18 @@ class _$AddOnsStructSerializer implements StructuredSerializer<AddOnsStruct> {
           result.fee = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
           break;
+        case 'service_uid':
+          result.serviceUid = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'addon_uid':
+          result.addonUid = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'firestoreUtilData':
           result.firestoreUtilData = serializers.deserialize(value,
                   specifiedType: const FullType(FirestoreUtilData))!
@@ -79,12 +107,21 @@ class _$AddOnsStruct extends AddOnsStruct {
   @override
   final double? fee;
   @override
+  final DocumentReference<Object?>? serviceUid;
+  @override
+  final DocumentReference<Object?>? addonUid;
+  @override
   final FirestoreUtilData firestoreUtilData;
 
   factory _$AddOnsStruct([void Function(AddOnsStructBuilder)? updates]) =>
       (new AddOnsStructBuilder()..update(updates))._build();
 
-  _$AddOnsStruct._({this.name, this.fee, required this.firestoreUtilData})
+  _$AddOnsStruct._(
+      {this.name,
+      this.fee,
+      this.serviceUid,
+      this.addonUid,
+      required this.firestoreUtilData})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         firestoreUtilData, r'AddOnsStruct', 'firestoreUtilData');
@@ -103,13 +140,17 @@ class _$AddOnsStruct extends AddOnsStruct {
     return other is AddOnsStruct &&
         name == other.name &&
         fee == other.fee &&
+        serviceUid == other.serviceUid &&
+        addonUid == other.addonUid &&
         firestoreUtilData == other.firestoreUtilData;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, name.hashCode), fee.hashCode), firestoreUtilData.hashCode));
+        $jc($jc($jc($jc(0, name.hashCode), fee.hashCode), serviceUid.hashCode),
+            addonUid.hashCode),
+        firestoreUtilData.hashCode));
   }
 
   @override
@@ -117,6 +158,8 @@ class _$AddOnsStruct extends AddOnsStruct {
     return (newBuiltValueToStringHelper(r'AddOnsStruct')
           ..add('name', name)
           ..add('fee', fee)
+          ..add('serviceUid', serviceUid)
+          ..add('addonUid', addonUid)
           ..add('firestoreUtilData', firestoreUtilData))
         .toString();
   }
@@ -134,6 +177,16 @@ class AddOnsStructBuilder
   double? get fee => _$this._fee;
   set fee(double? fee) => _$this._fee = fee;
 
+  DocumentReference<Object?>? _serviceUid;
+  DocumentReference<Object?>? get serviceUid => _$this._serviceUid;
+  set serviceUid(DocumentReference<Object?>? serviceUid) =>
+      _$this._serviceUid = serviceUid;
+
+  DocumentReference<Object?>? _addonUid;
+  DocumentReference<Object?>? get addonUid => _$this._addonUid;
+  set addonUid(DocumentReference<Object?>? addonUid) =>
+      _$this._addonUid = addonUid;
+
   FirestoreUtilData? _firestoreUtilData;
   FirestoreUtilData? get firestoreUtilData => _$this._firestoreUtilData;
   set firestoreUtilData(FirestoreUtilData? firestoreUtilData) =>
@@ -148,6 +201,8 @@ class AddOnsStructBuilder
     if ($v != null) {
       _name = $v.name;
       _fee = $v.fee;
+      _serviceUid = $v.serviceUid;
+      _addonUid = $v.addonUid;
       _firestoreUtilData = $v.firestoreUtilData;
       _$v = null;
     }
@@ -173,6 +228,8 @@ class AddOnsStructBuilder
         new _$AddOnsStruct._(
             name: name,
             fee: fee,
+            serviceUid: serviceUid,
+            addonUid: addonUid,
             firestoreUtilData: BuiltValueNullFieldError.checkNotNull(
                 firestoreUtilData, r'AddOnsStruct', 'firestoreUtilData'));
     replace(_$result);
