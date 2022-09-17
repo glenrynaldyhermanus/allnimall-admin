@@ -270,7 +270,7 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                           updateCount: (count) =>
                               setState(() => countControllerValue = count),
                           stepSize: 1,
-                          minimum: 1,
+                          minimum: 0,
                         ),
                       ),
                     ),
@@ -286,21 +286,26 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            final orderServicesUpdateData = {
-                              ...createOrderServicesRecordData(
-                                name: widget.service!.name,
-                                fee: widget.service!.fee,
-                                quantity: countControllerValue,
-                                serviceUid: widget.service!.reference,
-                                categoryName: widget.service!.categoryName,
-                              ),
-                              'add_ons': getAddOnsListFirestoreData(
-                                functions.addOnDocToList(
-                                    checkboxListTileCheckedItems.toList()),
-                              ),
-                            };
-                            await widget.orderService!.reference
-                                .update(orderServicesUpdateData);
+                            if (countControllerValue! > 0) {
+                              final orderServicesUpdateData = {
+                                ...createOrderServicesRecordData(
+                                  name: widget.service!.name,
+                                  fee: widget.service!.fee,
+                                  quantity: countControllerValue,
+                                  serviceUid: widget.service!.reference,
+                                  categoryName: widget.service!.categoryName,
+                                ),
+                                'add_ons': getAddOnsListFirestoreData(
+                                  functions.addOnDocToList(
+                                      checkboxListTileCheckedItems.toList()),
+                                ),
+                              };
+                              await widget.orderService!.reference
+                                  .update(orderServicesUpdateData);
+                            } else {
+                              await widget.orderService!.reference.delete();
+                            }
+
                             Navigator.pop(context);
                           },
                           text: 'Add service - ${formatNumber(
