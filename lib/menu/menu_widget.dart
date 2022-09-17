@@ -75,144 +75,132 @@ class _MenuWidgetState extends State<MenuWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-                    child: StreamBuilder<RangersRecord>(
-                      stream: RangersRecord.getDocument(currentUserReference!),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: CircularProgressIndicator(
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                              ),
-                            ),
-                          );
-                        }
-                        final containerRangersRecord = snapshot.data!;
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                            child: Column(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBtnText,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        final selectedMedia =
-                                            await selectMediaWithSourceBottomSheet(
-                                          context: context,
-                                          maxWidth: 480.00,
-                                          maxHeight: 480.00,
-                                          allowPhoto: true,
+                                AuthUserStreamWidget(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      final selectedMedia =
+                                          await selectMediaWithSourceBottomSheet(
+                                        context: context,
+                                        maxWidth: 480.00,
+                                        maxHeight: 480.00,
+                                        allowPhoto: true,
+                                      );
+                                      if (selectedMedia != null &&
+                                          selectedMedia.every((m) =>
+                                              validateFileFormat(
+                                                  m.storagePath, context))) {
+                                        showUploadMessage(
+                                          context,
+                                          'Uploading file...',
+                                          showLoading: true,
                                         );
-                                        if (selectedMedia != null &&
-                                            selectedMedia.every((m) =>
-                                                validateFileFormat(
-                                                    m.storagePath, context))) {
+                                        final downloadUrls = (await Future.wait(
+                                                selectedMedia.map((m) async =>
+                                                    await uploadData(
+                                                        m.storagePath,
+                                                        m.bytes))))
+                                            .where((u) => u != null)
+                                            .map((u) => u!)
+                                            .toList();
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                        if (downloadUrls.length ==
+                                            selectedMedia.length) {
+                                          setState(() => uploadedFileUrl =
+                                              downloadUrls.first);
                                           showUploadMessage(
                                             context,
-                                            'Uploading file...',
-                                            showLoading: true,
+                                            'Success!',
                                           );
-                                          final downloadUrls =
-                                              (await Future.wait(selectedMedia
-                                                      .map((m) async =>
-                                                          await uploadData(
-                                                              m.storagePath,
-                                                              m.bytes))))
-                                                  .where((u) => u != null)
-                                                  .map((u) => u!)
-                                                  .toList();
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          if (downloadUrls.length ==
-                                              selectedMedia.length) {
-                                            setState(() => uploadedFileUrl =
-                                                downloadUrls.first);
-                                            showUploadMessage(
-                                              context,
-                                              'Success!',
-                                            );
-                                          } else {
-                                            showUploadMessage(
-                                              context,
-                                              'Failed to upload media',
-                                            );
-                                            return;
-                                          }
+                                        } else {
+                                          showUploadMessage(
+                                            context,
+                                            'Failed to upload media',
+                                          );
+                                          return;
                                         }
-                                      },
-                                      child: Container(
-                                        width: 72,
-                                        height: 72,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
+                                      }
+
+                                      final rangersUpdateData =
+                                          createRangersRecordData(
+                                        photoUrl: uploadedFileUrl,
+                                      );
+                                      await currentUserReference!
+                                          .update(rangersUpdateData);
+                                    },
+                                    child: Container(
+                                      width: 72,
+                                      height: 72,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        valueOrDefault<String>(
+                                          currentUserPhoto,
+                                          'https://via.placeholder.com/120x120.png?text=Upload',
                                         ),
-                                        child: Image.network(
-                                          valueOrDefault<String>(
-                                            containerRangersRecord.photoUrl,
-                                            'https://via.placeholder.com/120x120.png?text=Upload',
-                                          ),
-                                          fit: BoxFit.contain,
-                                        ),
+                                        fit: BoxFit.contain,
                                       ),
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 0),
-                                      child: Text(
-                                        containerRangersRecord.displayName!,
-                                        style:
-                                            FlutterFlowTheme.of(context).title1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 12),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        containerRangersRecord.email!,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      },
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 8, 0, 0),
+                                  child: AuthUserStreamWidget(
+                                    child: Text(
+                                      currentUserDisplayName,
+                                      style:
+                                          FlutterFlowTheme.of(context).title1,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    currentUserEmail,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
