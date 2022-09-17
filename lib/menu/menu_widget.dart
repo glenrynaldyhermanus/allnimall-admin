@@ -162,8 +162,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                                         child: Image.network(
                                           valueOrDefault<String>(
                                             containerRangersRecord.photoUrl,
-                                            'https://via.placeholder.com/80x80.png?text=Upload%20picture',
+                                            'https://via.placeholder.com/120x120.png?text=Upload',
                                           ),
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
