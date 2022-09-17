@@ -287,6 +287,7 @@ class _AddServicesWidgetState extends State<AddServicesWidget> {
                                 quantity: countControllerValue,
                                 fee: widget.service!.fee,
                                 serviceUid: widget.service!.reference,
+                                categoryName: widget.service!.categoryName,
                               ),
                               'add_ons': getAddOnsListFirestoreData(
                                 functions.addOnDocToList(

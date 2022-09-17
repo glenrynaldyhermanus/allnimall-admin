@@ -292,6 +292,7 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                                 fee: widget.service!.fee,
                                 quantity: countControllerValue,
                                 serviceUid: widget.service!.reference,
+                                categoryName: widget.service!.categoryName,
                               ),
                               'add_ons': getAddOnsListFirestoreData(
                                 functions.addOnDocToList(
