@@ -23,6 +23,9 @@ abstract class OrderServicesRecord
   @BuiltValueField(wireName: 'add_ons')
   BuiltList<AddOnsStruct>? get addOns;
 
+  @BuiltValueField(wireName: 'category_name')
+  String? get categoryName;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -33,7 +36,8 @@ abstract class OrderServicesRecord
     ..name = ''
     ..fee = 0.0
     ..quantity = 0
-    ..addOns = ListBuilder();
+    ..addOns = ListBuilder()
+    ..categoryName = '';
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -67,6 +71,7 @@ Map<String, dynamic> createOrderServicesRecordData({
   double? fee,
   int? quantity,
   DocumentReference? serviceUid,
+  String? categoryName,
 }) {
   final firestoreData = serializers.toFirestore(
     OrderServicesRecord.serializer,
@@ -76,7 +81,8 @@ Map<String, dynamic> createOrderServicesRecordData({
         ..fee = fee
         ..quantity = quantity
         ..serviceUid = serviceUid
-        ..addOns = null,
+        ..addOns = null
+        ..categoryName = categoryName,
     ),
   );
 

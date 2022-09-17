@@ -61,6 +61,13 @@ class _$OrderServicesRecordSerializer
             specifiedType: const FullType(
                 BuiltList, const [const FullType(AddOnsStruct)])));
     }
+    value = object.categoryName;
+    if (value != null) {
+      result
+        ..add('category_name')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -108,6 +115,10 @@ class _$OrderServicesRecordSerializer
                       BuiltList, const [const FullType(AddOnsStruct)]))!
               as BuiltList<Object?>);
           break;
+        case 'category_name':
+          result.categoryName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -133,6 +144,8 @@ class _$OrderServicesRecord extends OrderServicesRecord {
   @override
   final BuiltList<AddOnsStruct>? addOns;
   @override
+  final String? categoryName;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$OrderServicesRecord(
@@ -145,6 +158,7 @@ class _$OrderServicesRecord extends OrderServicesRecord {
       this.quantity,
       this.serviceUid,
       this.addOns,
+      this.categoryName,
       this.ffRef})
       : super._();
 
@@ -166,6 +180,7 @@ class _$OrderServicesRecord extends OrderServicesRecord {
         quantity == other.quantity &&
         serviceUid == other.serviceUid &&
         addOns == other.addOns &&
+        categoryName == other.categoryName &&
         ffRef == other.ffRef;
   }
 
@@ -174,10 +189,12 @@ class _$OrderServicesRecord extends OrderServicesRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, name.hashCode), fee.hashCode),
-                    quantity.hashCode),
-                serviceUid.hashCode),
-            addOns.hashCode),
+                $jc(
+                    $jc($jc($jc(0, name.hashCode), fee.hashCode),
+                        quantity.hashCode),
+                    serviceUid.hashCode),
+                addOns.hashCode),
+            categoryName.hashCode),
         ffRef.hashCode));
   }
 
@@ -189,6 +206,7 @@ class _$OrderServicesRecord extends OrderServicesRecord {
           ..add('quantity', quantity)
           ..add('serviceUid', serviceUid)
           ..add('addOns', addOns)
+          ..add('categoryName', categoryName)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -220,6 +238,10 @@ class OrderServicesRecordBuilder
       _$this._addOns ??= new ListBuilder<AddOnsStruct>();
   set addOns(ListBuilder<AddOnsStruct>? addOns) => _$this._addOns = addOns;
 
+  String? _categoryName;
+  String? get categoryName => _$this._categoryName;
+  set categoryName(String? categoryName) => _$this._categoryName = categoryName;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -236,6 +258,7 @@ class OrderServicesRecordBuilder
       _quantity = $v.quantity;
       _serviceUid = $v.serviceUid;
       _addOns = $v.addOns?.toBuilder();
+      _categoryName = $v.categoryName;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -266,6 +289,7 @@ class OrderServicesRecordBuilder
               quantity: quantity,
               serviceUid: serviceUid,
               addOns: _addOns?.build(),
+              categoryName: categoryName,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
