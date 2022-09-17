@@ -1,11 +1,13 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditServiceCategoryWidget extends StatefulWidget {
@@ -24,6 +26,7 @@ class EditServiceCategoryWidget extends StatefulWidget {
 class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
   TextEditingController? nameController;
 
+  int? countControllerValue;
   String? typeListValue;
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -66,6 +69,81 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24, 16, 24, 0),
+                                child: Text(
+                                  'Sequence',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                                child: Container(
+                                  width: 160,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      width: 0,
+                                    ),
+                                  ),
+                                  child: FlutterFlowCountController(
+                                    decrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.minus,
+                                      color: enabled
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondaryColor
+                                          : Color(0xFFEEEEEE),
+                                      size: 20,
+                                    ),
+                                    incrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.plus,
+                                      color: enabled
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondaryColor
+                                          : Color(0xFFEEEEEE),
+                                      size: 20,
+                                    ),
+                                    countBuilder: (count) => Text(
+                                      count.toString(),
+                                      style: GoogleFonts.getFont(
+                                        'Roboto',
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    count: countControllerValue ??=
+                                        widget.category!.sequence!,
+                                    updateCount: (count) => setState(
+                                        () => countControllerValue = count),
+                                    stepSize: 1,
+                                    minimum: 1,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: TextFormField(
@@ -183,6 +261,7 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                               isActive: switchListTileValue,
                               name: nameController!.text,
                               type: typeListValue,
+                              sequence: countControllerValue,
                             );
                             await widget.category!.reference
                                 .update(serviceCategoriesUpdateData);
