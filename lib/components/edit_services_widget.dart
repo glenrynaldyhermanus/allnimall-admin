@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/add_services_widget.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -14,10 +15,12 @@ class EditServicesWidget extends StatefulWidget {
     Key? key,
     this.service,
     this.orderService,
+    this.order,
   }) : super(key: key);
 
   final ServicesRecord? service;
   final OrderServicesRecord? orderService;
+  final OrdersRecord? order;
 
   @override
   _EditServicesWidgetState createState() => _EditServicesWidgetState();
@@ -283,7 +286,7 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             if (countControllerValue! > 0) {
@@ -326,6 +329,53 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                                       color: Colors.white,
                                     ),
                             elevation: 3,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: MediaQuery.of(context).viewInsets,
+                                  child: AddServicesWidget(
+                                    service: widget.service,
+                                    order: widget.order,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          text: 'Custom Another',
+                          options: FFButtonOptions(
+                            height: 50,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryColor,
+                                    ),
+                            elevation: 0,
                             borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1,

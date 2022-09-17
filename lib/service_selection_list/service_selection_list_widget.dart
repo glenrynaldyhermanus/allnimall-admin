@@ -224,6 +224,8 @@ class _ServiceSelectionListWidgetState
                                                                     columnServicesRecord,
                                                                     containerOrderServicesRecordList
                                                                         .toList()),
+                                                                order: widget
+                                                                    .order,
                                                               ),
                                                             );
                                                           },

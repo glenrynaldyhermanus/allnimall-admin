@@ -156,6 +156,7 @@ class _EditServicesListWidgetState extends State<EditServicesListWidget> {
                                           service: widget.service,
                                           orderService:
                                               columnOrderServicesRecord,
+                                          order: widget.order,
                                         ),
                                       );
                                     },
