@@ -320,6 +320,25 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                                                 ),
                                                               ],
                                                             ),
+                                                            Text(
+                                                              selectedServicesItem
+                                                                  .categoryName!,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                            ),
                                                             if (selectedServicesItem
                                                                     .addOns!
                                                                     .toList()
