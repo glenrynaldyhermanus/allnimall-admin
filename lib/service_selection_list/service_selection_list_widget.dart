@@ -555,7 +555,7 @@ class _ServiceSelectionListWidgetState
                                                   Text(
                                                     formatNumber(
                                                       functions
-                                                          .countTotalAllService(
+                                                          .countTotalAllServices(
                                                               containerOrderServicesRecordList
                                                                   .toList()),
                                                       formatType:

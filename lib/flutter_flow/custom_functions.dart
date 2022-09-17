@@ -112,7 +112,26 @@ double countTotalService(
   return 0;
 }
 
-double countTotalAllService(List<OrderServicesRecord>? services) {
+double countTotalOrderService(
+  double? serviceFee,
+  List<AddOnsStruct>? addOns,
+  int? numOfPet,
+) {
+  serviceFee ??= 0;
+  if (addOns != null) {
+    for (AddOnsStruct addOn in addOns) {
+      if (serviceFee != null) {
+        serviceFee = serviceFee + addOn.fee!;
+      }
+    }
+  }
+  if (serviceFee != null) {
+    return serviceFee * numOfPet!;
+  }
+  return 0;
+}
+
+double countTotalAllServices(List<OrderServicesRecord>? services) {
   double fee = 0;
 
   if (services == null) {
@@ -189,4 +208,83 @@ OrderServicesRecord? orderServiceFromService(
     }
   }
   return null;
+}
+
+String petCategoryFromOrderServices(List<OrderServicesRecord>? orderServices) {
+  // Add your function code here!
+  var petCategory = "";
+
+  for (OrderServicesRecord orderService in orderServices!) {
+    if (!petCategory.contains(orderService.categoryName!)) {
+      if (petCategory.isEmpty) {
+        petCategory += orderService.categoryName!;
+      } else {
+        petCategory += ', ${orderService.categoryName!}';
+      }
+    }
+  }
+
+  return petCategory;
+}
+
+String orderNameFromOrderServices(List<OrderServicesRecord>? orderServices) {
+  // Add your function code here!
+  var orderName = "";
+
+  for (OrderServicesRecord orderService in orderServices!) {
+    if (orderName.isEmpty) {
+      orderName +=
+          '${orderService.name} x ${orderService.quantity} ${orderService.categoryName}';
+    } else {
+      orderName +=
+          ', ${orderService.name} x ${orderService.quantity} ${orderService.categoryName}';
+    }
+  }
+
+  return orderName;
+}
+
+String serviceFromOrderServices(List<OrderServicesRecord>? orderServices) {
+  // Add your function code here!
+  var serviceName = "";
+
+  for (OrderServicesRecord orderService in orderServices!) {
+    if (serviceName.isEmpty) {
+      serviceName += '${orderService.name} ${orderService.categoryName}';
+    } else {
+      serviceName += ', ${orderService.name} ${orderService.categoryName}';
+    }
+  }
+
+  return serviceName;
+}
+
+int quantityFromOrderServices(List<OrderServicesRecord>? orderServices) {
+  // Add your function code here!
+  var quantity = 0;
+
+  for (OrderServicesRecord orderService in orderServices!) {
+    quantity += orderService.quantity!;
+  }
+
+  return quantity;
+}
+
+String addOnsFromService(OrderServicesRecord? service) {
+  var addOns = "";
+
+  if (service != null) {
+    if (service.addOns != null) {
+      List<AddOnsStruct> addOnsServices = service.addOns!.toList();
+      for (AddOnsStruct addOnService in addOnsServices) {
+        if (addOns.isEmpty) {
+          addOns += addOnService.name!;
+        } else {
+          addOns += ', ${addOnService.name!}';
+        }
+      }
+    }
+  }
+
+  return addOns;
 }
