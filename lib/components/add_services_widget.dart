@@ -281,8 +281,6 @@ class _AddServicesWidgetState extends State<AddServicesWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            Navigator.pop(context);
-
                             final orderServicesCreateData = {
                               ...createOrderServicesRecordData(
                                 name: widget.service!.name,
@@ -298,6 +296,7 @@ class _AddServicesWidgetState extends State<AddServicesWidget> {
                             await OrderServicesRecord.createDoc(
                                     widget.order!.reference)
                                 .set(orderServicesCreateData);
+                            Navigator.pop(context);
                           },
                           text: 'Add service - ${formatNumber(
                             functions.countTotalService(
