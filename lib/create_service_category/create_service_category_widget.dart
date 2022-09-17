@@ -177,6 +177,7 @@ class _CreateServiceCategoryWidgetState
                               isActive: switchListTileValue,
                               name: nameController!.text,
                               type: typeListValue,
+                              sequence: 1,
                             );
                             await ServiceCategoriesRecord.collection
                                 .doc()
