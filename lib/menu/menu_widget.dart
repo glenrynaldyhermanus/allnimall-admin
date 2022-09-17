@@ -154,7 +154,7 @@ class _MenuWidgetState extends State<MenuWidget> {
 
                                         final rangersUpdateData =
                                             createRangersRecordData(
-                                          photoUrl: '',
+                                          photoUrl: uploadedFileUrl,
                                         );
                                         await currentUserReference!
                                             .update(rangersUpdateData);
