@@ -1,5 +1,6 @@
 import '../backend/backend.dart';
 import '../components/add_services_widget.dart';
+import '../components/edit_services_list_widget.dart';
 import '../components/edit_services_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -173,31 +174,63 @@ class _ServiceSelectionListWidgetState
                                                         columnServicesRecord,
                                                         containerOrderServicesRecordList
                                                             .toList())) {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
-                                                            child:
-                                                                EditServicesWidget(
-                                                              service:
+                                                      if (functions
+                                                              .orderServicezFromService(
                                                                   columnServicesRecord,
-                                                              orderService: functions
-                                                                  .orderServiceFromService(
-                                                                      columnServicesRecord,
-                                                                      containerOrderServicesRecordList
-                                                                          .toList()),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
+                                                                  containerOrderServicesRecordList
+                                                                      .toList())!
+                                                              .length >
+                                                          1) {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                      .of(context)
+                                                                  .viewInsets,
+                                                              child:
+                                                                  EditServicesListWidget(
+                                                                service:
+                                                                    columnServicesRecord,
+                                                                order:
+                                                                    serviceSelectionListOrdersRecord,
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      } else {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                      .of(context)
+                                                                  .viewInsets,
+                                                              child:
+                                                                  EditServicesWidget(
+                                                                service:
+                                                                    columnServicesRecord,
+                                                                orderService: functions.orderServiceFromService(
+                                                                    columnServicesRecord,
+                                                                    containerOrderServicesRecordList
+                                                                        .toList()),
+                                                                order: widget
+                                                                    .order,
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      }
                                                     } else {
                                                       await showModalBottomSheet(
                                                         isScrollControlled:

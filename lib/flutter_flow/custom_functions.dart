@@ -210,6 +210,20 @@ OrderServicesRecord? orderServiceFromService(
   return null;
 }
 
+List<OrderServicesRecord>? orderServicezFromService(
+  ServicesRecord? service,
+  List<OrderServicesRecord>? orderServices,
+) {
+  // return record where service reference equals to order service uid
+  List<OrderServicesRecord> list = [];
+  for (var k in orderServices!) {
+    if (k.serviceUid?.id == service?.reference.id) {
+      list.add(k);
+    }
+  }
+  return list;
+}
+
 String petCategoryFromOrderServices(List<OrderServicesRecord>? orderServices) {
   // Add your function code here!
   var petCategory = "";
