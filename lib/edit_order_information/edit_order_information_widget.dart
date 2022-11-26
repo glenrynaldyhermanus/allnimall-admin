@@ -24,12 +24,10 @@ class EditOrderInformationWidget extends StatefulWidget {
 
 class _EditOrderInformationWidgetState
     extends State<EditOrderInformationWidget> {
-  TextEditingController? amountController;
-
-  TextEditingController? quantityController;
-
   String? petCategoryListValue;
   String? petServiceListValue;
+  TextEditingController? quantityController;
+  TextEditingController? amountController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -43,9 +41,17 @@ class _EditOrderInformationWidgetState
   }
 
   @override
+  void dispose() {
+    amountController?.dispose();
+    quantityController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -60,7 +66,6 @@ class _EditOrderInformationWidgetState
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -73,7 +78,7 @@ class _EditOrderInformationWidgetState
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
-                      child: FlutterFlowDropDown(
+                      child: FlutterFlowDropDown<String>(
                         initialOption: petCategoryListValue ??=
                             widget.order!.petCategory,
                         options: [
@@ -98,7 +103,7 @@ class _EditOrderInformationWidgetState
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
-                      child: FlutterFlowDropDown(
+                      child: FlutterFlowDropDown<String>(
                         initialOption: petServiceListValue ??=
                             widget.order!.service,
                         options: [
@@ -269,7 +274,7 @@ class _EditOrderInformationWidgetState
                                 ),
                               );
                             },
-                          );
+                          ).then((value) => setState(() {}));
                         },
                         text: 'Edit Order',
                         options: FFButtonOptions(

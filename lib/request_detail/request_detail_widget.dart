@@ -38,6 +38,7 @@ class _RequestDetailWidgetState extends State<RequestDetailWidget> {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -52,7 +53,6 @@ class _RequestDetailWidgetState extends State<RequestDetailWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -245,32 +245,39 @@ class _RequestDetailWidgetState extends State<RequestDetailWidget> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: FlutterFlowGoogleMap(
-                                          controller: googleMapsController,
-                                          onCameraIdle: (latLng) =>
-                                              googleMapsCenter = latLng,
-                                          initialLocation: googleMapsCenter ??=
-                                              widget.order!.customerLatlng!,
-                                          markers: [
-                                            if (widget.order != null)
-                                              FlutterFlowMarker(
-                                                widget.order!.reference.path,
-                                                widget.order!.customerLatlng!,
-                                              ),
-                                          ],
-                                          markerColor: GoogleMarkerColor.violet,
-                                          mapType: MapType.normal,
-                                          style: GoogleMapStyle.standard,
-                                          initialZoom: 14,
-                                          allowInteraction: true,
-                                          allowZoom: true,
-                                          showZoomControls: true,
-                                          showLocation: true,
-                                          showCompass: false,
-                                          showMapToolbar: false,
-                                          showTraffic: false,
-                                          centerMapOnMarkerTap: true,
-                                        ),
+                                        child: Builder(builder: (context) {
+                                          final _googleMapMarker = widget.order;
+                                          return FlutterFlowGoogleMap(
+                                            controller: googleMapsController,
+                                            onCameraIdle: (latLng) =>
+                                                googleMapsCenter = latLng,
+                                            initialLocation:
+                                                googleMapsCenter ??= widget
+                                                    .order!.customerLatlng!,
+                                            markers: [
+                                              if (_googleMapMarker != null)
+                                                FlutterFlowMarker(
+                                                  _googleMapMarker
+                                                      .reference.path,
+                                                  _googleMapMarker
+                                                      .customerLatlng!,
+                                                ),
+                                            ],
+                                            markerColor:
+                                                GoogleMarkerColor.violet,
+                                            mapType: MapType.normal,
+                                            style: GoogleMapStyle.standard,
+                                            initialZoom: 14,
+                                            allowInteraction: true,
+                                            allowZoom: true,
+                                            showZoomControls: true,
+                                            showLocation: true,
+                                            showCompass: false,
+                                            showMapToolbar: false,
+                                            showTraffic: false,
+                                            centerMapOnMarkerTap: true,
+                                          );
+                                        }),
                                       ),
                                     ),
                                     Padding(
@@ -518,7 +525,7 @@ class _RequestDetailWidgetState extends State<RequestDetailWidget> {
                                       ),
                                     );
                                   },
-                                );
+                                ).then((value) => setState(() {}));
                               },
                               text: 'Tolak',
                               icon: Icon(
@@ -565,7 +572,7 @@ class _RequestDetailWidgetState extends State<RequestDetailWidget> {
                                       ),
                                     );
                                   },
-                                );
+                                ).then((value) => setState(() {}));
                               },
                               text: 'Ambil ',
                               icon: Icon(

@@ -24,9 +24,7 @@ class EditAddOnWidget extends StatefulWidget {
 
 class _EditAddOnWidgetState extends State<EditAddOnWidget> {
   TextEditingController? feeController;
-
   TextEditingController? nameController;
-
   int? countControllerValue;
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -40,9 +38,17 @@ class _EditAddOnWidgetState extends State<EditAddOnWidget> {
   }
 
   @override
+  void dispose() {
+    feeController?.dispose();
+    nameController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -73,7 +79,6 @@ class _EditAddOnWidgetState extends State<EditAddOnWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -280,8 +285,9 @@ class _EditAddOnWidgetState extends State<EditAddOnWidget> {
                         child: SwitchListTile(
                           value: switchListTileValue ??=
                               widget.addOn!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish service?',
                             style: FlutterFlowTheme.of(context).bodyText1,

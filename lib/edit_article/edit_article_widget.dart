@@ -22,9 +22,7 @@ class EditArticleWidget extends StatefulWidget {
 
 class _EditArticleWidgetState extends State<EditArticleWidget> {
   TextEditingController? articleController;
-
   TextEditingController? titleController;
-
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,9 +35,17 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
   }
 
   @override
+  void dispose() {
+    articleController?.dispose();
+    titleController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -70,7 +76,6 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -219,8 +224,9 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
                         child: SwitchListTile(
                           value: switchListTileValue ??=
                               widget.article!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish discount?',
                             style: FlutterFlowTheme.of(context).bodyText1,

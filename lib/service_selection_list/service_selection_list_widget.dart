@@ -54,6 +54,7 @@ class _ServiceSelectionListWidgetState
         final serviceSelectionListOrdersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -68,7 +69,6 @@ class _ServiceSelectionListWidgetState
             centerTitle: false,
             elevation: 2,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -202,7 +202,8 @@ class _ServiceSelectionListWidgetState
                                                               ),
                                                             );
                                                           },
-                                                        );
+                                                        ).then((value) =>
+                                                            setState(() {}));
                                                       } else {
                                                         await showModalBottomSheet(
                                                           isScrollControlled:
@@ -229,7 +230,8 @@ class _ServiceSelectionListWidgetState
                                                               ),
                                                             );
                                                           },
-                                                        );
+                                                        ).then((value) =>
+                                                            setState(() {}));
                                                       }
                                                     } else {
                                                       await showModalBottomSheet(
@@ -253,7 +255,8 @@ class _ServiceSelectionListWidgetState
                                                             ),
                                                           );
                                                         },
-                                                      );
+                                                      ).then((value) =>
+                                                          setState(() {}));
                                                     }
                                                   },
                                                   child: Row(

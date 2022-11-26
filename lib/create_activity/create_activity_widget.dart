@@ -23,7 +23,6 @@ class CreateActivityWidget extends StatefulWidget {
 
 class _CreateActivityWidgetState extends State<CreateActivityWidget> {
   TextEditingController? activityController;
-
   int? countControllerValue;
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -36,9 +35,16 @@ class _CreateActivityWidgetState extends State<CreateActivityWidget> {
   }
 
   @override
+  void dispose() {
+    activityController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -53,7 +59,6 @@ class _CreateActivityWidgetState extends State<CreateActivityWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -201,8 +206,9 @@ class _CreateActivityWidgetState extends State<CreateActivityWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: SwitchListTile(
                           value: switchListTileValue ??= true,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish service?',
                             style: FlutterFlowTheme.of(context).bodyText1,

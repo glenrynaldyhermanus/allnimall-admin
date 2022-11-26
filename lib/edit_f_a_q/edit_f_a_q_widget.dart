@@ -22,13 +22,9 @@ class EditFAQWidget extends StatefulWidget {
 
 class _EditFAQWidgetState extends State<EditFAQWidget> {
   TextEditingController? answerController;
-
   TextEditingController? questionController;
-
   TextEditingController? refNameController;
-
   TextEditingController? refURLController;
-
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,9 +39,19 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
   }
 
   @override
+  void dispose() {
+    answerController?.dispose();
+    questionController?.dispose();
+    refNameController?.dispose();
+    refURLController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -76,7 +82,6 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -321,8 +326,9 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: SwitchListTile(
                           value: switchListTileValue ??= widget.faq!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish discount?',
                             style: FlutterFlowTheme.of(context).bodyText1,

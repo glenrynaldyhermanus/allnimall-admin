@@ -24,7 +24,6 @@ class ServiceCategoryListWidget extends StatefulWidget {
 
 class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
   TextEditingController? textController;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,9 +39,16 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -77,7 +83,6 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -303,11 +308,13 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                               'ServiceSelectionList',
                                               queryParams: {
                                                 'order': serializeParam(
-                                                    widget.order,
-                                                    ParamType.Document),
+                                                  widget.order,
+                                                  ParamType.Document,
+                                                ),
                                                 'category': serializeParam(
-                                                    columnServiceCategoriesRecord,
-                                                    ParamType.Document),
+                                                  columnServiceCategoriesRecord,
+                                                  ParamType.Document,
+                                                ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
                                                 'order': widget.order,
@@ -320,8 +327,9 @@ class _ServiceCategoryListWidgetState extends State<ServiceCategoryListWidget> {
                                               'ServiceList',
                                               queryParams: {
                                                 'category': serializeParam(
-                                                    columnServiceCategoriesRecord,
-                                                    ParamType.Document),
+                                                  columnServiceCategoriesRecord,
+                                                  ParamType.Document,
+                                                ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
                                                 'category':

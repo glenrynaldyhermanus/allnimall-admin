@@ -169,9 +169,10 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                                             widget.orderService!.addOns!
                                                 .toList(),
                                             columnAddOnsRecord),
-                                    onChanged: (newValue) => setState(() =>
-                                        checkboxListTileValueMap[
-                                            columnAddOnsRecord] = newValue!),
+                                    onChanged: (newValue) async {
+                                      setState(() => checkboxListTileValueMap[
+                                          columnAddOnsRecord] = newValue!);
+                                    },
                                     title: Text(
                                       columnAddOnsRecord.name!,
                                       style: FlutterFlowTheme.of(context)
@@ -363,7 +364,7 @@ class _EditServicesWidgetState extends State<EditServicesWidget> {
                                   ),
                                 );
                               },
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           text: 'Custom Another',
                           options: FFButtonOptions(

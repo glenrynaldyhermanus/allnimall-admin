@@ -47,6 +47,33 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
         final serviceListServiceCategoriesRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () async {
+              context.pushNamed(
+                'CreateService',
+                queryParams: {
+                  'category': serializeParam(
+                    serviceListServiceCategoriesRecord,
+                    ParamType.Document,
+                  ),
+                }.withoutNulls,
+                extra: <String, dynamic>{
+                  'category': serviceListServiceCategoriesRecord,
+                },
+              );
+            },
+            backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
+            elevation: 8,
+            label: Text(
+              'Add Service',
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).bodyText1.override(
+                    fontFamily: 'Poppins',
+                    color: FlutterFlowTheme.of(context).tertiaryColor,
+                  ),
+            ),
+          ),
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -76,8 +103,9 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                         'EditServiceCategory',
                         queryParams: {
                           'category': serializeParam(
-                              serviceListServiceCategoriesRecord,
-                              ParamType.Document),
+                            serviceListServiceCategoriesRecord,
+                            ParamType.Document,
+                          ),
                         }.withoutNulls,
                         extra: <String, dynamic>{
                           'category': serviceListServiceCategoriesRecord,
@@ -90,31 +118,6 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
             ],
             centerTitle: false,
             elevation: 2,
-          ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () async {
-              context.pushNamed(
-                'CreateService',
-                queryParams: {
-                  'category': serializeParam(
-                      serviceListServiceCategoriesRecord, ParamType.Document),
-                }.withoutNulls,
-                extra: <String, dynamic>{
-                  'category': serviceListServiceCategoriesRecord,
-                },
-              );
-            },
-            backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
-            elevation: 8,
-            label: Text(
-              'Add Service',
-              textAlign: TextAlign.center,
-              style: FlutterFlowTheme.of(context).bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.of(context).tertiaryColor,
-                  ),
-            ),
           ),
           body: SafeArea(
             child: GestureDetector(
@@ -188,8 +191,9 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
                                                 'EditService',
                                                 queryParams: {
                                                   'service': serializeParam(
-                                                      columnServicesRecord,
-                                                      ParamType.Document),
+                                                    columnServicesRecord,
+                                                    ParamType.Document,
+                                                  ),
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{
                                                   'service':

@@ -22,11 +22,9 @@ class EditDiscountWidget extends StatefulWidget {
 }
 
 class _EditDiscountWidgetState extends State<EditDiscountWidget> {
-  TextEditingController? discountController;
-
-  TextEditingController? nameController;
-
   String? dropDownValue;
+  TextEditingController? discountController;
+  TextEditingController? nameController;
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -40,9 +38,17 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
   }
 
   @override
+  void dispose() {
+    discountController?.dispose();
+    nameController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -73,7 +79,6 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -209,7 +214,7 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                              child: FlutterFlowDropDown(
+                              child: FlutterFlowDropDown<String>(
                                 initialOption: dropDownValue ??=
                                     widget.discount!.unit,
                                 options: ['Pet', 'Order'],
@@ -242,8 +247,9 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
                         child: SwitchListTile(
                           value: switchListTileValue ??=
                               widget.discount!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish discount?',
                             style: FlutterFlowTheme.of(context).bodyText1,

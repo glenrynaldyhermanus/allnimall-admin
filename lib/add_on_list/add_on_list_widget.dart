@@ -49,6 +49,7 @@ class _AddOnListWidgetState extends State<AddOnListWidget> {
         final addOnListServicesRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -75,7 +76,9 @@ class _AddOnListWidgetState extends State<AddOnListWidget> {
                     'CreateAddOn',
                     queryParams: {
                       'service': serializeParam(
-                          addOnListServicesRecord, ParamType.Document),
+                        addOnListServicesRecord,
+                        ParamType.Document,
+                      ),
                     }.withoutNulls,
                     extra: <String, dynamic>{
                       'service': addOnListServicesRecord,
@@ -87,7 +90,6 @@ class _AddOnListWidgetState extends State<AddOnListWidget> {
             centerTitle: false,
             elevation: 2,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -159,8 +161,9 @@ class _AddOnListWidgetState extends State<AddOnListWidget> {
                                                 'EditAddOn',
                                                 queryParams: {
                                                   'addOn': serializeParam(
-                                                      columnAddOnsRecord,
-                                                      ParamType.Document),
+                                                    columnAddOnsRecord,
+                                                    ParamType.Document,
+                                                  ),
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{
                                                   'addOn': columnAddOnsRecord,

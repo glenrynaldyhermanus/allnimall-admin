@@ -160,7 +160,7 @@ class _EditServicesListWidgetState extends State<EditServicesListWidget> {
                                         ),
                                       );
                                     },
-                                  );
+                                  ).then((value) => setState(() {}));
                                 },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -360,7 +360,7 @@ class _EditServicesListWidgetState extends State<EditServicesListWidget> {
                                   ),
                                 );
                               },
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           text: 'Custom Another',
                           options: FFButtonOptions(

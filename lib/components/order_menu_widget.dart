@@ -113,7 +113,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                                   ),
                                 );
                               },
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: Container(
                             width: double.infinity,
@@ -180,7 +180,9 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                               'EditCustomerForOrder',
                               queryParams: {
                                 'order': serializeParam(
-                                    widget.order, ParamType.Document),
+                                  widget.order,
+                                  ParamType.Document,
+                                ),
                               }.withoutNulls,
                               extra: <String, dynamic>{
                                 'order': widget.order,
@@ -247,7 +249,9 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                               'EditOrderInformation',
                               queryParams: {
                                 'order': serializeParam(
-                                    widget.order, ParamType.Document),
+                                  widget.order,
+                                  ParamType.Document,
+                                ),
                               }.withoutNulls,
                               extra: <String, dynamic>{
                                 'order': widget.order,
@@ -314,7 +318,9 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                               'EditOrderSchedule',
                               queryParams: {
                                 'order': serializeParam(
-                                    widget.order, ParamType.Document),
+                                  widget.order,
+                                  ParamType.Document,
+                                ),
                               }.withoutNulls,
                               extra: <String, dynamic>{
                                 'order': widget.order,
@@ -381,11 +387,17 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                               'RangerList',
                               queryParams: {
                                 'order': serializeParam(
-                                    widget.order, ParamType.Document),
-                                'isAsssignment':
-                                    serializeParam(true, ParamType.bool),
-                                'isSelections':
-                                    serializeParam(false, ParamType.bool),
+                                  widget.order,
+                                  ParamType.Document,
+                                ),
+                                'isAsssignment': serializeParam(
+                                  true,
+                                  ParamType.bool,
+                                ),
+                                'isSelections': serializeParam(
+                                  false,
+                                  ParamType.bool,
+                                ),
                               }.withoutNulls,
                               extra: <String, dynamic>{
                                 'order': widget.order,
@@ -695,7 +707,8 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                                   ),
                                 );
                               },
-                            );
+                            ).then((value) => setState(() {}));
+
                             context.pop();
                           },
                           child: Container(
@@ -767,7 +780,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                                   ),
                                 );
                               },
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: Container(
                             width: double.infinity,

@@ -24,13 +24,9 @@ class EditServiceWidget extends StatefulWidget {
 
 class _EditServiceWidgetState extends State<EditServiceWidget> {
   TextEditingController? descriptionController;
-
   TextEditingController? nameController;
-
   int? countControllerValue;
-
   TextEditingController? feeController;
-
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -46,9 +42,18 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
   }
 
   @override
+  void dispose() {
+    descriptionController?.dispose();
+    nameController?.dispose();
+    feeController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -79,7 +84,6 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -343,8 +347,9 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                         child: SwitchListTile(
                           value: switchListTileValue ??=
                               widget.service!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish service?',
                             style: FlutterFlowTheme.of(context).bodyText1,
@@ -414,10 +419,13 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                                           'ActivityList',
                                           queryParams: {
                                             'isSelection': serializeParam(
-                                                false, ParamType.bool),
+                                              false,
+                                              ParamType.bool,
+                                            ),
                                             'service': serializeParam(
-                                                widget.service,
-                                                ParamType.Document),
+                                              widget.service,
+                                              ParamType.Document,
+                                            ),
                                           }.withoutNulls,
                                           extra: <String, dynamic>{
                                             'service': widget.service,
@@ -492,10 +500,13 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                                           'AddOnList',
                                           queryParams: {
                                             'isSelection': serializeParam(
-                                                false, ParamType.bool),
+                                              false,
+                                              ParamType.bool,
+                                            ),
                                             'service': serializeParam(
-                                                widget.service,
-                                                ParamType.Document),
+                                              widget.service,
+                                              ParamType.Document,
+                                            ),
                                           }.withoutNulls,
                                           extra: <String, dynamic>{
                                             'service': widget.service,

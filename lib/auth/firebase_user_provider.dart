@@ -10,8 +10,13 @@ class AdminFirebaseUser {
 AdminFirebaseUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<AdminFirebaseUser> adminFirebaseUserStream() => FirebaseAuth.instance
-    .authStateChanges()
-    .debounce((user) => user == null && !loggedIn
-        ? TimerStream(true, const Duration(seconds: 1))
-        : Stream.value(user))
-    .map<AdminFirebaseUser>((user) => currentUser = AdminFirebaseUser(user));
+        .authStateChanges()
+        .debounce((user) => user == null && !loggedIn
+            ? TimerStream(true, const Duration(seconds: 1))
+            : Stream.value(user))
+        .map<AdminFirebaseUser>(
+      (user) {
+        currentUser = AdminFirebaseUser(user);
+        return currentUser!;
+      },
+    );

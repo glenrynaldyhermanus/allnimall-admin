@@ -58,6 +58,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
         return Scaffold(
           key: scaffoldKey,
           resizeToAvoidBottomInset: false,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -96,7 +97,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                               ),
                             );
                           },
-                        );
+                        ).then((value) => setState(() {}));
                       },
                     ),
                   if (valueOrDefault(currentUserDocument?.role, '') == 'Admin')
@@ -124,7 +125,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                                 ),
                               );
                             },
-                          );
+                          ).then((value) => setState(() {}));
                         },
                       ),
                     ),
@@ -134,7 +135,6 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
             centerTitle: false,
             elevation: 0,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -344,36 +344,41 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                             ),
-                                            child: FlutterFlowGoogleMap(
-                                              controller: googleMapsController,
-                                              onCameraIdle: (latLng) =>
-                                                  googleMapsCenter = latLng,
-                                              initialLocation:
-                                                  googleMapsCenter ??= widget
-                                                      .order!.customerLatlng!,
-                                              markers: [
-                                                if (widget.order != null)
-                                                  FlutterFlowMarker(
-                                                    widget
-                                                        .order!.reference.path,
-                                                    widget
+                                            child: Builder(builder: (context) {
+                                              final _googleMapMarker =
+                                                  widget.order;
+                                              return FlutterFlowGoogleMap(
+                                                controller:
+                                                    googleMapsController,
+                                                onCameraIdle: (latLng) =>
+                                                    googleMapsCenter = latLng,
+                                                initialLocation:
+                                                    googleMapsCenter ??= widget
                                                         .order!.customerLatlng!,
-                                                  ),
-                                              ],
-                                              markerColor:
-                                                  GoogleMarkerColor.violet,
-                                              mapType: MapType.normal,
-                                              style: GoogleMapStyle.standard,
-                                              initialZoom: 14,
-                                              allowInteraction: true,
-                                              allowZoom: true,
-                                              showZoomControls: true,
-                                              showLocation: true,
-                                              showCompass: false,
-                                              showMapToolbar: false,
-                                              showTraffic: false,
-                                              centerMapOnMarkerTap: true,
-                                            ),
+                                                markers: [
+                                                  if (_googleMapMarker != null)
+                                                    FlutterFlowMarker(
+                                                      _googleMapMarker
+                                                          .reference.path,
+                                                      _googleMapMarker
+                                                          .customerLatlng!,
+                                                    ),
+                                                ],
+                                                markerColor:
+                                                    GoogleMarkerColor.violet,
+                                                mapType: MapType.normal,
+                                                style: GoogleMapStyle.standard,
+                                                initialZoom: 14,
+                                                allowInteraction: true,
+                                                allowZoom: true,
+                                                showZoomControls: true,
+                                                showLocation: true,
+                                                showCompass: false,
+                                                showMapToolbar: false,
+                                                showTraffic: false,
+                                                centerMapOnMarkerTap: true,
+                                              );
+                                            }),
                                           ),
                                         ),
                                         Padding(
@@ -1169,7 +1174,8 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                                                         ),
                                                       );
                                                     },
-                                                  );
+                                                  ).then((value) =>
+                                                      setState(() {}));
                                                 },
                                                 text: 'Sudah Bayar',
                                                 icon: Icon(

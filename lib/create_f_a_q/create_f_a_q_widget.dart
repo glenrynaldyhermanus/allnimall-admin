@@ -16,13 +16,9 @@ class CreateFAQWidget extends StatefulWidget {
 
 class _CreateFAQWidgetState extends State<CreateFAQWidget> {
   TextEditingController? answerController;
-
   TextEditingController? questionController;
-
   TextEditingController? refNameController;
-
   TextEditingController? refURLController;
-
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,9 +33,19 @@ class _CreateFAQWidgetState extends State<CreateFAQWidget> {
   }
 
   @override
+  void dispose() {
+    answerController?.dispose();
+    questionController?.dispose();
+    refNameController?.dispose();
+    refURLController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -54,7 +60,6 @@ class _CreateFAQWidgetState extends State<CreateFAQWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -299,8 +304,9 @@ class _CreateFAQWidgetState extends State<CreateFAQWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: SwitchListTile(
                           value: switchListTileValue ??= true,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish FAQ?',
                             style: FlutterFlowTheme.of(context).bodyText1,

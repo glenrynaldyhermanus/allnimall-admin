@@ -22,19 +22,14 @@ class CreateOrderBackupWidget extends StatefulWidget {
 }
 
 class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
-  TextEditingController? amountController;
-
-  TextEditingController? quantityController;
-
+  DateTime? datePicked;
   String? petCategoryListValue;
   String? petServiceListValue;
-  DateTime? datePicked;
+  TextEditingController? quantityController;
+  TextEditingController? amountController;
   String? timeListValue;
-
   TextEditingController? endTimeController;
-
   TextEditingController? startTimeController;
-
   OrdersRecord? createdOrder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -49,9 +44,19 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
   }
 
   @override
+  void dispose() {
+    amountController?.dispose();
+    quantityController?.dispose();
+    endTimeController?.dispose();
+    startTimeController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -66,7 +71,6 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -114,8 +118,10 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                                   context.pushNamed(
                                     'CustomerList',
                                     queryParams: {
-                                      'isSelection':
-                                          serializeParam(true, ParamType.bool),
+                                      'isSelection': serializeParam(
+                                        true,
+                                        ParamType.bool,
+                                      ),
                                     }.withoutNulls,
                                   );
                                 },
@@ -156,7 +162,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 40, 24, 0),
-                      child: FlutterFlowDropDown(
+                      child: FlutterFlowDropDown<String>(
                         options: [
                           'Kucing',
                           'Anjing Small',
@@ -179,7 +185,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
-                      child: FlutterFlowDropDown(
+                      child: FlutterFlowDropDown<String>(
                         options: [
                           'Mandi Lengkap',
                           'Mandi Sehat',
@@ -391,7 +397,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
-                      child: FlutterFlowDropDown(
+                      child: FlutterFlowDropDown<String>(
                         options: ['Pagi', 'Siang', 'Sore'],
                         onChanged: (val) => setState(() => timeListValue = val),
                         height: 50,
@@ -579,10 +585,14 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                                   context.pushNamed(
                                     'RangerList',
                                     queryParams: {
-                                      'isSelections':
-                                          serializeParam(true, ParamType.bool),
-                                      'isAsssignment':
-                                          serializeParam(false, ParamType.bool),
+                                      'isSelections': serializeParam(
+                                        true,
+                                        ParamType.bool,
+                                      ),
+                                      'isAsssignment': serializeParam(
+                                        false,
+                                        ParamType.bool,
+                                      ),
                                     }.withoutNulls,
                                   );
                                 },
@@ -643,7 +653,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                                 ),
                               );
                             },
-                          );
+                          ).then((value) => setState(() {}));
 
                           setState(() {});
                         },
