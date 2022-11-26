@@ -780,11 +780,18 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                       prefferedTime: timeListValue,
                                       startTime: startTimeController!.text,
                                       endTime: endTimeController!.text,
+                                      rangerName:
+                                          FFAppState().selectedRangerName,
+                                      rangerPhone:
+                                          FFAppState().selectedRangerPhone,
+                                      rangerProfilePicture:
+                                          FFAppState().selectedRangerPicture,
                                       confirmedAt: getCurrentTimestamp,
                                       customerPhone:
                                           FFAppState().selectedCustomerPhone,
                                       customerUid:
                                           FFAppState().selectedCustomer,
+                                      rangerUid: FFAppState().selectedRanger,
                                       petCategory: functions
                                           .petCategoryFromOrderServices(
                                               containerOrderServicesRecordList
