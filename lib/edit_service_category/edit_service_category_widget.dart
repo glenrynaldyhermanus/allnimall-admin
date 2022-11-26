@@ -24,10 +24,9 @@ class EditServiceCategoryWidget extends StatefulWidget {
 }
 
 class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
-  TextEditingController? nameController;
-
-  int? countControllerValue;
   String? typeListValue;
+  TextEditingController? nameController;
+  int? countControllerValue;
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,9 +38,16 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
   }
 
   @override
+  void dispose() {
+    nameController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -56,7 +62,6 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -208,7 +213,7 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                              child: FlutterFlowDropDown(
+                              child: FlutterFlowDropDown<String>(
                                 initialOption: typeListValue ??=
                                     widget.category!.type,
                                 options: ['Grooming'],
@@ -241,8 +246,9 @@ class _EditServiceCategoryWidgetState extends State<EditServiceCategoryWidget> {
                         child: SwitchListTile(
                           value: switchListTileValue ??=
                               widget.category!.isActive!,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish category?',
                             style: FlutterFlowTheme.of(context).bodyText1,

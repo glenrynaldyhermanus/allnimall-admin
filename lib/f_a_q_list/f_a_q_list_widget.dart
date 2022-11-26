@@ -21,7 +21,6 @@ class FAQListWidget extends StatefulWidget {
 
 class _FAQListWidgetState extends State<FAQListWidget> {
   TextEditingController? textController;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,9 +36,16 @@ class _FAQListWidgetState extends State<FAQListWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -69,7 +75,6 @@ class _FAQListWidgetState extends State<FAQListWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -286,8 +291,9 @@ class _FAQListWidgetState extends State<FAQListWidget> {
                                             'EditFAQ',
                                             queryParams: {
                                               'faq': serializeParam(
-                                                  columnFaqsRecord,
-                                                  ParamType.Document),
+                                                columnFaqsRecord,
+                                                ParamType.Document,
+                                              ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               'faq': columnFaqsRecord,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -12,6 +13,7 @@ import '../main.dart';
 
 import 'lat_lng.dart';
 
+export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
 export 'place.dart';
 export '../app_state.dart';
@@ -25,12 +27,12 @@ export 'nav/nav.dart';
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
 
-String dateTimeFormat(String format, DateTime? dateTime) {
+String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
   if (dateTime == null) {
     return '';
   }
   if (format == 'relative') {
-    return timeago.format(dateTime);
+    return timeago.format(dateTime, locale: locale);
   }
   return DateFormat(format).format(dateTime);
 }
@@ -42,6 +44,13 @@ Future launchURL(String url) async {
   } catch (e) {
     throw 'Could not launch $uri: $e';
   }
+}
+
+Color colorFromCssString(String color, {Color? defaultColor}) {
+  try {
+    return fromCssColor(color);
+  } catch (_) {}
+  return defaultColor ?? Colors.black;
 }
 
 enum FormatType {
@@ -149,6 +158,10 @@ dynamic getJsonField(
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
 bool get isiOS => !kIsWeb && Platform.isIOS;
 bool get isWeb => kIsWeb;
+
+const kMobileWidthCutoff = 479.0;
+bool isMobileWidth(BuildContext context) =>
+    MediaQuery.of(context).size.width < kMobileWidthCutoff;
 bool responsiveVisibility({
   required BuildContext context,
   bool phone = true,
@@ -157,7 +170,7 @@ bool responsiveVisibility({
   bool desktop = true,
 }) {
   final width = MediaQuery.of(context).size.width;
-  if (width < 479) {
+  if (width < kMobileWidthCutoff) {
     return phone;
   } else if (width < 767) {
     return tablet;
@@ -172,7 +185,7 @@ const kTextValidatorUsernameRegex = r'^[a-zA-Z][a-zA-Z0-9_-]{2,16}$';
 const kTextValidatorEmailRegex =
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
 const kTextValidatorWebsiteRegex =
-    r'(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)';
+    r'(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)';
 
 extension StringDocRef on String {
   DocumentReference get ref => FirebaseFirestore.instance.doc(this);

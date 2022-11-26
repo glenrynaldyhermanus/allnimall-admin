@@ -49,6 +49,7 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
         final activityListServicesRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -75,7 +76,9 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                     'CreateActivity',
                     queryParams: {
                       'service': serializeParam(
-                          activityListServicesRecord, ParamType.Document),
+                        activityListServicesRecord,
+                        ParamType.Document,
+                      ),
                     }.withoutNulls,
                     extra: <String, dynamic>{
                       'service': activityListServicesRecord,
@@ -87,7 +90,6 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
             centerTitle: false,
             elevation: 2,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -159,8 +161,9 @@ class _ActivityListWidgetState extends State<ActivityListWidget> {
                                                 'EditActivity',
                                                 queryParams: {
                                                   'activity': serializeParam(
-                                                      columnActivitiesRecord,
-                                                      ParamType.Document),
+                                                    columnActivitiesRecord,
+                                                    ParamType.Document,
+                                                  ),
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{
                                                   'activity':

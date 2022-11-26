@@ -26,12 +26,10 @@ class EditOrderScheduleWidget extends StatefulWidget {
 }
 
 class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
-  TextEditingController? endTimeController;
-
-  TextEditingController? startTimeController;
-
   DateTime? datePicked;
   String? timeListValue;
+  TextEditingController? endTimeController;
+  TextEditingController? startTimeController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -43,9 +41,17 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
   }
 
   @override
+  void dispose() {
+    endTimeController?.dispose();
+    startTimeController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -60,7 +66,6 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -141,7 +146,7 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(24, 14, 24, 0),
-                      child: FlutterFlowDropDown(
+                      child: FlutterFlowDropDown<String>(
                         initialOption: timeListValue ??=
                             widget.order!.prefferedTime,
                         options: ['Pagi', 'Siang', 'Sore'],
@@ -319,7 +324,7 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
                                 ),
                               );
                             },
-                          );
+                          ).then((value) => setState(() {}));
                         },
                         text: 'Re-Schedule Order',
                         options: FFButtonOptions(

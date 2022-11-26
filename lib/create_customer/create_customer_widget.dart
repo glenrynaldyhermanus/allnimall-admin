@@ -22,13 +22,11 @@ class CreateCustomerWidget extends StatefulWidget {
 }
 
 class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
-  TextEditingController? handphoneController;
-
-  TextEditingController? nameController;
-
-  var placePickerValue = FFPlace();
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
+  TextEditingController? handphoneController;
+  TextEditingController? nameController;
+  var placePickerValue = FFPlace();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,10 +43,18 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
   }
 
   @override
+  void dispose() {
+    handphoneController?.dispose();
+    nameController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -63,7 +69,6 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -278,7 +283,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
                                                 ),
                                               );
                                             },
-                                          );
+                                          ).then((value) => setState(() {}));
                                         },
                                         text: 'Edit',
                                         icon: Icon(

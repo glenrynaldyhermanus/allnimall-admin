@@ -25,7 +25,6 @@ class RangerListWidget extends StatefulWidget {
 
 class _RangerListWidgetState extends State<RangerListWidget> {
   TextEditingController? textController;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,9 +35,16 @@ class _RangerListWidgetState extends State<RangerListWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -68,7 +74,6 @@ class _RangerListWidgetState extends State<RangerListWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),

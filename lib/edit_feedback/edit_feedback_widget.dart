@@ -22,11 +22,9 @@ class EditFeedbackWidget extends StatefulWidget {
 }
 
 class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
-  TextEditingController? feedbackController;
-
-  TextEditingController? responseController;
-
   String? dropDownValue;
+  TextEditingController? feedbackController;
+  TextEditingController? responseController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,9 +38,17 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
   }
 
   @override
+  void dispose() {
+    feedbackController?.dispose();
+    responseController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -73,7 +79,6 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -210,7 +215,7 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                              child: FlutterFlowDropDown(
+                              child: FlutterFlowDropDown<String>(
                                 initialOption: dropDownValue ??=
                                     widget.featureRequest!.status,
                                 options: ['New', 'Progressing', 'Closed'],

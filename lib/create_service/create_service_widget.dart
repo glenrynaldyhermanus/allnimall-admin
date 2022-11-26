@@ -21,11 +21,8 @@ class CreateServiceWidget extends StatefulWidget {
 
 class _CreateServiceWidgetState extends State<CreateServiceWidget> {
   TextEditingController? descriptionController;
-
   TextEditingController? nameController;
-
   TextEditingController? feeController;
-
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,9 +36,18 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
   }
 
   @override
+  void dispose() {
+    descriptionController?.dispose();
+    nameController?.dispose();
+    feeController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -56,7 +62,6 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -244,8 +249,9 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: SwitchListTile(
                           value: switchListTileValue ??= true,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish service?',
                             style: FlutterFlowTheme.of(context).bodyText1,

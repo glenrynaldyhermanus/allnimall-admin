@@ -17,11 +17,11 @@ class CreateArticleWidget extends StatefulWidget {
 }
 
 class _CreateArticleWidgetState extends State<CreateArticleWidget> {
-  TextEditingController? articleController;
+  bool isMediaUploading = false;
+  String uploadedFileUrl = '';
 
   TextEditingController? titleController;
-
-  String uploadedFileUrl = '';
+  TextEditingController? articleController;
   bool? switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,9 +34,17 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
   }
 
   @override
+  void dispose() {
+    articleController?.dispose();
+    titleController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -51,7 +59,6 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -74,31 +81,36 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
                           if (selectedMedia != null &&
                               selectedMedia.every((m) =>
                                   validateFileFormat(m.storagePath, context))) {
-                            showUploadMessage(
-                              context,
-                              'Uploading file...',
-                              showLoading: true,
-                            );
-                            final downloadUrls = (await Future.wait(
-                                    selectedMedia.map((m) async =>
-                                        await uploadData(
-                                            m.storagePath, m.bytes))))
-                                .where((u) => u != null)
-                                .map((u) => u!)
-                                .toList();
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            setState(() => isMediaUploading = true);
+                            var downloadUrls = <String>[];
+                            try {
+                              showUploadMessage(
+                                context,
+                                'Uploading file...',
+                                showLoading: true,
+                              );
+                              downloadUrls = (await Future.wait(
+                                selectedMedia.map(
+                                  (m) async =>
+                                      await uploadData(m.storagePath, m.bytes),
+                                ),
+                              ))
+                                  .where((u) => u != null)
+                                  .map((u) => u!)
+                                  .toList();
+                            } finally {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                              isMediaUploading = false;
+                            }
                             if (downloadUrls.length == selectedMedia.length) {
                               setState(
                                   () => uploadedFileUrl = downloadUrls.first);
-                              showUploadMessage(
-                                context,
-                                'Success!',
-                              );
+                              showUploadMessage(context, 'Success!');
                             } else {
+                              setState(() {});
                               showUploadMessage(
-                                context,
-                                'Failed to upload media',
-                              );
+                                  context, 'Failed to upload media');
                               return;
                             }
                           }
@@ -234,8 +246,9 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                         child: SwitchListTile(
                           value: switchListTileValue ??= true,
-                          onChanged: (newValue) =>
-                              setState(() => switchListTileValue = newValue),
+                          onChanged: (newValue) async {
+                            setState(() => switchListTileValue = newValue!);
+                          },
                           title: Text(
                             'Publish article?',
                             style: FlutterFlowTheme.of(context).bodyText1,

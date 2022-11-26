@@ -162,9 +162,10 @@ class _AddServicesWidgetState extends State<AddServicesWidget> {
                                   child: CheckboxListTile(
                                     value: checkboxListTileValueMap[
                                         columnAddOnsRecord] ??= false,
-                                    onChanged: (newValue) => setState(() =>
-                                        checkboxListTileValueMap[
-                                            columnAddOnsRecord] = newValue!),
+                                    onChanged: (newValue) async {
+                                      setState(() => checkboxListTileValueMap[
+                                          columnAddOnsRecord] = newValue!);
+                                    },
                                     title: Text(
                                       columnAddOnsRecord.name!,
                                       style: FlutterFlowTheme.of(context)

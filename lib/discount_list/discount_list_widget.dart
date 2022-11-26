@@ -22,7 +22,6 @@ class DiscountListWidget extends StatefulWidget {
 
 class _DiscountListWidgetState extends State<DiscountListWidget> {
   TextEditingController? textController;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,9 +37,16 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -70,7 +76,6 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -288,8 +293,9 @@ class _DiscountListWidgetState extends State<DiscountListWidget> {
                                             'EditDiscount',
                                             queryParams: {
                                               'discount': serializeParam(
-                                                  columnDiscountsRecord,
-                                                  ParamType.Document),
+                                                columnDiscountsRecord,
+                                                ParamType.Document,
+                                              ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               'discount': columnDiscountsRecord,

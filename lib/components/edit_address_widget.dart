@@ -28,6 +28,12 @@ class _EditAddressWidgetState extends State<EditAddressWidget> {
   }
 
   @override
+  void dispose() {
+    nameController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),

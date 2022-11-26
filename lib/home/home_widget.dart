@@ -64,6 +64,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
@@ -92,7 +93,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryColor,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Column(
@@ -177,7 +177,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         CalendarPickerWidget(),
                                                   );
                                                 },
-                                              );
+                                              ).then(
+                                                  (value) => setState(() {}));
+
                                               setState(() => FFAppState()
                                                       .selectedDate =
                                                   FFAppState().selectedDate);
@@ -258,10 +260,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       context.pushNamed(
                                                         'OrderDetail',
                                                         queryParams: {
-                                                          'order': serializeParam(
-                                                              listViewOrdersRecord,
-                                                              ParamType
-                                                                  .Document),
+                                                          'order':
+                                                              serializeParam(
+                                                            listViewOrdersRecord,
+                                                            ParamType.Document,
+                                                          ),
                                                         }.withoutNulls,
                                                         extra: <String,
                                                             dynamic>{
@@ -601,8 +604,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               'RequestDetail',
                                               queryParams: {
                                                 'order': serializeParam(
-                                                    listViewOrdersRecord,
-                                                    ParamType.Document),
+                                                  listViewOrdersRecord,
+                                                  ParamType.Document,
+                                                ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
                                                 'order': listViewOrdersRecord,

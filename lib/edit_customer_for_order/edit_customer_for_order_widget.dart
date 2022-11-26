@@ -23,14 +23,11 @@ class EditCustomerForOrderWidget extends StatefulWidget {
 
 class _EditCustomerForOrderWidgetState
     extends State<EditCustomerForOrderWidget> {
-  TextEditingController? addressController;
-
-  TextEditingController? handphoneController;
-
-  TextEditingController? nameController;
-
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
+  TextEditingController? addressController;
+  TextEditingController? handphoneController;
+  TextEditingController? nameController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,6 +35,14 @@ class _EditCustomerForOrderWidgetState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    addressController?.dispose();
+    handphoneController?.dispose();
+    nameController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -61,6 +66,7 @@ class _EditCustomerForOrderWidgetState
         return Scaffold(
           key: scaffoldKey,
           resizeToAvoidBottomInset: false,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -75,7 +81,6 @@ class _EditCustomerForOrderWidgetState
             centerTitle: false,
             elevation: 0,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),

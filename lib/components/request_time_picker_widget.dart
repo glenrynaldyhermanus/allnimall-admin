@@ -141,11 +141,17 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
                               'RangerList',
                               queryParams: {
                                 'order': serializeParam(
-                                    widget.order, ParamType.Document),
-                                'isAsssignment':
-                                    serializeParam(true, ParamType.bool),
-                                'isSelections':
-                                    serializeParam(false, ParamType.bool),
+                                  widget.order,
+                                  ParamType.Document,
+                                ),
+                                'isAsssignment': serializeParam(
+                                  true,
+                                  ParamType.bool,
+                                ),
+                                'isSelections': serializeParam(
+                                  false,
+                                  ParamType.bool,
+                                ),
                               }.withoutNulls,
                               extra: <String, dynamic>{
                                 'order': widget.order,

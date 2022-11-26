@@ -26,12 +26,10 @@ class CreateOrderWidget extends StatefulWidget {
 }
 
 class _CreateOrderWidgetState extends State<CreateOrderWidget> {
-  TextEditingController? endTimeController;
-
-  TextEditingController? startTimeController;
-
   DateTime? datePicked;
   String? timeListValue;
+  TextEditingController? endTimeController;
+  TextEditingController? startTimeController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,6 +38,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
     endTimeController = TextEditingController();
     startTimeController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    endTimeController?.dispose();
+    startTimeController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -62,6 +67,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
         final createOrderOrdersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
@@ -76,7 +82,6 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
             centerTitle: false,
             elevation: 2,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -153,7 +158,9 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                               'CustomerList',
                                               queryParams: {
                                                 'isSelection': serializeParam(
-                                                    true, ParamType.bool),
+                                                  true,
+                                                  ParamType.bool,
+                                                ),
                                               }.withoutNulls,
                                             );
                                           },
@@ -242,11 +249,14 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                                   'ServiceCategoryList',
                                                   queryParams: {
                                                     'isSelection':
-                                                        serializeParam(true,
-                                                            ParamType.bool),
+                                                        serializeParam(
+                                                      true,
+                                                      ParamType.bool,
+                                                    ),
                                                     'order': serializeParam(
-                                                        createOrderOrdersRecord,
-                                                        ParamType.Document),
+                                                      createOrderOrdersRecord,
+                                                      ParamType.Document,
+                                                    ),
                                                   }.withoutNulls,
                                                   extra: <String, dynamic>{
                                                     'order':
@@ -519,7 +529,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     24, 14, 24, 0),
-                                child: FlutterFlowDropDown(
+                                child: FlutterFlowDropDown<String>(
                                   options: ['Pagi', 'Siang', 'Sore'],
                                   onChanged: (val) =>
                                       setState(() => timeListValue = val),
@@ -733,9 +743,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                               'RangerList',
                                               queryParams: {
                                                 'isSelections': serializeParam(
-                                                    true, ParamType.bool),
+                                                  true,
+                                                  ParamType.bool,
+                                                ),
                                                 'isAsssignment': serializeParam(
-                                                    false, ParamType.bool),
+                                                  false,
+                                                  ParamType.bool,
+                                                ),
                                               }.withoutNulls,
                                             );
                                           },
@@ -766,18 +780,11 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                       prefferedTime: timeListValue,
                                       startTime: startTimeController!.text,
                                       endTime: endTimeController!.text,
-                                      rangerName:
-                                          FFAppState().selectedRangerName,
-                                      rangerPhone:
-                                          FFAppState().selectedRangerPhone,
-                                      rangerProfilePicture:
-                                          FFAppState().selectedRangerPicture,
                                       confirmedAt: getCurrentTimestamp,
                                       customerPhone:
                                           FFAppState().selectedCustomerPhone,
                                       customerUid:
                                           FFAppState().selectedCustomer,
-                                      rangerUid: FFAppState().assignedRanger,
                                       petCategory: functions
                                           .petCategoryFromOrderServices(
                                               containerOrderServicesRecordList
@@ -814,7 +821,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                           ),
                                         );
                                       },
-                                    );
+                                    ).then((value) => setState(() {}));
                                   },
                                   text: 'Create Order',
                                   options: FFButtonOptions(

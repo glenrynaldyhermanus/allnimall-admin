@@ -18,8 +18,10 @@ class MenuWidget extends StatefulWidget {
 }
 
 class _MenuWidgetState extends State<MenuWidget> {
-  OrdersRecord? newOrder;
+  bool isMediaUploading = false;
   String uploadedFileUrl = '';
+
+  OrdersRecord? newOrder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -33,6 +35,7 @@ class _MenuWidgetState extends State<MenuWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
         automaticallyImplyLeading: false,
@@ -63,7 +66,6 @@ class _MenuWidgetState extends State<MenuWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -119,35 +121,39 @@ class _MenuWidgetState extends State<MenuWidget> {
                                             selectedMedia.every((m) =>
                                                 validateFileFormat(
                                                     m.storagePath, context))) {
-                                          showUploadMessage(
-                                            context,
-                                            'Uploading file...',
-                                            showLoading: true,
-                                          );
-                                          final downloadUrls =
-                                              (await Future.wait(selectedMedia
-                                                      .map((m) async =>
-                                                          await uploadData(
-                                                              m.storagePath,
-                                                              m.bytes))))
-                                                  .where((u) => u != null)
-                                                  .map((u) => u!)
-                                                  .toList();
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
+                                          setState(
+                                              () => isMediaUploading = true);
+                                          var downloadUrls = <String>[];
+                                          try {
+                                            showUploadMessage(
+                                              context,
+                                              'Uploading file...',
+                                              showLoading: true,
+                                            );
+                                            downloadUrls = (await Future.wait(
+                                              selectedMedia.map(
+                                                (m) async => await uploadData(
+                                                    m.storagePath, m.bytes),
+                                              ),
+                                            ))
+                                                .where((u) => u != null)
+                                                .map((u) => u!)
+                                                .toList();
+                                          } finally {
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            isMediaUploading = false;
+                                          }
                                           if (downloadUrls.length ==
                                               selectedMedia.length) {
                                             setState(() => uploadedFileUrl =
                                                 downloadUrls.first);
                                             showUploadMessage(
-                                              context,
-                                              'Success!',
-                                            );
+                                                context, 'Success!');
                                           } else {
-                                            showUploadMessage(
-                                              context,
-                                              'Failed to upload media',
-                                            );
+                                            setState(() {});
+                                            showUploadMessage(context,
+                                                'Failed to upload media');
                                             return;
                                           }
                                         }
@@ -276,7 +282,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                                 'CreateOrder',
                                 queryParams: {
                                   'order': serializeParam(
-                                      newOrder, ParamType.Document),
+                                    newOrder,
+                                    ParamType.Document,
+                                  ),
                                 }.withoutNulls,
                                 extra: <String, dynamic>{
                                   'order': newOrder,
@@ -343,8 +351,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'ServiceCategoryList',
                           queryParams: {
-                            'isSelection':
-                                serializeParam(false, ParamType.bool),
+                            'isSelection': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                         );
                       },
@@ -396,8 +406,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'DiscountList',
                           queryParams: {
-                            'isSelection':
-                                serializeParam(false, ParamType.bool),
+                            'isSelection': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                         );
                       },
@@ -449,8 +461,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'CustomerList',
                           queryParams: {
-                            'isSelection':
-                                serializeParam(false, ParamType.bool),
+                            'isSelection': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                           extra: <String, dynamic>{
                             kTransitionInfoKey: TransitionInfo(
@@ -508,10 +522,14 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'RangerList',
                           queryParams: {
-                            'isSelections':
-                                serializeParam(false, ParamType.bool),
-                            'isAsssignment':
-                                serializeParam(false, ParamType.bool),
+                            'isSelections': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
+                            'isAsssignment': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                         );
                       },
@@ -584,8 +602,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'ArticleList',
                           queryParams: {
-                            'isSelection':
-                                serializeParam(false, ParamType.bool),
+                            'isSelection': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                         );
                       },
@@ -637,8 +657,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'FAQList',
                           queryParams: {
-                            'isSelection':
-                                serializeParam(false, ParamType.bool),
+                            'isSelection': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                         );
                       },
@@ -690,8 +712,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                         context.pushNamed(
                           'FeedbackList',
                           queryParams: {
-                            'isSelection':
-                                serializeParam(false, ParamType.bool),
+                            'isSelection': serializeParam(
+                              false,
+                              ParamType.bool,
+                            ),
                           }.withoutNulls,
                         );
                       },

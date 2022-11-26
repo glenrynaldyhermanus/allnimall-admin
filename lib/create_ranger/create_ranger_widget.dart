@@ -22,20 +22,16 @@ class CreateRangerWidget extends StatefulWidget {
 }
 
 class _CreateRangerWidgetState extends State<CreateRangerWidget> {
+  LatLng? googleMapsCenter;
+  final googleMapsController = Completer<GoogleMapController>();
+  String? dropDownValue;
   TextEditingController? emailController;
-
   TextEditingController? nameController;
-
   TextEditingController? passwordController;
 
   late bool passwordVisibility;
-
   TextEditingController? handphoneController;
-
-  String? dropDownValue;
   var placePickerValue = FFPlace();
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -55,10 +51,20 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
   }
 
   @override
+  void dispose() {
+    emailController?.dispose();
+    nameController?.dispose();
+    passwordController?.dispose();
+    handphoneController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -73,7 +79,6 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -340,7 +345,7 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
-                              child: FlutterFlowDropDown(
+                              child: FlutterFlowDropDown<String>(
                                 initialOption: dropDownValue ??= 'Groomer',
                                 options: ['Groomer', 'dmin'],
                                 onChanged: (val) =>
@@ -452,7 +457,7 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
                                                 ),
                                               );
                                             },
-                                          );
+                                          ).then((value) => setState(() {}));
                                         },
                                         text: 'Edit',
                                         icon: Icon(

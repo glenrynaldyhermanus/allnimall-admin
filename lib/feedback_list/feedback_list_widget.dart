@@ -20,7 +20,6 @@ class FeedbackListWidget extends StatefulWidget {
 
 class _FeedbackListWidgetState extends State<FeedbackListWidget> {
   TextEditingController? textController;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,9 +35,16 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,
@@ -53,7 +59,6 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -272,8 +277,9 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
                                             'EditFeedback',
                                             queryParams: {
                                               'featureRequest': serializeParam(
-                                                  columnFeatureRequestsRecord,
-                                                  ParamType.Document),
+                                                columnFeatureRequestsRecord,
+                                                ParamType.Document,
+                                              ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               'featureRequest':
