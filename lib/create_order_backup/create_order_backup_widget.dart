@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateOrderBackupWidget extends StatefulWidget {
   const CreateOrderBackupWidget({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
   TextEditingController? endTimeController;
   TextEditingController? startTimeController;
   OrdersRecord? createdOrder;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,6 +47,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     amountController?.dispose();
     quantityController?.dispose();
     endTimeController?.dispose();
@@ -54,6 +57,8 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -73,7 +78,7 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -614,8 +619,8 @@ class _CreateOrderBackupWidgetState extends State<CreateOrderBackupWidget> {
                                 '${petServiceListValue} ${quantityController!.text} ${petCategoryListValue}',
                             scheduledAt: datePicked,
                             service: petServiceListValue,
-                            quantity: int.parse(quantityController!.text),
-                            amount: double.parse(amountController!.text),
+                            quantity: int.tryParse(quantityController!.text),
+                            amount: double.tryParse(amountController!.text),
                             status: 'Confirmed',
                             customerAddress:
                                 FFAppState().selectedCustomerAddress,

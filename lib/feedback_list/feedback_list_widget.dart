@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class FeedbackListWidget extends StatefulWidget {
   const FeedbackListWidget({
@@ -20,6 +21,7 @@ class FeedbackListWidget extends StatefulWidget {
 
 class _FeedbackListWidgetState extends State<FeedbackListWidget> {
   TextEditingController? textController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,7 +29,9 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() => FFAppState().searchQuery = ' ');
+      FFAppState().update(() {
+        FFAppState().searchQuery = ' ';
+      });
     });
 
     textController = TextEditingController();
@@ -36,12 +40,15 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -61,7 +68,7 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Stack(
             children: [
               Column(
@@ -192,8 +199,10 @@ class _FeedbackListWidgetState extends State<FeedbackListWidget> {
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 20, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() => FFAppState().searchQuery =
-                                    textController!.text);
+                                FFAppState().update(() {
+                                  FFAppState().searchQuery =
+                                      textController!.text;
+                                });
                               },
                               text: 'Search',
                               options: FFButtonOptions(

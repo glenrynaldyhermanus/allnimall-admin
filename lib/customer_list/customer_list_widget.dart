@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CustomerListWidget extends StatefulWidget {
   const CustomerListWidget({
@@ -20,6 +21,7 @@ class CustomerListWidget extends StatefulWidget {
 
 class _CustomerListWidgetState extends State<CustomerListWidget> {
   TextEditingController? textController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -31,12 +33,15 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -71,7 +76,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Stack(
             children: [
               Column(
@@ -202,8 +207,10 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 20, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() => FFAppState().searchQuery =
-                                    textController!.text);
+                                FFAppState().update(() {
+                                  FFAppState().searchQuery =
+                                      textController!.text;
+                                });
                               },
                               text: 'Search',
                               options: FFButtonOptions(
@@ -273,22 +280,25 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                   child: InkWell(
                                     onTap: () async {
                                       if (widget.isSelection == true) {
-                                        setState(() => FFAppState()
-                                                .selectedCustomerName =
-                                            columnCustomersRecord.displayName!);
-                                        setState(() => FFAppState()
-                                                .selectedCustomer =
-                                            columnCustomersRecord.reference);
-                                        setState(() => FFAppState()
-                                                .selectedCustomerAddress =
-                                            columnCustomersRecord
-                                                .orderAddress!);
-                                        setState(() => FFAppState()
-                                                .selectedCustomerPhone =
-                                            columnCustomersRecord.phoneNumber!);
-                                        setState(() => FFAppState()
-                                                .selectedCustomerLatLng =
-                                            columnCustomersRecord.orderLatlng);
+                                        FFAppState().update(() {
+                                          FFAppState().selectedCustomerName =
+                                              columnCustomersRecord
+                                                  .displayName!;
+                                          FFAppState().selectedCustomer =
+                                              columnCustomersRecord.reference;
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().selectedCustomerAddress =
+                                              columnCustomersRecord
+                                                  .orderAddress!;
+                                          FFAppState().selectedCustomerPhone =
+                                              columnCustomersRecord
+                                                  .phoneNumber!;
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().selectedCustomerLatLng =
+                                              columnCustomersRecord.orderLatlng;
+                                        });
                                         context.pop();
                                       } else {
                                         context.pushNamed('EditCustomer');

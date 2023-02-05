@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,7 +32,9 @@ class _HomeWidgetState extends State<HomeWidget> {
       await Future.delayed(const Duration(milliseconds: 500));
       if (valueOrDefault(currentUserDocument?.role, '') == 'Admin') {
         if (!(FFAppState().selectedDate != null)) {
-          setState(() => FFAppState().selectedDate = getCurrentTimestamp);
+          FFAppState().update(() {
+            FFAppState().selectedDate = getCurrentTimestamp;
+          });
         }
       } else {
         GoRouter.of(context).prepareAuthEvent();
@@ -61,7 +65,15 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryColor,
@@ -94,7 +106,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         elevation: 0,
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -180,9 +192,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ).then(
                                                   (value) => setState(() {}));
 
-                                              setState(() => FFAppState()
-                                                      .selectedDate =
-                                                  FFAppState().selectedDate);
+                                              FFAppState().update(() {
+                                                FFAppState().selectedDate =
+                                                    FFAppState().selectedDate;
+                                              });
                                             },
                                           ),
                                         ),
@@ -196,7 +209,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 12, 0, 0),
                                       child: AuthUserStreamWidget(
-                                        child:
+                                        builder: (context) =>
                                             StreamBuilder<List<OrdersRecord>>(
                                           stream: queryOrdersRecord(
                                             queryBuilder: (ordersRecord) => ordersRecord
@@ -211,10 +224,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             FFAppState()
                                                                 .selectedDate))
                                                 .whereIn('status', [
-                                                  "Confirmed",
-                                                  "OnTheWay",
-                                                  "Working",
-                                                  "Finish"
+                                                  'Confirmed',
+                                                  'OnTheWay',
+                                                  'Working',
+                                                  'Finish'
                                                 ])
                                                 .orderBy('scheduled_at')
                                                 .orderBy('start_time'),

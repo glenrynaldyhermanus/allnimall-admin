@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class RangerListWidget extends StatefulWidget {
   const RangerListWidget({
@@ -25,6 +26,7 @@ class RangerListWidget extends StatefulWidget {
 
 class _RangerListWidgetState extends State<RangerListWidget> {
   TextEditingController? textController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,12 +38,15 @@ class _RangerListWidgetState extends State<RangerListWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -76,7 +81,7 @@ class _RangerListWidgetState extends State<RangerListWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Stack(
             children: [
               Column(
@@ -251,18 +256,18 @@ class _RangerListWidgetState extends State<RangerListWidget> {
                                   child: InkWell(
                                     onTap: () async {
                                       if (widget.isSelections!) {
-                                        setState(() =>
-                                            FFAppState().selectedRanger =
-                                                columnRangersRecord.reference);
-                                        setState(() => FFAppState()
-                                                .selectedRangerName =
-                                            columnRangersRecord.displayName!);
-                                        setState(() => FFAppState()
-                                                .selectedRangerPhone =
-                                            columnRangersRecord.phoneNumber!);
-                                        setState(() =>
-                                            FFAppState().selectedRangerPicture =
-                                                columnRangersRecord.photoUrl!);
+                                        FFAppState().update(() {
+                                          FFAppState().selectedRanger =
+                                              columnRangersRecord.reference;
+                                          FFAppState().selectedRangerName =
+                                              columnRangersRecord.displayName!;
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().selectedRangerPhone =
+                                              columnRangersRecord.phoneNumber!;
+                                          FFAppState().selectedRangerPicture =
+                                              columnRangersRecord.photoUrl!;
+                                        });
                                         context.pop();
                                       } else {
                                         if (widget.isAsssignment!) {

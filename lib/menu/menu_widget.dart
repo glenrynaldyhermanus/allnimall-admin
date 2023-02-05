@@ -9,6 +9,7 @@ import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MenuWidget extends StatefulWidget {
   const MenuWidget({Key? key}) : super(key: key);
@@ -22,6 +23,8 @@ class _MenuWidgetState extends State<MenuWidget> {
   String uploadedFileUrl = '';
 
   OrdersRecord? newOrder;
+  OrdersRecord? newRequest;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -32,7 +35,15 @@ class _MenuWidgetState extends State<MenuWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
@@ -68,7 +79,7 @@ class _MenuWidgetState extends State<MenuWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -238,24 +249,87 @@ class _MenuWidgetState extends State<MenuWidget> {
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          context.pushNamed('CreateOrder');
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                              child: Text(
-                                'Order',
-                                style: FlutterFlowTheme.of(context).subtitle1,
-                              ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                            child: Text(
+                              'Order',
+                              style: FlutterFlowTheme.of(context).subtitle1,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: InkWell(
+                            onTap: () async {
+                              final ordersCreateData = createOrdersRecordData(
+                                status: 'Draft',
+                              );
+                              var ordersRecordReference =
+                                  OrdersRecord.collection.doc();
+                              await ordersRecordReference.set(ordersCreateData);
+                              newRequest = OrdersRecord.getDocumentFromData(
+                                  ordersCreateData, ordersRecordReference);
+
+                              context.pushNamed(
+                                'CreateRequest',
+                                queryParams: {
+                                  'order': serializeParam(
+                                    newRequest,
+                                    ParamType.Document,
+                                  ),
+                                }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  'order': newRequest,
+                                },
+                              );
+
+                              setState(() {});
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 8, 0),
+                                  child: Icon(
+                                    Icons.menu_open_rounded,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Create Request',
+                                  style: FlutterFlowTheme.of(context).bodyText2,
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -327,23 +401,18 @@ class _MenuWidgetState extends State<MenuWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          context.pushNamed('CreateOrder');
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                              child: Text(
-                                'Data',
-                                style: FlutterFlowTheme.of(context).subtitle1,
-                              ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                            child: Text(
+                              'Data',
+                              style: FlutterFlowTheme.of(context).subtitle1,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     InkWell(

@@ -8,6 +8,7 @@ import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateArticleWidget extends StatefulWidget {
   const CreateArticleWidget({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
   TextEditingController? titleController;
   TextEditingController? articleController;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -35,6 +37,7 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     articleController?.dispose();
     titleController?.dispose();
     super.dispose();
@@ -42,6 +45,8 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -61,7 +66,7 @@ class _CreateArticleWidgetState extends State<CreateArticleWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

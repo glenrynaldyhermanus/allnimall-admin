@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditAddressWidget extends StatefulWidget {
   const EditAddressWidget({
@@ -35,6 +36,8 @@ class _EditAddressWidgetState extends State<EditAddressWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
       child: Container(
@@ -196,8 +199,10 @@ class _EditAddressWidgetState extends State<EditAddressWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        setState(() => FFAppState().selectedCustomerAddress =
-                            nameController!.text);
+                        FFAppState().update(() {
+                          FFAppState().selectedCustomerAddress =
+                              nameController!.text;
+                        });
                         Navigator.pop(context);
                       },
                       text: 'Save',

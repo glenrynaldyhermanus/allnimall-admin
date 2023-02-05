@@ -13,6 +13,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateRangerWidget extends StatefulWidget {
   const CreateRangerWidget({Key? key}) : super(key: key);
@@ -28,10 +29,10 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
   TextEditingController? emailController;
   TextEditingController? nameController;
   TextEditingController? passwordController;
-
   late bool passwordVisibility;
   TextEditingController? handphoneController;
   var placePickerValue = FFPlace();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,7 +40,9 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() => FFAppState().selectedCustomerAddress = '');
+      FFAppState().update(() {
+        FFAppState().selectedCustomerAddress = '';
+      });
     });
 
     emailController = TextEditingController();
@@ -52,6 +55,7 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     emailController?.dispose();
     nameController?.dispose();
     passwordController?.dispose();
@@ -61,6 +65,8 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -81,7 +87,7 @@ class _CreateRangerWidgetState extends State<CreateRangerWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

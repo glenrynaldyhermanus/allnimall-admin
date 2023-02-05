@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateServiceWidget extends StatefulWidget {
   const CreateServiceWidget({
@@ -24,6 +25,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
   TextEditingController? nameController;
   TextEditingController? feeController;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,6 +39,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     descriptionController?.dispose();
     nameController?.dispose();
     feeController?.dispose();
@@ -45,6 +48,8 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -64,7 +69,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -269,7 +274,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                               isActive: switchListTileValue,
                               name: nameController!.text,
                               description: descriptionController!.text,
-                              fee: double.parse(feeController!.text),
+                              fee: double.tryParse(feeController!.text),
                               categoryUid: widget.category!.reference,
                               categoryName: widget.category!.name,
                               sequence: 1,

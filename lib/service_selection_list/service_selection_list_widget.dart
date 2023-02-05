@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ServiceSelectionListWidget extends StatefulWidget {
   const ServiceSelectionListWidget({
@@ -25,6 +26,7 @@ class ServiceSelectionListWidget extends StatefulWidget {
 
 class _ServiceSelectionListWidgetState
     extends State<ServiceSelectionListWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -35,7 +37,15 @@ class _ServiceSelectionListWidgetState
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<OrdersRecord>(
       stream: OrdersRecord.getDocument(widget.order!.reference),
       builder: (context, snapshot) {
@@ -71,7 +81,7 @@ class _ServiceSelectionListWidgetState
           ),
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: StreamBuilder<List<OrderServicesRecord>>(
                 stream: queryOrderServicesRecord(
                   parent: serviceSelectionListOrdersRecord.reference,

@@ -51,12 +51,13 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     try {
       final initialPageName = message.data['initialPageName'] as String;
       final initialParameterData = getInitialParameterData(message.data);
-      final pageBuilder = pageBuilderMap[initialPageName];
-      if (pageBuilder != null) {
-        final page = await pageBuilder(initialParameterData);
-        await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
+      final parametersBuilder = parametersBuilderMap[initialPageName];
+      if (parametersBuilder != null) {
+        final parameterData = await parametersBuilder(initialParameterData);
+        context.pushNamed(
+          initialPageName,
+          params: parameterData.params,
+          extra: parameterData.extra,
         );
       }
     } catch (e) {
@@ -88,137 +89,220 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       : widget.child;
 }
 
-final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
-  'Login': (data) async => LoginWidget(),
-  'Menu': (data) async => MenuWidget(),
-  'CreateOrder': (data) async => CreateOrderWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'OrderDetail': (data) async => OrderDetailWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'CustomerList': (data) async => CustomerListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-      ),
-  'CreateCustomer': (data) async => CreateCustomerWidget(),
-  'RangerList': (data) async => RangerListWidget(
-        isSelections: getParameter(data, 'isSelections'),
-        isAsssignment: getParameter(data, 'isAsssignment'),
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'RequestDetail': (data) async => RequestDetailWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'EditCustomer': (data) async => EditCustomerWidget(
-        customer: await getDocumentParameter(
-            data, 'customer', CustomersRecord.serializer),
-      ),
-  'EditCustomerForOrder': (data) async => EditCustomerForOrderWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'EditOrderSchedule': (data) async => EditOrderScheduleWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'EditOrderInformation': (data) async => EditOrderInformationWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'ServiceCategoryList': (data) async => ServiceCategoryListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-      ),
-  'EditServiceCategory': (data) async => EditServiceCategoryWidget(
-        category: await getDocumentParameter(
-            data, 'category', ServiceCategoriesRecord.serializer),
-      ),
-  'CreateServiceCategory': (data) async => CreateServiceCategoryWidget(),
-  'DiscountList': (data) async => DiscountListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-      ),
-  'EditDiscount': (data) async => EditDiscountWidget(
-        discount: await getDocumentParameter(
-            data, 'discount', DiscountsRecord.serializer),
-      ),
-  'CreateDiscount': (data) async => CreateDiscountWidget(),
-  'ServiceList': (data) async => ServiceListWidget(
-        category: await getDocumentParameter(
-            data, 'category', ServiceCategoriesRecord.serializer),
-      ),
-  'ServiceSelectionList': (data) async => ServiceSelectionListWidget(
-        order:
-            await getDocumentParameter(data, 'order', OrdersRecord.serializer),
-        category: await getDocumentParameter(
-            data, 'category', ServiceCategoriesRecord.serializer),
-      ),
-  'EditService': (data) async => EditServiceWidget(
-        service: await getDocumentParameter(
-            data, 'service', ServicesRecord.serializer),
-      ),
-  'CreateService': (data) async => CreateServiceWidget(
-        category: await getDocumentParameter(
-            data, 'category', ServiceCategoriesRecord.serializer),
-      ),
-  'EditArticle': (data) async => EditArticleWidget(
-        article: await getDocumentParameter(
-            data, 'article', ArticlesRecord.serializer),
-      ),
-  'ArticleList': (data) async => ArticleListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-      ),
-  'CreateArticle': (data) async => CreateArticleWidget(),
-  'FAQList': (data) async => FAQListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-      ),
-  'CreateFAQ': (data) async => CreateFAQWidget(),
-  'EditFAQ': (data) async => EditFAQWidget(
-        faq: await getDocumentParameter(data, 'faq', FaqsRecord.serializer),
-      ),
-  'FeedbackList': (data) async => FeedbackListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-      ),
-  'EditFeedback': (data) async => EditFeedbackWidget(
-        featureRequest: await getDocumentParameter(
-            data, 'featureRequest', FeatureRequestsRecord.serializer),
-      ),
-  'CreateRanger': (data) async => CreateRangerWidget(),
-  'ActivityList': (data) async => ActivityListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-        service: await getDocumentParameter(
-            data, 'service', ServicesRecord.serializer),
-      ),
-  'CreateActivity': (data) async => CreateActivityWidget(
-        service: await getDocumentParameter(
-            data, 'service', ServicesRecord.serializer),
-      ),
-  'EditActivity': (data) async => EditActivityWidget(
-        activity: await getDocumentParameter(
-            data, 'activity', ActivitiesRecord.serializer),
-      ),
-  'AddOnList': (data) async => AddOnListWidget(
-        isSelection: getParameter(data, 'isSelection'),
-        service: await getDocumentParameter(
-            data, 'service', ServicesRecord.serializer),
-      ),
-  'CreateAddOn': (data) async => CreateAddOnWidget(
-        service: await getDocumentParameter(
-            data, 'service', ServicesRecord.serializer),
-      ),
-  'EditAddOn': (data) async => EditAddOnWidget(
-        addOn:
-            await getDocumentParameter(data, 'addOn', AddOnsRecord.serializer),
-      ),
-  'CreateOrderBackup': (data) async => CreateOrderBackupWidget(),
-};
+class ParameterData {
+  const ParameterData(
+      {this.requiredParams = const {}, this.allParams = const {}});
+  final Map<String, String?> requiredParams;
+  final Map<String, dynamic> allParams;
 
-bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>
-    params.any((param) => getParameter(data, param) != null);
+  Map<String, String> get params => Map.fromEntries(
+        requiredParams.entries
+            .where((e) => e.value != null)
+            .map((e) => MapEntry(e.key, e.value!)),
+      );
+  Map<String, dynamic> get extra => Map.fromEntries(
+        allParams.entries.where((e) => e.value != null),
+      );
+
+  static Future<ParameterData> Function(Map<String, dynamic>) none() =>
+      (data) async => ParameterData();
+}
+
+final parametersBuilderMap =
+    <String, Future<ParameterData> Function(Map<String, dynamic>)>{
+  'Login': ParameterData.none(),
+  'Home': ParameterData.none(),
+  'Menu': ParameterData.none(),
+  'CreateOrder': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'OrderDetail': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'CustomerList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+        },
+      ),
+  'CreateCustomer': ParameterData.none(),
+  'RangerList': (data) async => ParameterData(
+        allParams: {
+          'isSelections': getParameter<bool>(data, 'isSelections'),
+          'isAsssignment': getParameter<bool>(data, 'isAsssignment'),
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'RequestDetail': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'EditCustomer': (data) async => ParameterData(
+        allParams: {
+          'customer': await getDocumentParameter<CustomersRecord>(
+              data, 'customer', CustomersRecord.serializer),
+        },
+      ),
+  'EditCustomerForOrder': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'EditOrderSchedule': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'EditOrderInformation': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'ServiceCategoryList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+  'EditServiceCategory': (data) async => ParameterData(
+        allParams: {
+          'category': await getDocumentParameter<ServiceCategoriesRecord>(
+              data, 'category', ServiceCategoriesRecord.serializer),
+        },
+      ),
+  'CreateServiceCategory': ParameterData.none(),
+  'DiscountList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+        },
+      ),
+  'EditDiscount': (data) async => ParameterData(
+        allParams: {
+          'discount': await getDocumentParameter<DiscountsRecord>(
+              data, 'discount', DiscountsRecord.serializer),
+        },
+      ),
+  'CreateDiscount': ParameterData.none(),
+  'ServiceList': (data) async => ParameterData(
+        allParams: {
+          'category': await getDocumentParameter<ServiceCategoriesRecord>(
+              data, 'category', ServiceCategoriesRecord.serializer),
+        },
+      ),
+  'ServiceSelectionList': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+          'category': await getDocumentParameter<ServiceCategoriesRecord>(
+              data, 'category', ServiceCategoriesRecord.serializer),
+        },
+      ),
+  'EditService': (data) async => ParameterData(
+        allParams: {
+          'service': await getDocumentParameter<ServicesRecord>(
+              data, 'service', ServicesRecord.serializer),
+        },
+      ),
+  'CreateService': (data) async => ParameterData(
+        allParams: {
+          'category': await getDocumentParameter<ServiceCategoriesRecord>(
+              data, 'category', ServiceCategoriesRecord.serializer),
+        },
+      ),
+  'EditArticle': (data) async => ParameterData(
+        allParams: {
+          'article': await getDocumentParameter<ArticlesRecord>(
+              data, 'article', ArticlesRecord.serializer),
+        },
+      ),
+  'ArticleList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+        },
+      ),
+  'CreateArticle': ParameterData.none(),
+  'FAQList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+        },
+      ),
+  'CreateFAQ': ParameterData.none(),
+  'EditFAQ': (data) async => ParameterData(
+        allParams: {
+          'faq': await getDocumentParameter<FaqsRecord>(
+              data, 'faq', FaqsRecord.serializer),
+        },
+      ),
+  'FeedbackList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+        },
+      ),
+  'EditFeedback': (data) async => ParameterData(
+        allParams: {
+          'featureRequest': await getDocumentParameter<FeatureRequestsRecord>(
+              data, 'featureRequest', FeatureRequestsRecord.serializer),
+        },
+      ),
+  'CreateRanger': ParameterData.none(),
+  'ActivityList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+          'service': await getDocumentParameter<ServicesRecord>(
+              data, 'service', ServicesRecord.serializer),
+        },
+      ),
+  'CreateActivity': (data) async => ParameterData(
+        allParams: {
+          'service': await getDocumentParameter<ServicesRecord>(
+              data, 'service', ServicesRecord.serializer),
+        },
+      ),
+  'EditActivity': (data) async => ParameterData(
+        allParams: {
+          'activity': await getDocumentParameter<ActivitiesRecord>(
+              data, 'activity', ActivitiesRecord.serializer),
+        },
+      ),
+  'AddOnList': (data) async => ParameterData(
+        allParams: {
+          'isSelection': getParameter<bool>(data, 'isSelection'),
+          'service': await getDocumentParameter<ServicesRecord>(
+              data, 'service', ServicesRecord.serializer),
+        },
+      ),
+  'CreateAddOn': (data) async => ParameterData(
+        allParams: {
+          'service': await getDocumentParameter<ServicesRecord>(
+              data, 'service', ServicesRecord.serializer),
+        },
+      ),
+  'EditAddOn': (data) async => ParameterData(
+        allParams: {
+          'addOn': await getDocumentParameter<AddOnsRecord>(
+              data, 'addOn', AddOnsRecord.serializer),
+        },
+      ),
+  'CreateOrderBackup': ParameterData.none(),
+  'CreateRequest': (data) async => ParameterData(
+        allParams: {
+          'order': await getDocumentParameter<OrdersRecord>(
+              data, 'order', OrdersRecord.serializer),
+        },
+      ),
+};
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {
   try {

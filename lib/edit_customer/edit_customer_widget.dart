@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditCustomerWidget extends StatefulWidget {
   const EditCustomerWidget({
@@ -29,6 +30,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
   TextEditingController? handphoneController1;
   TextEditingController? handphoneController2;
   TextEditingController? nameController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,8 +38,9 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() => FFAppState().selectedCustomerAddress =
-          widget.customer!.orderAddress!);
+      FFAppState().update(() {
+        FFAppState().selectedCustomerAddress = widget.customer!.orderAddress!;
+      });
     });
 
     handphoneController1 =
@@ -49,6 +52,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     handphoneController1?.dispose();
     handphoneController2?.dispose();
     nameController?.dispose();
@@ -57,6 +61,8 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -93,7 +99,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

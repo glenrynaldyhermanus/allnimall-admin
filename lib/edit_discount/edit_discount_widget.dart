@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditDiscountWidget extends StatefulWidget {
   const EditDiscountWidget({
@@ -26,6 +27,7 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
   TextEditingController? discountController;
   TextEditingController? nameController;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,6 +41,7 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     discountController?.dispose();
     nameController?.dispose();
     super.dispose();
@@ -46,6 +49,8 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -81,7 +86,7 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -265,7 +270,8 @@ class _EditDiscountWidgetState extends State<EditDiscountWidget> {
                           onPressed: () async {
                             final discountsUpdateData =
                                 createDiscountsRecordData(
-                              discount: double.parse(discountController!.text),
+                              discount:
+                                  double.tryParse(discountController!.text),
                               isActive: switchListTileValue,
                               name: nameController!.text,
                               unit: dropDownValue,
