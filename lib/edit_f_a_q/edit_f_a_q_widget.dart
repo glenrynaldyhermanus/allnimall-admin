@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditFAQWidget extends StatefulWidget {
   const EditFAQWidget({
@@ -26,6 +27,7 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
   TextEditingController? refNameController;
   TextEditingController? refURLController;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,6 +42,7 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     answerController?.dispose();
     questionController?.dispose();
     refNameController?.dispose();
@@ -49,6 +52,8 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -84,7 +89,7 @@ class _EditFAQWidgetState extends State<EditFAQWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

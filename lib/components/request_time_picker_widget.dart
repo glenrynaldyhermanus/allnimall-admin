@@ -7,6 +7,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class RequestTimePickerWidget extends StatefulWidget {
   const RequestTimePickerWidget({
@@ -31,6 +32,8 @@ class _RequestTimePickerWidgetState extends State<RequestTimePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<OrdersRecord>(
       stream: OrdersRecord.getDocument(widget.order!.reference),
       builder: (context, snapshot) {

@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateAddOnWidget extends StatefulWidget {
   const CreateAddOnWidget({
@@ -26,6 +27,7 @@ class _CreateAddOnWidgetState extends State<CreateAddOnWidget> {
   TextEditingController? nameController;
   int? countControllerValue;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,6 +40,7 @@ class _CreateAddOnWidgetState extends State<CreateAddOnWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     feeController?.dispose();
     nameController?.dispose();
     super.dispose();
@@ -45,6 +48,8 @@ class _CreateAddOnWidgetState extends State<CreateAddOnWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -64,7 +69,7 @@ class _CreateAddOnWidgetState extends State<CreateAddOnWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -285,7 +290,7 @@ class _CreateAddOnWidgetState extends State<CreateAddOnWidget> {
                             final addOnsCreateData = createAddOnsRecordData(
                               isActive: switchListTileValue,
                               name: nameController!.text,
-                              fee: double.parse(feeController!.text),
+                              fee: double.tryParse(feeController!.text),
                               sequence: countControllerValue,
                             );
                             await AddOnsRecord.createDoc(

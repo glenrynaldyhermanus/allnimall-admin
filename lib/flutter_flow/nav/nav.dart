@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
+
 import '../../auth/firebase_user_provider.dart';
 import '../../backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
@@ -98,7 +99,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'CreateOrder',
               path: 'createOrder',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => CreateOrderWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -108,7 +109,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'OrderDetail',
               path: 'orderDetail',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => OrderDetailWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -130,7 +131,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'RangerList',
               path: 'rangerList',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => RangerListWidget(
                 isSelections: params.getParam('isSelections', ParamType.bool),
@@ -142,7 +143,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'RequestDetail',
               path: 'requestDetail',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => RequestDetailWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -152,7 +153,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'EditCustomer',
               path: 'editCustomer',
               asyncParams: {
-                'customer': getDoc('customers', CustomersRecord.serializer),
+                'customer': getDoc(['customers'], CustomersRecord.serializer),
               },
               builder: (context, params) => EditCustomerWidget(
                 customer: params.getParam('customer', ParamType.Document),
@@ -162,7 +163,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'EditCustomerForOrder',
               path: 'editCustomerForOrder',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => EditCustomerForOrderWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -172,7 +173,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'EditOrderSchedule',
               path: 'editOrderSchedule',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => EditOrderScheduleWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -182,7 +183,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'EditOrderInformation',
               path: 'editOrderInformation',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => EditOrderInformationWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -192,7 +193,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'ServiceCategoryList',
               path: 'serviceCategoryList',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
               },
               builder: (context, params) => ServiceCategoryListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
@@ -205,7 +206,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               asyncParams: {
                 'category': getDoc(
-                    'service_categories', ServiceCategoriesRecord.serializer),
+                    ['service_categories'], ServiceCategoriesRecord.serializer),
               },
               builder: (context, params) => EditServiceCategoryWidget(
                 category: params.getParam('category', ParamType.Document),
@@ -230,7 +231,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'editDiscount',
               requireAuth: true,
               asyncParams: {
-                'discount': getDoc('discounts', DiscountsRecord.serializer),
+                'discount': getDoc(['discounts'], DiscountsRecord.serializer),
               },
               builder: (context, params) => EditDiscountWidget(
                 discount: params.getParam('discount', ParamType.Document),
@@ -247,7 +248,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'serviceList',
               asyncParams: {
                 'category': getDoc(
-                    'service_categories', ServiceCategoriesRecord.serializer),
+                    ['service_categories'], ServiceCategoriesRecord.serializer),
               },
               builder: (context, params) => ServiceListWidget(
                 category: params.getParam('category', ParamType.Document),
@@ -257,9 +258,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'ServiceSelectionList',
               path: 'serviceSelectionList',
               asyncParams: {
-                'order': getDoc('orders', OrdersRecord.serializer),
+                'order': getDoc(['orders'], OrdersRecord.serializer),
                 'category': getDoc(
-                    'service_categories', ServiceCategoriesRecord.serializer),
+                    ['service_categories'], ServiceCategoriesRecord.serializer),
               },
               builder: (context, params) => ServiceSelectionListWidget(
                 order: params.getParam('order', ParamType.Document),
@@ -271,7 +272,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'editService',
               requireAuth: true,
               asyncParams: {
-                'service': getDoc('services', ServicesRecord.serializer),
+                'service': getDoc(['services'], ServicesRecord.serializer),
               },
               builder: (context, params) => EditServiceWidget(
                 service: params.getParam('service', ParamType.Document),
@@ -283,7 +284,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               asyncParams: {
                 'category': getDoc(
-                    'service_categories', ServiceCategoriesRecord.serializer),
+                    ['service_categories'], ServiceCategoriesRecord.serializer),
               },
               builder: (context, params) => CreateServiceWidget(
                 category: params.getParam('category', ParamType.Document),
@@ -294,7 +295,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'editArticle',
               requireAuth: true,
               asyncParams: {
-                'article': getDoc('articles', ArticlesRecord.serializer),
+                'article': getDoc(['articles'], ArticlesRecord.serializer),
               },
               builder: (context, params) => EditArticleWidget(
                 article: params.getParam('article', ParamType.Document),
@@ -333,7 +334,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'editFAQ',
               requireAuth: true,
               asyncParams: {
-                'faq': getDoc('faqs', FaqsRecord.serializer),
+                'faq': getDoc(['faqs'], FaqsRecord.serializer),
               },
               builder: (context, params) => EditFAQWidget(
                 faq: params.getParam('faq', ParamType.Document),
@@ -353,7 +354,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               asyncParams: {
                 'featureRequest': getDoc(
-                    'feature_requests', FeatureRequestsRecord.serializer),
+                    ['feature_requests'], FeatureRequestsRecord.serializer),
               },
               builder: (context, params) => EditFeedbackWidget(
                 featureRequest:
@@ -369,7 +370,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'ActivityList',
               path: 'activityList',
               asyncParams: {
-                'service': getDoc('services', ServicesRecord.serializer),
+                'service': getDoc(['services'], ServicesRecord.serializer),
               },
               builder: (context, params) => ActivityListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
@@ -381,7 +382,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createActivity',
               requireAuth: true,
               asyncParams: {
-                'service': getDoc('services', ServicesRecord.serializer),
+                'service': getDoc(['services'], ServicesRecord.serializer),
               },
               builder: (context, params) => CreateActivityWidget(
                 service: params.getParam('service', ParamType.Document),
@@ -392,7 +393,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'editActivity',
               requireAuth: true,
               asyncParams: {
-                'activity': getDoc('activities', ActivitiesRecord.serializer),
+                'activity': getDoc(
+                    ['services', 'activities'], ActivitiesRecord.serializer),
               },
               builder: (context, params) => EditActivityWidget(
                 activity: params.getParam('activity', ParamType.Document),
@@ -402,7 +404,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'AddOnList',
               path: 'addOnList',
               asyncParams: {
-                'service': getDoc('services', ServicesRecord.serializer),
+                'service': getDoc(['services'], ServicesRecord.serializer),
               },
               builder: (context, params) => AddOnListWidget(
                 isSelection: params.getParam('isSelection', ParamType.bool),
@@ -414,7 +416,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createAddOn',
               requireAuth: true,
               asyncParams: {
-                'service': getDoc('services', ServicesRecord.serializer),
+                'service': getDoc(['services'], ServicesRecord.serializer),
               },
               builder: (context, params) => CreateAddOnWidget(
                 service: params.getParam('service', ParamType.Document),
@@ -425,7 +427,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'editAddOn',
               requireAuth: true,
               asyncParams: {
-                'addOn': getDoc('add_ons', AddOnsRecord.serializer),
+                'addOn':
+                    getDoc(['services', 'add_ons'], AddOnsRecord.serializer),
               },
               builder: (context, params) => EditAddOnWidget(
                 addOn: params.getParam('addOn', ParamType.Document),
@@ -435,6 +438,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'CreateOrderBackup',
               path: 'createOrderBackup',
               builder: (context, params) => CreateOrderBackupWidget(),
+            ),
+            FFRoute(
+              name: 'CreateRequest',
+              path: 'createRequest',
+              asyncParams: {
+                'order': getDoc(['orders'], OrdersRecord.serializer),
+              },
+              builder: (context, params) => CreateRequestWidget(
+                order: params.getParam('order', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -547,7 +560,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
-    String? collectionName,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -561,7 +574,7 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionName);
+    return deserializeParam<T>(param, type, isList, collectionNamePath);
   }
 }
 

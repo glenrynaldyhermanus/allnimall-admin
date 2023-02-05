@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/push_notifications/push_notifications_util.dart';
 import '../components/order_created_widget.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -14,8 +15,8 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CreateOrderWidget extends StatefulWidget {
-  const CreateOrderWidget({
+class CreateRequestWidget extends StatefulWidget {
+  const CreateRequestWidget({
     Key? key,
     this.order,
   }) : super(key: key);
@@ -23,10 +24,10 @@ class CreateOrderWidget extends StatefulWidget {
   final OrdersRecord? order;
 
   @override
-  _CreateOrderWidgetState createState() => _CreateOrderWidgetState();
+  _CreateRequestWidgetState createState() => _CreateRequestWidgetState();
 }
 
-class _CreateOrderWidgetState extends State<CreateOrderWidget> {
+class _CreateRequestWidgetState extends State<CreateRequestWidget> {
   DateTime? datePicked;
   String? timeListValue;
   TextEditingController? endTimeController;
@@ -69,7 +70,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
             ),
           );
         }
-        final createOrderOrdersRecord = snapshot.data!;
+        final createRequestOrdersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -77,7 +78,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: true,
             title: Text(
-              'Create Order',
+              'Create Request',
               style: FlutterFlowTheme.of(context).title3.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -96,7 +97,7 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                   children: [
                     StreamBuilder<List<OrderServicesRecord>>(
                       stream: queryOrderServicesRecord(
-                        parent: createOrderOrdersRecord.reference,
+                        parent: createRequestOrdersRecord.reference,
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -259,13 +260,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                                       ParamType.bool,
                                                     ),
                                                     'order': serializeParam(
-                                                      createOrderOrdersRecord,
+                                                      createRequestOrdersRecord,
                                                       ParamType.Document,
                                                     ),
                                                   }.withoutNulls,
                                                   extra: <String, dynamic>{
                                                     'order':
-                                                        createOrderOrdersRecord,
+                                                        createRequestOrdersRecord,
                                                   },
                                                 );
                                               },
@@ -707,73 +708,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    24, 40, 24, 0),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 52,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBtnText,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24, 0, 0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            valueOrDefault<String>(
-                                              FFAppState().selectedRangerName,
-                                              'Pilih Ranger',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText2,
-                                          ),
-                                        ),
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 30,
-                                          borderWidth: 1,
-                                          buttonSize: 60,
-                                          icon: Icon(
-                                            Icons.people_outline_rounded,
-                                            color: Color(0xFF1F2126),
-                                            size: 24,
-                                          ),
-                                          onPressed: () async {
-                                            context.pushNamed(
-                                              'RangerList',
-                                              queryParams: {
-                                                'isSelections': serializeParam(
-                                                  true,
-                                                  ParamType.bool,
-                                                ),
-                                                'isAsssignment': serializeParam(
-                                                  false,
-                                                  ParamType.bool,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 24, 0, 24),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     final ordersUpdateData =
                                         createOrdersRecordData(
                                       createdAt: getCurrentTimestamp,
-                                      scheduledAt: datePicked,
-                                      status: 'Confirmed',
+                                      status: 'New',
                                       customerAddress:
                                           FFAppState().selectedCustomerAddress,
                                       customerLatlng:
@@ -785,18 +726,10 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                       prefferedTime: timeListValue,
                                       startTime: startTimeController!.text,
                                       endTime: endTimeController!.text,
-                                      rangerName:
-                                          FFAppState().selectedRangerName,
-                                      rangerPhone:
-                                          FFAppState().selectedRangerPhone,
-                                      rangerProfilePicture:
-                                          FFAppState().selectedRangerPicture,
-                                      confirmedAt: getCurrentTimestamp,
                                       customerPhone:
                                           FFAppState().selectedCustomerPhone,
                                       customerUid:
                                           FFAppState().selectedCustomer,
-                                      rangerUid: FFAppState().selectedRanger,
                                       petCategory: functions
                                           .petCategoryFromOrderServices(
                                               containerOrderServicesRecordList
@@ -817,8 +750,18 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                           containerOrderServicesRecordList
                                               .toList()),
                                     );
-                                    await createOrderOrdersRecord.reference
+                                    await createRequestOrdersRecord.reference
                                         .update(ordersUpdateData);
+                                    triggerPushNotification(
+                                      notificationTitle: 'New Request!',
+                                      notificationText:
+                                          'Ada permintaan baru, segera lihat aplikasimu',
+                                      notificationSound: 'default',
+                                      userRefs:
+                                          FFAppState().groomerList.toList(),
+                                      initialPageName: 'Home',
+                                      parameterData: {},
+                                    );
                                     context.pop();
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
@@ -829,13 +772,13 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                           padding:
                                               MediaQuery.of(context).viewInsets,
                                           child: OrderCreatedWidget(
-                                            order: createOrderOrdersRecord,
+                                            order: createRequestOrdersRecord,
                                           ),
                                         );
                                       },
                                     ).then((value) => setState(() {}));
                                   },
-                                  text: 'Create Order',
+                                  text: 'Create Request',
                                   options: FFButtonOptions(
                                     width: 270,
                                     height: 50,

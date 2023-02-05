@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class AddOnListWidget extends StatefulWidget {
   const AddOnListWidget({
@@ -20,6 +21,7 @@ class AddOnListWidget extends StatefulWidget {
 }
 
 class _AddOnListWidgetState extends State<AddOnListWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,7 +32,15 @@ class _AddOnListWidgetState extends State<AddOnListWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<ServicesRecord>(
       stream: ServicesRecord.getDocument(widget.service!.reference),
       builder: (context, snapshot) {
@@ -92,7 +102,7 @@ class _AddOnListWidgetState extends State<AddOnListWidget> {
           ),
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Stack(
                 children: [
                   Column(

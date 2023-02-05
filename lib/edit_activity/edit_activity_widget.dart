@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditActivityWidget extends StatefulWidget {
   const EditActivityWidget({
@@ -26,6 +27,7 @@ class _EditActivityWidgetState extends State<EditActivityWidget> {
   TextEditingController? activityController;
   int? countControllerValue;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,12 +39,15 @@ class _EditActivityWidgetState extends State<EditActivityWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     activityController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -78,7 +83,7 @@ class _EditActivityWidgetState extends State<EditActivityWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

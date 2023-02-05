@@ -12,6 +12,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailWidget extends StatefulWidget {
   const OrderDetailWidget({
@@ -28,6 +29,7 @@ class OrderDetailWidget extends StatefulWidget {
 class _OrderDetailWidgetState extends State<OrderDetailWidget> {
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,7 +40,15 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<OrdersRecord>(
       stream: OrdersRecord.getDocument(widget.order!.reference),
       builder: (context, snapshot) {
@@ -102,7 +112,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                     ),
                   if (valueOrDefault(currentUserDocument?.role, '') == 'Admin')
                     AuthUserStreamWidget(
-                      child: FlutterFlowIconButton(
+                      builder: (context) => FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30,
                         borderWidth: 1,
@@ -137,7 +147,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
           ),
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -481,7 +491,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                                                 '') ==
                                             'Admin')
                                           AuthUserStreamWidget(
-                                            child: Column(
+                                            builder: (context) => Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
@@ -1136,7 +1146,7 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   20, 10, 20, 10),
                               child: AuthUserStreamWidget(
-                                child: Row(
+                                builder: (context) => Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     if (widget.order!.paymentStatus == 'Unpaid')

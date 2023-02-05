@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CalendarPickerWidget extends StatefulWidget {
   const CalendarPickerWidget({Key? key}) : super(key: key);
@@ -27,6 +28,8 @@ class _CalendarPickerWidgetState extends State<CalendarPickerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Material(
       color: Colors.transparent,
       elevation: 5,
@@ -71,8 +74,9 @@ class _CalendarPickerWidgetState extends State<CalendarPickerWidget> {
                   FFButtonWidget(
                     onPressed: () async {
                       Navigator.pop(context);
-                      setState(() => FFAppState().selectedDate =
-                          calendarSelectedDay?.start);
+                      FFAppState().update(() {
+                        FFAppState().selectedDate = calendarSelectedDay?.start;
+                      });
                     },
                     text: 'Select',
                     options: FFButtonOptions(

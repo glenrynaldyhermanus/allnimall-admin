@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ServiceListWidget extends StatefulWidget {
   const ServiceListWidget({
@@ -18,6 +19,7 @@ class ServiceListWidget extends StatefulWidget {
 }
 
 class _ServiceListWidgetState extends State<ServiceListWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -28,7 +30,15 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<ServiceCategoriesRecord>(
       stream: ServiceCategoriesRecord.getDocument(widget.category!.reference),
       builder: (context, snapshot) {
@@ -121,7 +131,7 @@ class _ServiceListWidgetState extends State<ServiceListWidget> {
           ),
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Stack(
                 children: [
                   Column(

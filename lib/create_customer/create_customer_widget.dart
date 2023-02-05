@@ -13,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateCustomerWidget extends StatefulWidget {
   const CreateCustomerWidget({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
   TextEditingController? handphoneController;
   TextEditingController? nameController;
   var placePickerValue = FFPlace();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -34,7 +36,9 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() => FFAppState().selectedCustomerAddress = '');
+      FFAppState().update(() {
+        FFAppState().selectedCustomerAddress = '';
+      });
     });
 
     handphoneController = TextEditingController();
@@ -44,6 +48,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     handphoneController?.dispose();
     nameController?.dispose();
     super.dispose();
@@ -51,6 +56,8 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -71,7 +78,7 @@ class _CreateCustomerWidgetState extends State<CreateCustomerWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditOrderScheduleWidget extends StatefulWidget {
   const EditOrderScheduleWidget({
@@ -30,6 +31,7 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
   String? timeListValue;
   TextEditingController? endTimeController;
   TextEditingController? startTimeController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -42,6 +44,7 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     endTimeController?.dispose();
     startTimeController?.dispose();
     super.dispose();
@@ -49,6 +52,8 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -68,7 +73,7 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -325,6 +330,8 @@ class _EditOrderScheduleWidgetState extends State<EditOrderScheduleWidget> {
                               );
                             },
                           ).then((value) => setState(() {}));
+
+                          setState(() {});
                         },
                         text: 'Re-Schedule Order',
                         options: FFButtonOptions(

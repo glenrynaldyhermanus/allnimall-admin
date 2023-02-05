@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditCustomerForOrderWidget extends StatefulWidget {
   const EditCustomerForOrderWidget({
@@ -28,6 +29,7 @@ class _EditCustomerForOrderWidgetState
   TextEditingController? addressController;
   TextEditingController? handphoneController;
   TextEditingController? nameController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,6 +41,7 @@ class _EditCustomerForOrderWidgetState
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     addressController?.dispose();
     handphoneController?.dispose();
     nameController?.dispose();
@@ -47,6 +50,8 @@ class _EditCustomerForOrderWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<CustomersRecord>(
       stream: CustomersRecord.getDocument(widget.order!.customerUid!),
       builder: (context, snapshot) {
@@ -83,7 +88,7 @@ class _EditCustomerForOrderWidgetState
           ),
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

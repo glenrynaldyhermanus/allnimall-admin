@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditOrderInformationWidget extends StatefulWidget {
   const EditOrderInformationWidget({
@@ -28,6 +29,7 @@ class _EditOrderInformationWidgetState
   String? petServiceListValue;
   TextEditingController? quantityController;
   TextEditingController? amountController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -42,6 +44,7 @@ class _EditOrderInformationWidgetState
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     amountController?.dispose();
     quantityController?.dispose();
     super.dispose();
@@ -49,6 +52,8 @@ class _EditOrderInformationWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -68,7 +73,7 @@ class _EditOrderInformationWidgetState
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -254,8 +259,8 @@ class _EditOrderInformationWidgetState
                           final ordersUpdateData = createOrdersRecordData(
                             petCategory: petCategoryListValue,
                             service: petServiceListValue,
-                            quantity: int.parse(quantityController!.text),
-                            amount: double.parse(amountController!.text),
+                            quantity: int.tryParse(quantityController!.text),
+                            amount: double.tryParse(amountController!.text),
                             name:
                                 '${petServiceListValue} ${quantityController!.text} ${petCategoryListValue}',
                           );
@@ -275,6 +280,8 @@ class _EditOrderInformationWidgetState
                               );
                             },
                           ).then((value) => setState(() {}));
+
+                          setState(() {});
                         },
                         text: 'Edit Order',
                         options: FFButtonOptions(

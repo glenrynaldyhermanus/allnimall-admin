@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditServiceWidget extends StatefulWidget {
   const EditServiceWidget({
@@ -28,6 +29,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
   int? countControllerValue;
   TextEditingController? feeController;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -43,6 +45,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     descriptionController?.dispose();
     nameController?.dispose();
     feeController?.dispose();
@@ -51,6 +54,8 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -86,7 +91,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -528,7 +533,7 @@ class _EditServiceWidgetState extends State<EditServiceWidget> {
                             final servicesUpdateData = createServicesRecordData(
                               isActive: switchListTileValue,
                               name: nameController!.text,
-                              fee: double.parse(feeController!.text),
+                              fee: double.tryParse(feeController!.text),
                               description: descriptionController!.text,
                               sequence: countControllerValue,
                             );

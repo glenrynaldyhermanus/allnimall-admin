@@ -46,3 +46,4 @@ export 'create_add_on/create_add_on_widget.dart' show CreateAddOnWidget;
 export 'edit_add_on/edit_add_on_widget.dart' show EditAddOnWidget;
 export 'create_order_backup/create_order_backup_widget.dart'
     show CreateOrderBackupWidget;
+export 'create_request/create_request_widget.dart' show CreateRequestWidget;

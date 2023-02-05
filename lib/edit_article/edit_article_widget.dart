@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditArticleWidget extends StatefulWidget {
   const EditArticleWidget({
@@ -24,6 +25,7 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
   TextEditingController? articleController;
   TextEditingController? titleController;
   bool? switchListTileValue;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,6 +38,7 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     articleController?.dispose();
     titleController?.dispose();
     super.dispose();
@@ -43,6 +46,8 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -78,7 +83,7 @@ class _EditArticleWidgetState extends State<EditArticleWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

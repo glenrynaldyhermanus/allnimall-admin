@@ -9,6 +9,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class PaymentConfirmationWidget extends StatefulWidget {
   const PaymentConfirmationWidget({
@@ -35,6 +36,8 @@ class _PaymentConfirmationWidgetState extends State<PaymentConfirmationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
       child: Container(

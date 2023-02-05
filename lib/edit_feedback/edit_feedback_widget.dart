@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditFeedbackWidget extends StatefulWidget {
   const EditFeedbackWidget({
@@ -25,6 +26,7 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
   String? dropDownValue;
   TextEditingController? feedbackController;
   TextEditingController? responseController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,6 +41,7 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     feedbackController?.dispose();
     responseController?.dispose();
     super.dispose();
@@ -46,6 +49,8 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -81,7 +86,7 @@ class _EditFeedbackWidgetState extends State<EditFeedbackWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
