@@ -110,7 +110,12 @@ class FFAppState extends ChangeNotifier {
     _assignedRangerPicture = _value;
   }
 
-  List<DocumentReference> _groomerList = [];
+  List<DocumentReference> _groomerList = [
+    FirebaseFirestore.instance.doc('/rangers/Q5BvEteqpThJrenAzga36UCdQei2'),
+    FirebaseFirestore.instance.doc('/rangers/i8VUfLEhKmPYS9NgoisxHgueTgl2'),
+    FirebaseFirestore.instance.doc('/rangers/pUgDOviQ0jPbDBPgvpsCvUtrTA32')
+  ];
+  
   List<DocumentReference> get groomerList => _groomerList;
   set groomerList(List<DocumentReference> _value) {
     _groomerList = _value;
