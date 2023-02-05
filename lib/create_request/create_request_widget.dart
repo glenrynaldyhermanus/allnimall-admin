@@ -30,24 +30,19 @@ class CreateRequestWidget extends StatefulWidget {
 class _CreateRequestWidgetState extends State<CreateRequestWidget> {
   DateTime? datePicked;
   String? timeListValue;
-  TextEditingController? endTimeController;
-  TextEditingController? startTimeController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    endTimeController = TextEditingController();
-    startTimeController = TextEditingController();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
-    endTimeController?.dispose();
-    startTimeController?.dispose();
     super.dispose();
   }
 
@@ -555,159 +550,6 @@ class _CreateRequestWidgetState extends State<CreateRequestWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    24, 14, 24, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 4, 0),
-                                        child: TextFormField(
-                                          controller: startTimeController,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Jam Mulai',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintText: '09:00',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24, 0, 0, 0),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText2,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4, 0, 0, 0),
-                                        child: TextFormField(
-                                          controller: endTimeController,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Selesai',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintText: '12:00',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24, 0, 0, 0),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText2,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 24, 0, 24),
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -724,8 +566,6 @@ class _CreateRequestWidgetState extends State<CreateRequestWidget> {
                                           FFAppState().selectedCustomerName,
                                       paymentStatus: 'Unpaid',
                                       prefferedTime: timeListValue,
-                                      startTime: startTimeController!.text,
-                                      endTime: endTimeController!.text,
                                       customerPhone:
                                           FFAppState().selectedCustomerPhone,
                                       customerUid:
@@ -749,6 +589,7 @@ class _CreateRequestWidgetState extends State<CreateRequestWidget> {
                                       amount: functions.countTotalAllServices(
                                           containerOrderServicesRecordList
                                               .toList()),
+                                      scheduledAt: datePicked,
                                     );
                                     await createRequestOrdersRecord.reference
                                         .update(ordersUpdateData);
