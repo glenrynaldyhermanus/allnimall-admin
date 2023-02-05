@@ -26,6 +26,7 @@ class _DeleteConfirmationWidgetState extends State<DeleteConfirmationWidget> {
   @override
   void initState() {
     super.initState();
+    print('suk');
     nameController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -96,7 +97,7 @@ class _DeleteConfirmationWidgetState extends State<DeleteConfirmationWidget> {
                           size: 24,
                         ),
                         onPressed: () {
-                          print('IconButton pressed ...');
+                          Navigator.of(context).pop();
                         },
                       ),
                     ),

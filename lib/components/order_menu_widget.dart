@@ -767,7 +767,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                         ),
                         InkWell(
                           onTap: () async {
-                            context.pop();
+                            Navigator.of(context).pop();
                             await showModalBottomSheet(
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
