@@ -115,7 +115,7 @@ class FFAppState extends ChangeNotifier {
     FirebaseFirestore.instance.doc('/rangers/i8VUfLEhKmPYS9NgoisxHgueTgl2'),
     FirebaseFirestore.instance.doc('/rangers/pUgDOviQ0jPbDBPgvpsCvUtrTA32')
   ];
-  
+
   List<DocumentReference> get groomerList => _groomerList;
   set groomerList(List<DocumentReference> _value) {
     _groomerList = _value;

@@ -462,7 +462,7 @@ class _OrderMenuWidgetState extends State<OrderMenuWidget> {
                         InkWell(
                           onTap: () async {
                             await launchURL(
-                                '${functions.generateWhatsAppUrl(widget.order!.customerPhone)}&text=Jadwal+kakak+sudah+berhasil+didaftarkan+dengan+nomor+order+%3A+${widget.order!.orderNo}%0D%0AUntuk+melihat+detail+reservasi+kakak+silahkan+buka+link+berikut+ya%0D%0Ahttps%3A%2F%2Fallnimall.web.app%2F%23%2Forder%3Fno%3D${widget.order!.orderNo}');
+                                '${functions.generateWhatsAppUrl(widget.order!.customerPhone)}&text=Jadwal+kakak+sudah+berhasil+didaftarkan+dengan+nomor+order+%3A+${widget.order!.orderNo}%0D%0A%0AGroomer+%3A%0A${widget.order!.rangerName}%0D%0A%2b${widget.order!.rangerPhone}%0D%0D%0A%0AUntuk+melihat+detail+reservasi+kakak+silahkan+buka+link+berikut+ya%0D%0Ahttps%3A%2F%2Fallnimall.web.app%2F%23%2Forder%3Fno%3D${widget.order!.orderNo}');
                             context.pop();
                           },
                           child: Container(
