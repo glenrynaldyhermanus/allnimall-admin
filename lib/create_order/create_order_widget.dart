@@ -819,7 +819,6 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                     );
                                     await createOrderOrdersRecord.reference
                                         .update(ordersUpdateData);
-                                    context.pop();
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
@@ -833,7 +832,10 @@ class _CreateOrderWidgetState extends State<CreateOrderWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    ).then((value) {
+                                      setState((){});
+                                      context.pop();
+                                    });
                                   },
                                   text: 'Create Order',
                                   options: FFButtonOptions(
